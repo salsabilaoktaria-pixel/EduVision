@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Spp;
+use App\Models\Siswa;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class SppController extends Controller
+{
+    // Urutan bulan asli (bukan abjad) — dipakai supaya SPP terurut sesuai
+    // bulan/tahun SESUNGGUHNYA, bukan berdasarkan urutan kapan datanya diinput.
+    private const URUTAN_BULAN_SQL = "CASE bulan
+        WHEN 'Januari' THEN 1 WHEN 'Februari' THEN 2 WHEN 'Maret' THEN 3 WHEN 'April' THEN 4
+        WHEN 'Mei' THEN 5 WHEN 'Juni' THEN 6 WHEN 'Juli' THEN 7 WHEN 'Agustus' THEN 8
+        WHEN 'September' THEN 9 WHEN 'Oktober' THEN 10 WHEN 'November' THEN 11 WHEN 'Desember' THEN 12
+        ELSE 0 END";
+
+    public function index(Request $request)
+    {
+        $query = \App\Support\Semester::filterSpp(Spp::query(), \App\Support\Semester::terpilih());
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        $spp = $query->orderByDesc('tahun')->orderByRaw(self::URUTAN_BULAN_SQL . ' DESC')->get();
+        $sppPerSiswa = $spp->groupBy('siswa_id');
+
+        // Dikelompokkan per KELAS, dan di dalamnya per SISWA (bukan cuma per
+        // baris tagihan) — supaya admin bisa lihat SEMUA siswa satu kelas
+        // sekaligus, termasuk yang belum pernah dibuatkan tagihan SPP sama sekali.
+        $siswaSemua = Siswa::with('kelas')->get();
+        $siswaPerKelas = $siswaSemua
+            ->sortBy(fn ($s) => sprintf(
+                '%02d-%s-%s',
+                $s->kelas->tingkat ?? 99,
+                $s->kelas->nama_kelas ?? 'zzz',
+                $s->nama ?? ''
+            ))
+            ->groupBy(fn ($s) => $s->kelas->nama_kelas ?? 'Tanpa Kelas');
+
+        $siswa = $siswaSemua;
+        return view('spp.index', compact('siswaPerKelas', 'sppPerSiswa', 'siswa'));
+    }
+
+    public function create()
+    {
+        $siswa = Siswa::with('kelas')->urutKelas()->get();
+        return view('spp.create', compact('siswa'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'siswa_id' => 'required|exists:siswa,id',
+            'bulan' => 'required|string',
+            'tahun' => 'required|string',
+            'jumlah' => 'required|string',
+            'jumlah_custom' => 'nullable|numeric|min:0',
+        ]);
+
+        // Kalau admin pilih "Nominal lain", ambil dari kolom custom
+        $nominal = $validated['jumlah'] === 'lain'
+            ? $request->input('jumlah_custom', 0)
+            : $validated['jumlah'];
+
+        Spp::create([
+            'siswa_id' => $validated['siswa_id'],
+            'bulan' => $validated['bulan'],
+            'tahun' => $validated['tahun'],
+            'jumlah' => $nominal,
+            'status' => 'Belum Lunas',
+        ]);
+        $siswaTagihan = \App\Models\Siswa::find($validated['siswa_id']);
+        \App\Models\Notifikasi::kirim($siswaTagihan->user_id ?? null, 'spp', 'Tagihan SPP baru',
+            $validated['bulan'] . ' ' . $validated['tahun'] . ' — Rp ' . number_format((float) $nominal, 0, ',', '.'), route('spp.saya'));
+
+        return redirect()->route('spp.index')->with('sukses', 'Tagihan SPP berhasil dibuat.');
+    }
+
+    public function show(Spp $spp)
+    {
+        $spp->load('siswa.kelas');
+        // Riwayat tagihan lain milik siswa yang sama, supaya admin langsung lihat konteksnya.
+        $tagihanLain = Spp::where('siswa_id', $spp->siswa_id)->where('id', '!=', $spp->id)
+            ->orderByDesc('tahun')->orderByRaw(self::URUTAN_BULAN_SQL . ' DESC')->get();
+        return view('spp.show', compact('spp', 'tagihanLain'));
+    }
+
+    public function edit(Spp $spp)
+    {
+        $spp->load('siswa.kelas');
+        return view('spp.edit', compact('spp'));
+    }
+
+    public function update(Request $request, Spp $spp)
+    {
+        $validated = $request->validate([
+            'bulan' => 'required|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember',
+            'tahun' => 'required|digits:4',
+            'jumlah' => 'required|numeric|min:0',
+            'status' => 'required|in:Lunas,Belum Lunas',
+        ]);
+
+        // Tanggal bayar mengikuti status: diisi saat berubah jadi Lunas, dikosongkan saat Belum Lunas.
+        if ($validated['status'] === 'Lunas') {
+            $validated['tanggal_bayar'] = $spp->tanggal_bayar ?: now();
+        } else {
+            $validated['tanggal_bayar'] = null;
+        }
+
+        $statusLama = $spp->status;
+        $spp->update($validated);
+        if ($statusLama !== $spp->status) {
+            \App\Models\Notifikasi::kirim($spp->siswa->user_id ?? null, 'spp', 'Status SPP ' . $spp->bulan . ' ' . $spp->tahun . ' diperbarui',
+                'Status sekarang: ' . $spp->status . '.', route('spp.saya'));
+        }
+        return redirect()->route('spp.show', $spp)->with('sukses', 'Tagihan SPP berhasil diperbarui.');
+    }
+
+    public function bayar(Spp $spp)
+    {
+        $spp->update(['status' => 'Lunas', 'tanggal_bayar' => now()]);
+        \App\Models\Notifikasi::kirim($spp->siswa->user_id ?? null, 'spp', 'SPP ' . $spp->bulan . ' ' . $spp->tahun . ' lunas', 'Pembayaranmu sudah dicatat.', route('spp.saya'));
+        return back()->with('sukses', 'SPP ditandai sudah lunas.');
+    }
+
+    public function destroy(Spp $spp)
+    {
+        $spp->delete();
+        // redirect eksplisit (bukan back()) supaya tombol Hapus di halaman Detail tidak
+        // mengarah kembali ke halaman tagihan yang sudah terhapus.
+        return redirect()->route('spp.index')->with('sukses', 'Data SPP dihapus.');
+    }
+
+    // Halaman siswa melihat status SPP miliknya sendiri
+    public function statusSaya()
+    {
+        $siswa = Auth::user()->siswa;
+        $spp = \App\Support\Semester::filterSpp(Spp::where('siswa_id', $siswa->id), \App\Support\Semester::terpilih())
+            ->orderByDesc('tahun')->orderByRaw(self::URUTAN_BULAN_SQL . ' DESC')
+            ->get();
+        return view('spp.status', compact('spp'));
+    }
+}

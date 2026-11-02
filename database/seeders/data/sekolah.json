@@ -1,0 +1,1386 @@
+{
+ "sekolah": [
+  {
+   "guru": [
+    {
+     "nama": "Budi Santoso",
+     "nip": "198501012010011001",
+     "jk": "Laki-laki",
+     "kode": "MTK-01",
+     "mapel": "Matematika",
+     "email": "budi.santoso@eduvision.test",
+     "foto": "seed/foto/guru/budi-santoso-s1.svg"
+    },
+    {
+     "nama": "Siti Nurhaliza",
+     "nip": "198602022010012002",
+     "jk": "Perempuan",
+     "kode": "BIN-01",
+     "mapel": "Bahasa Indonesia",
+     "email": "siti.nurhaliza@eduvision.test",
+     "foto": "seed/foto/guru/siti-nurhaliza-s1.svg"
+    },
+    {
+     "nama": "Agus Wijaya",
+     "nip": "198703032010011003",
+     "jk": "Laki-laki",
+     "kode": "BIG-01",
+     "mapel": "Bahasa Inggris",
+     "email": "agus.wijaya@eduvision.test",
+     "foto": "seed/foto/guru/agus-wijaya-s1.svg"
+    },
+    {
+     "nama": "Dewi Lestari",
+     "nip": "198804042010012004",
+     "jk": "Perempuan",
+     "kode": "IPA-01",
+     "mapel": "IPA",
+     "email": "dewi.lestari@eduvision.test",
+     "foto": "seed/foto/guru/dewi-lestari-s1.svg"
+    },
+    {
+     "nama": "Rudi Hartono",
+     "nip": "198905052010011005",
+     "jk": "Laki-laki",
+     "kode": "IPS-01",
+     "mapel": "IPS",
+     "email": "rudi.hartono@eduvision.test",
+     "foto": "seed/foto/guru/rudi-hartono-s1.svg"
+    },
+    {
+     "nama": "Fitriani Rahmawati",
+     "nip": "199006062010012006",
+     "jk": "Perempuan",
+     "kode": "PKN-01",
+     "mapel": "PPKn",
+     "email": "fitriani.rahmawati@eduvision.test",
+     "foto": "seed/foto/guru/fitriani-rahmawati-s1.svg"
+    },
+    {
+     "nama": "Hendra Gunawan",
+     "nip": "199107072010011007",
+     "jk": "Laki-laki",
+     "kode": "PJK-01",
+     "mapel": "Penjaskes",
+     "email": "hendra.gunawan@eduvision.test",
+     "foto": "seed/foto/guru/hendra-gunawan-s1.svg"
+    },
+    {
+     "nama": "Maya Sari",
+     "nip": "199208082010012008",
+     "jk": "Perempuan",
+     "kode": "SBD-01",
+     "mapel": "Seni Budaya",
+     "email": "maya.sari@eduvision.test",
+     "foto": "seed/foto/guru/maya-sari-s1.svg"
+    },
+    {
+     "nama": "Joko Susilo",
+     "nip": "199309092010011009",
+     "jk": "Laki-laki",
+     "kode": "PKY-01",
+     "mapel": "Prakarya",
+     "email": "joko.susilo@eduvision.test",
+     "foto": "seed/foto/guru/joko-susilo-s1.svg"
+    }
+   ],
+   "kelas": [
+    {
+     "nama": "X IPA 1",
+     "tingkat": "X",
+     "wali": 0
+    },
+    {
+     "nama": "X IPA 2",
+     "tingkat": "X",
+     "wali": 1
+    },
+    {
+     "nama": "X IPS 1",
+     "tingkat": "X",
+     "wali": 2
+    },
+    {
+     "nama": "XI IPA 1",
+     "tingkat": "XI",
+     "wali": 3
+    },
+    {
+     "nama": "XI IPA 2",
+     "tingkat": "XI",
+     "wali": 4
+    },
+    {
+     "nama": "XI IPS 1",
+     "tingkat": "XI",
+     "wali": 5
+    },
+    {
+     "nama": "XII IPA 1",
+     "tingkat": "XII",
+     "wali": 6
+    },
+    {
+     "nama": "XII IPA 2",
+     "tingkat": "XII",
+     "wali": 7
+    },
+    {
+     "nama": "XII IPS 1",
+     "tingkat": "XII",
+     "wali": 8
+    }
+   ],
+   "siswa": [
+    {
+     "nama": "Ahmad Pratama",
+     "nisn": "0051234568",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "ahmad.pratama@eduvision.test",
+     "wali": "Orang Tua Ahmad",
+     "hp": "081301000001",
+     "foto": "seed/foto/siswa/ahmad-pratama-s1.svg"
+    },
+    {
+     "nama": "Putri Pratama",
+     "nisn": "0051234569",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "putri.pratama@eduvision.test",
+     "wali": "Orang Tua Putri",
+     "hp": "081301000002",
+     "foto": "seed/foto/siswa/putri-pratama-s1.svg"
+    },
+    {
+     "nama": "Rizky Saputra",
+     "nisn": "0051234570",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "rizky.saputra@eduvision.test",
+     "wali": "Orang Tua Rizky",
+     "hp": "081301000003",
+     "foto": "seed/foto/siswa/rizky-saputra-s1.svg"
+    },
+    {
+     "nama": "Dewi Saputra",
+     "nisn": "0051234571",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "dewi.saputra@eduvision.test",
+     "wali": "Orang Tua Dewi",
+     "hp": "081301000004",
+     "foto": "seed/foto/siswa/dewi-saputra-s1.svg"
+    },
+    {
+     "nama": "Arif Wijaya",
+     "nisn": "0051234572",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "arif.wijaya@eduvision.test",
+     "wali": "Orang Tua Arif",
+     "hp": "081301000005",
+     "foto": "seed/foto/siswa/arif-wijaya-s1.svg"
+    },
+    {
+     "nama": "Indah Wijaya",
+     "nisn": "0051234573",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "indah.wijaya@eduvision.test",
+     "wali": "Orang Tua Indah",
+     "hp": "081301000006",
+     "foto": "seed/foto/siswa/indah-wijaya-s1.svg"
+    },
+    {
+     "nama": "Eko Kusuma",
+     "nisn": "0051234574",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "eko.kusuma@eduvision.test",
+     "wali": "Orang Tua Eko",
+     "hp": "081301000007",
+     "foto": "seed/foto/siswa/eko-kusuma-s1.svg"
+    },
+    {
+     "nama": "Mega Kusuma",
+     "nisn": "0051234575",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "mega.kusuma@eduvision.test",
+     "wali": "Orang Tua Mega",
+     "hp": "081301000008",
+     "foto": "seed/foto/siswa/mega-kusuma-s1.svg"
+    },
+    {
+     "nama": "Gilang Setiawan",
+     "nisn": "0051234576",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "gilang.setiawan@eduvision.test",
+     "wali": "Orang Tua Gilang",
+     "hp": "081301000009",
+     "foto": "seed/foto/siswa/gilang-setiawan-s1.svg"
+    },
+    {
+     "nama": "Ratna Setiawan",
+     "nisn": "0051234577",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "ratna.setiawan@eduvision.test",
+     "wali": "Orang Tua Ratna",
+     "hp": "081301000010",
+     "foto": "seed/foto/siswa/ratna-setiawan-s1.svg"
+    },
+    {
+     "nama": "Irfan Firmansyah",
+     "nisn": "0051234578",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "irfan.firmansyah@eduvision.test",
+     "wali": "Orang Tua Irfan",
+     "hp": "081301000011",
+     "foto": "seed/foto/siswa/irfan-firmansyah-s1.svg"
+    },
+    {
+     "nama": "Wulan Firmansyah",
+     "nisn": "0051234579",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "wulan.firmansyah@eduvision.test",
+     "wali": "Orang Tua Wulan",
+     "hp": "081301000012",
+     "foto": "seed/foto/siswa/wulan-firmansyah-s1.svg"
+    },
+    {
+     "nama": "Krisna Ramadhan",
+     "nisn": "0051234580",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "krisna.ramadhan@eduvision.test",
+     "wali": "Orang Tua Krisna",
+     "hp": "081301000013",
+     "foto": "seed/foto/siswa/krisna-ramadhan-s1.svg"
+    },
+    {
+     "nama": "Yuni Ramadhan",
+     "nisn": "0051234581",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "yuni.ramadhan@eduvision.test",
+     "wali": "Orang Tua Yuni",
+     "hp": "081301000014",
+     "foto": "seed/foto/siswa/yuni-ramadhan-s1.svg"
+    },
+    {
+     "nama": "Made Hidayat",
+     "nisn": "0051234582",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "made.hidayat@eduvision.test",
+     "wali": "Orang Tua Made",
+     "hp": "081301000015",
+     "foto": "seed/foto/siswa/made-hidayat-s1.svg"
+    },
+    {
+     "nama": "Citra Hidayat",
+     "nisn": "0051234583",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "citra.hidayat@eduvision.test",
+     "wali": "Orang Tua Citra",
+     "hp": "081301000016",
+     "foto": "seed/foto/siswa/citra-hidayat-s1.svg"
+    },
+    {
+     "nama": "Ahmad Nugraha",
+     "nisn": "0051234584",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "ahmad.nugraha@eduvision.test",
+     "wali": "Orang Tua Ahmad",
+     "hp": "081301000017",
+     "foto": "seed/foto/siswa/ahmad-nugraha-s1.svg"
+    },
+    {
+     "nama": "Putri Nugraha",
+     "nisn": "0051234585",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "putri.nugraha@eduvision.test",
+     "wali": "Orang Tua Putri",
+     "hp": "081301000018",
+     "foto": "seed/foto/siswa/putri-nugraha-s1.svg"
+    },
+    {
+     "nama": "Rizky Permadi",
+     "nisn": "0051234586",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "rizky.permadi@eduvision.test",
+     "wali": "Orang Tua Rizky",
+     "hp": "081301000019",
+     "foto": "seed/foto/siswa/rizky-permadi-s1.svg"
+    },
+    {
+     "nama": "Dewi Permadi",
+     "nisn": "0051234587",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "dewi.permadi@eduvision.test",
+     "wali": "Orang Tua Dewi",
+     "hp": "081301000020",
+     "foto": "seed/foto/siswa/dewi-permadi-s1.svg"
+    },
+    {
+     "nama": "Arif Santoso",
+     "nisn": "0051234588",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "arif.santoso@eduvision.test",
+     "wali": "Orang Tua Arif",
+     "hp": "081301000021",
+     "foto": "seed/foto/siswa/arif-santoso-s1.svg"
+    },
+    {
+     "nama": "Indah Santoso",
+     "nisn": "0051234589",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "indah.santoso@eduvision.test",
+     "wali": "Orang Tua Indah",
+     "hp": "081301000022",
+     "foto": "seed/foto/siswa/indah-santoso-s1.svg"
+    },
+    {
+     "nama": "Eko Wulandari",
+     "nisn": "0051234590",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "eko.wulandari@eduvision.test",
+     "wali": "Orang Tua Eko",
+     "hp": "081301000023",
+     "foto": "seed/foto/siswa/eko-wulandari-s1.svg"
+    },
+    {
+     "nama": "Mega Wulandari",
+     "nisn": "0051234591",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "mega.wulandari@eduvision.test",
+     "wali": "Orang Tua Mega",
+     "hp": "081301000024",
+     "foto": "seed/foto/siswa/mega-wulandari-s1.svg"
+    },
+    {
+     "nama": "Gilang Rahayu",
+     "nisn": "0051234592",
+     "kelas": 3,
+     "jk": "Laki-laki",
+     "email": "gilang.rahayu@eduvision.test",
+     "wali": "Orang Tua Gilang",
+     "hp": "081301000025",
+     "foto": "seed/foto/siswa/gilang-rahayu-s1.svg"
+    },
+    {
+     "nama": "Ratna Rahayu",
+     "nisn": "0051234593",
+     "kelas": 3,
+     "jk": "Perempuan",
+     "email": "ratna.rahayu@eduvision.test",
+     "wali": "Orang Tua Ratna",
+     "hp": "081301000026",
+     "foto": "seed/foto/siswa/ratna-rahayu-s1.svg"
+    },
+    {
+     "nama": "Irfan Maharani",
+     "nisn": "0051234594",
+     "kelas": 3,
+     "jk": "Laki-laki",
+     "email": "irfan.maharani@eduvision.test",
+     "wali": "Orang Tua Irfan",
+     "hp": "081301000027",
+     "foto": "seed/foto/siswa/irfan-maharani-s1.svg"
+    },
+    {
+     "nama": "Wulan Maharani",
+     "nisn": "0051234595",
+     "kelas": 3,
+     "jk": "Perempuan",
+     "email": "wulan.maharani@eduvision.test",
+     "wali": "Orang Tua Wulan",
+     "hp": "081301000028",
+     "foto": "seed/foto/siswa/wulan-maharani-s1.svg"
+    },
+    {
+     "nama": "Krisna Utami",
+     "nisn": "0051234596",
+     "kelas": 3,
+     "jk": "Laki-laki",
+     "email": "krisna.utami@eduvision.test",
+     "wali": "Orang Tua Krisna",
+     "hp": "081301000029",
+     "foto": "seed/foto/siswa/krisna-utami-s1.svg"
+    },
+    {
+     "nama": "Yuni Utami",
+     "nisn": "0051234597",
+     "kelas": 3,
+     "jk": "Perempuan",
+     "email": "yuni.utami@eduvision.test",
+     "wali": "Orang Tua Yuni",
+     "hp": "081301000030",
+     "foto": "seed/foto/siswa/yuni-utami-s1.svg"
+    },
+    {
+     "nama": "Made Puspita",
+     "nisn": "0051234598",
+     "kelas": 3,
+     "jk": "Laki-laki",
+     "email": "made.puspita@eduvision.test",
+     "wali": "Orang Tua Made",
+     "hp": "081301000031",
+     "foto": "seed/foto/siswa/made-puspita-s1.svg"
+    },
+    {
+     "nama": "Citra Puspita",
+     "nisn": "0051234599",
+     "kelas": 3,
+     "jk": "Perempuan",
+     "email": "citra.puspita@eduvision.test",
+     "wali": "Orang Tua Citra",
+     "hp": "081301000032",
+     "foto": "seed/foto/siswa/citra-puspita-s1.svg"
+    },
+    {
+     "nama": "Ahmad Gunawan",
+     "nisn": "0051234600",
+     "kelas": 4,
+     "jk": "Laki-laki",
+     "email": "ahmad.gunawan@eduvision.test",
+     "wali": "Orang Tua Ahmad",
+     "hp": "081301000033",
+     "foto": "seed/foto/siswa/ahmad-gunawan-s1.svg"
+    },
+    {
+     "nama": "Putri Gunawan",
+     "nisn": "0051234601",
+     "kelas": 4,
+     "jk": "Perempuan",
+     "email": "putri.gunawan@eduvision.test",
+     "wali": "Orang Tua Putri",
+     "hp": "081301000034",
+     "foto": "seed/foto/siswa/putri-gunawan-s1.svg"
+    },
+    {
+     "nama": "Rizky Siregar",
+     "nisn": "0051234602",
+     "kelas": 4,
+     "jk": "Laki-laki",
+     "email": "rizky.siregar@eduvision.test",
+     "wali": "Orang Tua Rizky",
+     "hp": "081301000035",
+     "foto": "seed/foto/siswa/rizky-siregar-s1.svg"
+    },
+    {
+     "nama": "Dewi Siregar",
+     "nisn": "0051234603",
+     "kelas": 4,
+     "jk": "Perempuan",
+     "email": "dewi.siregar@eduvision.test",
+     "wali": "Orang Tua Dewi",
+     "hp": "081301000036",
+     "foto": "seed/foto/siswa/dewi-siregar-s1.svg"
+    },
+    {
+     "nama": "Arif Pratama",
+     "nisn": "0051234604",
+     "kelas": 4,
+     "jk": "Laki-laki",
+     "email": "arif.pratama@eduvision.test",
+     "wali": "Orang Tua Arif",
+     "hp": "081301000037",
+     "foto": "seed/foto/siswa/arif-pratama-s1.svg"
+    },
+    {
+     "nama": "Indah Pratama",
+     "nisn": "0051234605",
+     "kelas": 4,
+     "jk": "Perempuan",
+     "email": "indah.pratama@eduvision.test",
+     "wali": "Orang Tua Indah",
+     "hp": "081301000038",
+     "foto": "seed/foto/siswa/indah-pratama-s1.svg"
+    },
+    {
+     "nama": "Eko Saputra",
+     "nisn": "0051234606",
+     "kelas": 4,
+     "jk": "Laki-laki",
+     "email": "eko.saputra@eduvision.test",
+     "wali": "Orang Tua Eko",
+     "hp": "081301000039",
+     "foto": "seed/foto/siswa/eko-saputra-s1.svg"
+    },
+    {
+     "nama": "Mega Saputra",
+     "nisn": "0051234607",
+     "kelas": 4,
+     "jk": "Perempuan",
+     "email": "mega.saputra@eduvision.test",
+     "wali": "Orang Tua Mega",
+     "hp": "081301000040",
+     "foto": "seed/foto/siswa/mega-saputra-s1.svg"
+    },
+    {
+     "nama": "Gilang Wijaya",
+     "nisn": "0051234608",
+     "kelas": 5,
+     "jk": "Laki-laki",
+     "email": "gilang.wijaya@eduvision.test",
+     "wali": "Orang Tua Gilang",
+     "hp": "081301000041",
+     "foto": "seed/foto/siswa/gilang-wijaya-s1.svg"
+    },
+    {
+     "nama": "Ratna Wijaya",
+     "nisn": "0051234609",
+     "kelas": 5,
+     "jk": "Perempuan",
+     "email": "ratna.wijaya@eduvision.test",
+     "wali": "Orang Tua Ratna",
+     "hp": "081301000042",
+     "foto": "seed/foto/siswa/ratna-wijaya-s1.svg"
+    },
+    {
+     "nama": "Irfan Kusuma",
+     "nisn": "0051234610",
+     "kelas": 5,
+     "jk": "Laki-laki",
+     "email": "irfan.kusuma@eduvision.test",
+     "wali": "Orang Tua Irfan",
+     "hp": "081301000043",
+     "foto": "seed/foto/siswa/irfan-kusuma-s1.svg"
+    },
+    {
+     "nama": "Wulan Kusuma",
+     "nisn": "0051234611",
+     "kelas": 5,
+     "jk": "Perempuan",
+     "email": "wulan.kusuma@eduvision.test",
+     "wali": "Orang Tua Wulan",
+     "hp": "081301000044",
+     "foto": "seed/foto/siswa/wulan-kusuma-s1.svg"
+    },
+    {
+     "nama": "Krisna Setiawan",
+     "nisn": "0051234612",
+     "kelas": 5,
+     "jk": "Laki-laki",
+     "email": "krisna.setiawan@eduvision.test",
+     "wali": "Orang Tua Krisna",
+     "hp": "081301000045",
+     "foto": "seed/foto/siswa/krisna-setiawan-s1.svg"
+    },
+    {
+     "nama": "Yuni Setiawan",
+     "nisn": "0051234613",
+     "kelas": 5,
+     "jk": "Perempuan",
+     "email": "yuni.setiawan@eduvision.test",
+     "wali": "Orang Tua Yuni",
+     "hp": "081301000046",
+     "foto": "seed/foto/siswa/yuni-setiawan-s1.svg"
+    },
+    {
+     "nama": "Made Firmansyah",
+     "nisn": "0051234614",
+     "kelas": 5,
+     "jk": "Laki-laki",
+     "email": "made.firmansyah@eduvision.test",
+     "wali": "Orang Tua Made",
+     "hp": "081301000047",
+     "foto": "seed/foto/siswa/made-firmansyah-s1.svg"
+    },
+    {
+     "nama": "Citra Firmansyah",
+     "nisn": "0051234615",
+     "kelas": 5,
+     "jk": "Perempuan",
+     "email": "citra.firmansyah@eduvision.test",
+     "wali": "Orang Tua Citra",
+     "hp": "081301000048",
+     "foto": "seed/foto/siswa/citra-firmansyah-s1.svg"
+    },
+    {
+     "nama": "Ahmad Ramadhan",
+     "nisn": "0051234616",
+     "kelas": 6,
+     "jk": "Laki-laki",
+     "email": "ahmad.ramadhan@eduvision.test",
+     "wali": "Orang Tua Ahmad",
+     "hp": "081301000049",
+     "foto": "seed/foto/siswa/ahmad-ramadhan-s1.svg"
+    },
+    {
+     "nama": "Putri Ramadhan",
+     "nisn": "0051234617",
+     "kelas": 6,
+     "jk": "Perempuan",
+     "email": "putri.ramadhan@eduvision.test",
+     "wali": "Orang Tua Putri",
+     "hp": "081301000050",
+     "foto": "seed/foto/siswa/putri-ramadhan-s1.svg"
+    },
+    {
+     "nama": "Rizky Hidayat",
+     "nisn": "0051234618",
+     "kelas": 6,
+     "jk": "Laki-laki",
+     "email": "rizky.hidayat@eduvision.test",
+     "wali": "Orang Tua Rizky",
+     "hp": "081301000051",
+     "foto": "seed/foto/siswa/rizky-hidayat-s1.svg"
+    },
+    {
+     "nama": "Dewi Hidayat",
+     "nisn": "0051234619",
+     "kelas": 6,
+     "jk": "Perempuan",
+     "email": "dewi.hidayat@eduvision.test",
+     "wali": "Orang Tua Dewi",
+     "hp": "081301000052",
+     "foto": "seed/foto/siswa/dewi-hidayat-s1.svg"
+    },
+    {
+     "nama": "Arif Nugraha",
+     "nisn": "0051234620",
+     "kelas": 6,
+     "jk": "Laki-laki",
+     "email": "arif.nugraha@eduvision.test",
+     "wali": "Orang Tua Arif",
+     "hp": "081301000053",
+     "foto": "seed/foto/siswa/arif-nugraha-s1.svg"
+    },
+    {
+     "nama": "Indah Nugraha",
+     "nisn": "0051234621",
+     "kelas": 6,
+     "jk": "Perempuan",
+     "email": "indah.nugraha@eduvision.test",
+     "wali": "Orang Tua Indah",
+     "hp": "081301000054",
+     "foto": "seed/foto/siswa/indah-nugraha-s1.svg"
+    },
+    {
+     "nama": "Eko Permadi",
+     "nisn": "0051234622",
+     "kelas": 6,
+     "jk": "Laki-laki",
+     "email": "eko.permadi@eduvision.test",
+     "wali": "Orang Tua Eko",
+     "hp": "081301000055",
+     "foto": "seed/foto/siswa/eko-permadi-s1.svg"
+    },
+    {
+     "nama": "Mega Permadi",
+     "nisn": "0051234623",
+     "kelas": 6,
+     "jk": "Perempuan",
+     "email": "mega.permadi@eduvision.test",
+     "wali": "Orang Tua Mega",
+     "hp": "081301000056",
+     "foto": "seed/foto/siswa/mega-permadi-s1.svg"
+    },
+    {
+     "nama": "Gilang Santoso",
+     "nisn": "0051234624",
+     "kelas": 7,
+     "jk": "Laki-laki",
+     "email": "gilang.santoso@eduvision.test",
+     "wali": "Orang Tua Gilang",
+     "hp": "081301000057",
+     "foto": "seed/foto/siswa/gilang-santoso-s1.svg"
+    },
+    {
+     "nama": "Ratna Santoso",
+     "nisn": "0051234625",
+     "kelas": 7,
+     "jk": "Perempuan",
+     "email": "ratna.santoso@eduvision.test",
+     "wali": "Orang Tua Ratna",
+     "hp": "081301000058",
+     "foto": "seed/foto/siswa/ratna-santoso-s1.svg"
+    },
+    {
+     "nama": "Irfan Wulandari",
+     "nisn": "0051234626",
+     "kelas": 7,
+     "jk": "Laki-laki",
+     "email": "irfan.wulandari@eduvision.test",
+     "wali": "Orang Tua Irfan",
+     "hp": "081301000059",
+     "foto": "seed/foto/siswa/irfan-wulandari-s1.svg"
+    },
+    {
+     "nama": "Wulan Wulandari",
+     "nisn": "0051234627",
+     "kelas": 7,
+     "jk": "Perempuan",
+     "email": "wulan.wulandari@eduvision.test",
+     "wali": "Orang Tua Wulan",
+     "hp": "081301000060",
+     "foto": "seed/foto/siswa/wulan-wulandari-s1.svg"
+    },
+    {
+     "nama": "Krisna Rahayu",
+     "nisn": "0051234628",
+     "kelas": 7,
+     "jk": "Laki-laki",
+     "email": "krisna.rahayu@eduvision.test",
+     "wali": "Orang Tua Krisna",
+     "hp": "081301000061",
+     "foto": "seed/foto/siswa/krisna-rahayu-s1.svg"
+    },
+    {
+     "nama": "Yuni Rahayu",
+     "nisn": "0051234629",
+     "kelas": 7,
+     "jk": "Perempuan",
+     "email": "yuni.rahayu@eduvision.test",
+     "wali": "Orang Tua Yuni",
+     "hp": "081301000062",
+     "foto": "seed/foto/siswa/yuni-rahayu-s1.svg"
+    },
+    {
+     "nama": "Made Maharani",
+     "nisn": "0051234630",
+     "kelas": 7,
+     "jk": "Laki-laki",
+     "email": "made.maharani@eduvision.test",
+     "wali": "Orang Tua Made",
+     "hp": "081301000063",
+     "foto": "seed/foto/siswa/made-maharani-s1.svg"
+    },
+    {
+     "nama": "Citra Maharani",
+     "nisn": "0051234631",
+     "kelas": 7,
+     "jk": "Perempuan",
+     "email": "citra.maharani@eduvision.test",
+     "wali": "Orang Tua Citra",
+     "hp": "081301000064",
+     "foto": "seed/foto/siswa/citra-maharani-s1.svg"
+    },
+    {
+     "nama": "Ahmad Utami",
+     "nisn": "0051234632",
+     "kelas": 8,
+     "jk": "Laki-laki",
+     "email": "ahmad.utami@eduvision.test",
+     "wali": "Orang Tua Ahmad",
+     "hp": "081301000065",
+     "foto": "seed/foto/siswa/ahmad-utami-s1.svg"
+    },
+    {
+     "nama": "Putri Utami",
+     "nisn": "0051234633",
+     "kelas": 8,
+     "jk": "Perempuan",
+     "email": "putri.utami@eduvision.test",
+     "wali": "Orang Tua Putri",
+     "hp": "081301000066",
+     "foto": "seed/foto/siswa/putri-utami-s1.svg"
+    },
+    {
+     "nama": "Rizky Puspita",
+     "nisn": "0051234634",
+     "kelas": 8,
+     "jk": "Laki-laki",
+     "email": "rizky.puspita@eduvision.test",
+     "wali": "Orang Tua Rizky",
+     "hp": "081301000067",
+     "foto": "seed/foto/siswa/rizky-puspita-s1.svg"
+    },
+    {
+     "nama": "Dewi Puspita",
+     "nisn": "0051234635",
+     "kelas": 8,
+     "jk": "Perempuan",
+     "email": "dewi.puspita@eduvision.test",
+     "wali": "Orang Tua Dewi",
+     "hp": "081301000068",
+     "foto": "seed/foto/siswa/dewi-puspita-s1.svg"
+    },
+    {
+     "nama": "Arif Gunawan",
+     "nisn": "0051234636",
+     "kelas": 8,
+     "jk": "Laki-laki",
+     "email": "arif.gunawan@eduvision.test",
+     "wali": "Orang Tua Arif",
+     "hp": "081301000069",
+     "foto": "seed/foto/siswa/arif-gunawan-s1.svg"
+    },
+    {
+     "nama": "Indah Gunawan",
+     "nisn": "0051234637",
+     "kelas": 8,
+     "jk": "Perempuan",
+     "email": "indah.gunawan@eduvision.test",
+     "wali": "Orang Tua Indah",
+     "hp": "081301000070",
+     "foto": "seed/foto/siswa/indah-gunawan-s1.svg"
+    },
+    {
+     "nama": "Eko Siregar",
+     "nisn": "0051234638",
+     "kelas": 8,
+     "jk": "Laki-laki",
+     "email": "eko.siregar@eduvision.test",
+     "wali": "Orang Tua Eko",
+     "hp": "081301000071",
+     "foto": "seed/foto/siswa/eko-siregar-s1.svg"
+    },
+    {
+     "nama": "Mega Siregar",
+     "nisn": "0051234639",
+     "kelas": 8,
+     "jk": "Perempuan",
+     "email": "mega.siregar@eduvision.test",
+     "wali": "Orang Tua Mega",
+     "hp": "081301000072",
+     "foto": "seed/foto/siswa/mega-siregar-s1.svg"
+    }
+   ],
+   "prestasi": [
+    {
+     "siswa": 0,
+     "nama": "Olimpiade Sains Nasional (OSN) Matematika",
+     "tingkat": "Nasional",
+     "peringkat": "Juara 2",
+     "tanggal": "2026-08-20",
+     "bukti": "seed/sertifikat/s1-01-ahmad-pratama.png"
+    },
+    {
+     "siswa": 6,
+     "nama": "Lomba Debat Bahasa Inggris Tingkat Kota",
+     "tingkat": "Kota",
+     "peringkat": "Juara 1",
+     "tanggal": "2026-08-14",
+     "bukti": "seed/sertifikat/s1-02-eko-kusuma.png"
+    },
+    {
+     "siswa": 12,
+     "nama": "Lomba Cipta Puisi Bahasa Indonesia",
+     "tingkat": "Sekolah",
+     "peringkat": "Juara 1",
+     "tanggal": "2026-08-08",
+     "bukti": "seed/sertifikat/s1-03-krisna-ramadhan.png"
+    },
+    {
+     "siswa": 18,
+     "nama": "Kompetisi Sains IPA Tingkat Provinsi",
+     "tingkat": "Provinsi",
+     "peringkat": "Juara 3",
+     "tanggal": "2026-08-02",
+     "bukti": "seed/sertifikat/s1-04-rizky-permadi.png"
+    },
+    {
+     "siswa": 24,
+     "nama": "Lomba Cerdas Cermat IPS",
+     "tingkat": "Kota",
+     "peringkat": "Juara 2",
+     "tanggal": "2026-07-27",
+     "bukti": "seed/sertifikat/s1-05-gilang-rahayu.png"
+    },
+    {
+     "siswa": 30,
+     "nama": "Turnamen Futsal Antar Sekolah",
+     "tingkat": "Kota",
+     "peringkat": "Juara 1",
+     "tanggal": "2026-07-21",
+     "bukti": "seed/sertifikat/s1-06-made-puspita.png"
+    },
+    {
+     "siswa": 36,
+     "nama": "Festival Seni & Budaya Pelajar",
+     "tingkat": "Sekolah",
+     "peringkat": "Juara 2",
+     "tanggal": "2026-07-15",
+     "bukti": "seed/sertifikat/s1-07-arif-pratama.png"
+    },
+    {
+     "siswa": 42,
+     "nama": "Lomba Karya Prakarya Daur Ulang",
+     "tingkat": "Provinsi",
+     "peringkat": "Juara 3",
+     "tanggal": "2026-07-09",
+     "bukti": "seed/sertifikat/s1-08-irfan-kusuma.png"
+    },
+    {
+     "siswa": 48,
+     "nama": "Olimpiade Sains Nasional (OSN) Matematika",
+     "tingkat": "Nasional",
+     "peringkat": "Juara 2",
+     "tanggal": "2026-07-03",
+     "bukti": "seed/sertifikat/s1-09-ahmad-ramadhan.png"
+    },
+    {
+     "siswa": 54,
+     "nama": "Lomba Debat Bahasa Inggris Tingkat Kota",
+     "tingkat": "Kota",
+     "peringkat": "Juara 1",
+     "tanggal": "2026-06-27",
+     "bukti": "seed/sertifikat/s1-10-eko-permadi.png"
+    },
+    {
+     "siswa": 60,
+     "nama": "Lomba Cipta Puisi Bahasa Indonesia",
+     "tingkat": "Sekolah",
+     "peringkat": "Juara 1",
+     "tanggal": "2026-06-21",
+     "bukti": "seed/sertifikat/s1-11-krisna-rahayu.png"
+    },
+    {
+     "siswa": 66,
+     "nama": "Kompetisi Sains IPA Tingkat Provinsi",
+     "tingkat": "Provinsi",
+     "peringkat": "Juara 3",
+     "tanggal": "2026-06-15",
+     "bukti": "seed/sertifikat/s1-12-rizky-puspita.png"
+    }
+   ],
+   "meta": {
+    "nama": "SMA Negeri 1 Harapan Bangsa",
+    "npsn": "20100123",
+    "jenjang": "SMA",
+    "alamat": "Jl. Pendidikan No. 17, Kebayoran Baru",
+    "kota": "Jakarta Selatan",
+    "telepon": "(021) 7290123",
+    "email": "info@sman1harapanbangsa.sch.id",
+    "kepala": "Drs. Hendra Kusumawardana, M.Pd.",
+    "nip": "196805121994031004",
+    "lat": -6.2415,
+    "lng": 106.7993,
+    "logo": "seed/logo/sekolah1.png"
+   },
+   "materi": [
+    {
+     "mapel": "Matematika",
+     "judul": "Persamaan Kuadrat",
+     "deskripsi": "Bentuk umum, cara penyelesaian, dan diskriminan.",
+     "file": "seed/materi/matematika-1-persamaan-kuadrat.pdf",
+     "nama_asli": "Matematika - Persamaan Kuadrat.pdf"
+    },
+    {
+     "mapel": "Matematika",
+     "judul": "Turunan Fungsi Aljabar",
+     "deskripsi": "Aturan dasar turunan dan gradien garis singgung.",
+     "file": "seed/materi/matematika-2-turunan-fungsi-aljabar.pdf",
+     "nama_asli": "Matematika - Turunan Fungsi Aljabar.pdf"
+    },
+    {
+     "mapel": "Bahasa Indonesia",
+     "judul": "Teks Eksposisi",
+     "deskripsi": "Struktur dan kaidah kebahasaan teks eksposisi.",
+     "file": "seed/materi/bahasa-indonesia-1-teks-eksposisi.pdf",
+     "nama_asli": "Bahasa Indonesia - Teks Eksposisi.pdf"
+    },
+    {
+     "mapel": "Bahasa Indonesia",
+     "judul": "Majas dan Gaya Bahasa",
+     "deskripsi": "Jenis majas beserta contoh kalimatnya.",
+     "file": "seed/materi/bahasa-indonesia-2-majas-dan-gaya-bahasa.pdf",
+     "nama_asli": "Bahasa Indonesia - Majas dan Gaya Bahasa.pdf"
+    },
+    {
+     "mapel": "Bahasa Inggris",
+     "judul": "Simple Present and Present Continuous",
+     "deskripsi": "Pola kalimat dan penggunaan dua tenses dasar.",
+     "file": "seed/materi/bahasa-inggris-1-simple-present-and-present-continuous.pdf",
+     "nama_asli": "Bahasa Inggris - Simple Present and Present Continuous.pdf"
+    },
+    {
+     "mapel": "Bahasa Inggris",
+     "judul": "Conditional Sentences",
+     "deskripsi": "Tipe 1, 2, dan 3 beserta rumusnya.",
+     "file": "seed/materi/bahasa-inggris-2-conditional-sentences.pdf",
+     "nama_asli": "Bahasa Inggris - Conditional Sentences.pdf"
+    },
+    {
+     "mapel": "IPA",
+     "judul": "Hukum Newton tentang Gerak",
+     "deskripsi": "Tiga hukum Newton dan contoh perhitungannya.",
+     "file": "seed/materi/ipa-1-hukum-newton-tentang-gerak.pdf",
+     "nama_asli": "IPA - Hukum Newton tentang Gerak.pdf"
+    },
+    {
+     "mapel": "IPA",
+     "judul": "Fotosintesis",
+     "deskripsi": "Tempat, bahan, hasil, dan tahapan fotosintesis.",
+     "file": "seed/materi/ipa-2-fotosintesis.pdf",
+     "nama_asli": "IPA - Fotosintesis.pdf"
+    },
+    {
+     "mapel": "IPS",
+     "judul": "Proklamasi Kemerdekaan Indonesia",
+     "deskripsi": "Peristiwa menjelang dan sesudah proklamasi.",
+     "file": "seed/materi/ips-1-proklamasi-kemerdekaan-indonesia.pdf",
+     "nama_asli": "IPS - Proklamasi Kemerdekaan Indonesia.pdf"
+    },
+    {
+     "mapel": "IPS",
+     "judul": "Permintaan dan Penawaran",
+     "deskripsi": "Hukum permintaan, penawaran, dan harga keseimbangan.",
+     "file": "seed/materi/ips-2-permintaan-dan-penawaran.pdf",
+     "nama_asli": "IPS - Permintaan dan Penawaran.pdf"
+    },
+    {
+     "mapel": "PPKn",
+     "judul": "Pancasila sebagai Dasar Negara",
+     "deskripsi": "Lima sila, lambang, dan nilai yang dikandungnya.",
+     "file": "seed/materi/ppkn-1-pancasila-sebagai-dasar-negara.pdf",
+     "nama_asli": "PPKn - Pancasila sebagai Dasar Negara.pdf"
+    },
+    {
+     "mapel": "PPKn",
+     "judul": "Hak dan Kewajiban Warga Negara",
+     "deskripsi": "Pasal-pasal UUD 1945 yang mengaturnya.",
+     "file": "seed/materi/ppkn-2-hak-dan-kewajiban-warga-negara.pdf",
+     "nama_asli": "PPKn - Hak dan Kewajiban Warga Negara.pdf"
+    },
+    {
+     "mapel": "Penjaskes",
+     "judul": "Permainan Sepak Bola",
+     "deskripsi": "Aturan dasar dan teknik dasar.",
+     "file": "seed/materi/penjaskes-1-permainan-sepak-bola.pdf",
+     "nama_asli": "Penjaskes - Permainan Sepak Bola.pdf"
+    },
+    {
+     "mapel": "Penjaskes",
+     "judul": "Kebugaran Jasmani",
+     "deskripsi": "Komponen kebugaran dan prinsip latihan.",
+     "file": "seed/materi/penjaskes-2-kebugaran-jasmani.pdf",
+     "nama_asli": "Penjaskes - Kebugaran Jasmani.pdf"
+    },
+    {
+     "mapel": "Seni Budaya",
+     "judul": "Alat Musik Tradisional Nusantara",
+     "deskripsi": "Alat musik daerah dan cara memainkannya.",
+     "file": "seed/materi/seni-budaya-1-alat-musik-tradisional-nusantara.pdf",
+     "nama_asli": "Seni Budaya - Alat Musik Tradisional Nusantara.pdf"
+    },
+    {
+     "mapel": "Seni Budaya",
+     "judul": "Unsur dan Prinsip Seni Rupa",
+     "deskripsi": "Warna, garis, bentuk, dan prinsip penyusunan.",
+     "file": "seed/materi/seni-budaya-2-unsur-dan-prinsip-seni-rupa.pdf",
+     "nama_asli": "Seni Budaya - Unsur dan Prinsip Seni Rupa.pdf"
+    },
+    {
+     "mapel": "Prakarya",
+     "judul": "Proses Pembuatan Kerajinan",
+     "deskripsi": "Tahapan dari ide hingga evaluasi.",
+     "file": "seed/materi/prakarya-1-proses-pembuatan-kerajinan.pdf",
+     "nama_asli": "Prakarya - Proses Pembuatan Kerajinan.pdf"
+    },
+    {
+     "mapel": "Prakarya",
+     "judul": "Pengawetan Bahan Pangan",
+     "deskripsi": "Metode pengawetan dan tujuannya.",
+     "file": "seed/materi/prakarya-2-pengawetan-bahan-pangan.pdf",
+     "nama_asli": "Prakarya - Pengawetan Bahan Pangan.pdf"
+    }
+   ]
+  },
+  {
+   "guru": [
+    {
+     "nama": "Ratna Dewanti",
+     "nip": "197908152005012003",
+     "jk": "Perempuan",
+     "kode": "MTK-01",
+     "mapel": "Matematika",
+     "email": "ratna.dewanti@nusantara.eduvision.test",
+     "foto": "seed/foto/guru/ratna-dewanti-s2.svg"
+    },
+    {
+     "nama": "Hari Prasetyo",
+     "nip": "198112202006041002",
+     "jk": "Laki-laki",
+     "kode": "BIN-01",
+     "mapel": "Bahasa Indonesia",
+     "email": "hari.prasetyo@nusantara.eduvision.test",
+     "foto": "seed/foto/guru/hari-prasetyo-s2.svg"
+    },
+    {
+     "nama": "Lilis Suryani",
+     "nip": "198406102009032004",
+     "jk": "Perempuan",
+     "kode": "BIG-01",
+     "mapel": "Bahasa Inggris",
+     "email": "lilis.suryani@nusantara.eduvision.test",
+     "foto": "seed/foto/guru/lilis-suryani-s2.svg"
+    },
+    {
+     "nama": "Eko Wahyudi",
+     "nip": "198002282008011005",
+     "jk": "Laki-laki",
+     "kode": "IPA-01",
+     "mapel": "IPA",
+     "email": "eko.wahyudi@nusantara.eduvision.test",
+     "foto": "seed/foto/guru/eko-wahyudi-s2.svg"
+    },
+    {
+     "nama": "Nurul Fadilah",
+     "nip": "198809142012012006",
+     "jk": "Perempuan",
+     "kode": "PKN-01",
+     "mapel": "PPKn",
+     "email": "nurul.fadilah@nusantara.eduvision.test",
+     "foto": "seed/foto/guru/nurul-fadilah-s2.svg"
+    }
+   ],
+   "kelas": [
+    {
+     "nama": "X IPA 1",
+     "tingkat": "X",
+     "wali": 0
+    },
+    {
+     "nama": "XI IPA 1",
+     "tingkat": "XI",
+     "wali": 1
+    },
+    {
+     "nama": "XII IPS 1",
+     "tingkat": "XII",
+     "wali": 2
+    }
+   ],
+   "siswa": [
+    {
+     "nama": "Bagas Hakim",
+     "nisn": "0061234568",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "bagas.hakim@nusantara.eduvision.test",
+     "wali": "Orang Tua Bagas",
+     "hp": "081301000001",
+     "foto": "seed/foto/siswa/bagas-hakim-s2.svg"
+    },
+    {
+     "nama": "Nadia Hakim",
+     "nisn": "0061234569",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "nadia.hakim@nusantara.eduvision.test",
+     "wali": "Orang Tua Nadia",
+     "hp": "081301000002",
+     "foto": "seed/foto/siswa/nadia-hakim-s2.svg"
+    },
+    {
+     "nama": "Daffa Lubis",
+     "nisn": "0061234570",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "daffa.lubis@nusantara.eduvision.test",
+     "wali": "Orang Tua Daffa",
+     "hp": "081301000003",
+     "foto": "seed/foto/siswa/daffa-lubis-s2.svg"
+    },
+    {
+     "nama": "Tiara Lubis",
+     "nisn": "0061234571",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "tiara.lubis@nusantara.eduvision.test",
+     "wali": "Orang Tua Tiara",
+     "hp": "081301000004",
+     "foto": "seed/foto/siswa/tiara-lubis-s2.svg"
+    },
+    {
+     "nama": "Ilham Purnama",
+     "nisn": "0061234572",
+     "kelas": 0,
+     "jk": "Laki-laki",
+     "email": "ilham.purnama@nusantara.eduvision.test",
+     "wali": "Orang Tua Ilham",
+     "hp": "081301000005",
+     "foto": "seed/foto/siswa/ilham-purnama-s2.svg"
+    },
+    {
+     "nama": "Kirana Purnama",
+     "nisn": "0061234573",
+     "kelas": 0,
+     "jk": "Perempuan",
+     "email": "kirana.purnama@nusantara.eduvision.test",
+     "wali": "Orang Tua Kirana",
+     "hp": "081301000006",
+     "foto": "seed/foto/siswa/kirana-purnama-s2.svg"
+    },
+    {
+     "nama": "Reza Anggraini",
+     "nisn": "0061234574",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "reza.anggraini@nusantara.eduvision.test",
+     "wali": "Orang Tua Reza",
+     "hp": "081301000007",
+     "foto": "seed/foto/siswa/reza-anggraini-s2.svg"
+    },
+    {
+     "nama": "Bunga Anggraini",
+     "nisn": "0061234575",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "bunga.anggraini@nusantara.eduvision.test",
+     "wali": "Orang Tua Bunga",
+     "hp": "081301000008",
+     "foto": "seed/foto/siswa/bunga-anggraini-s2.svg"
+    },
+    {
+     "nama": "Taufik Kurniawan",
+     "nisn": "0061234576",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "taufik.kurniawan@nusantara.eduvision.test",
+     "wali": "Orang Tua Taufik",
+     "hp": "081301000009",
+     "foto": "seed/foto/siswa/taufik-kurniawan-s2.svg"
+    },
+    {
+     "nama": "Aulia Kurniawan",
+     "nisn": "0061234577",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "aulia.kurniawan@nusantara.eduvision.test",
+     "wali": "Orang Tua Aulia",
+     "hp": "081301000010",
+     "foto": "seed/foto/siswa/aulia-kurniawan-s2.svg"
+    },
+    {
+     "nama": "Raka Maulana",
+     "nisn": "0061234578",
+     "kelas": 1,
+     "jk": "Laki-laki",
+     "email": "raka.maulana@nusantara.eduvision.test",
+     "wali": "Orang Tua Raka",
+     "hp": "081301000011",
+     "foto": "seed/foto/siswa/raka-maulana-s2.svg"
+    },
+    {
+     "nama": "Salsabila Maulana",
+     "nisn": "0061234579",
+     "kelas": 1,
+     "jk": "Perempuan",
+     "email": "salsabila.maulana@nusantara.eduvision.test",
+     "wali": "Orang Tua Salsabila",
+     "hp": "081301000012",
+     "foto": "seed/foto/siswa/salsabila-maulana-s2.svg"
+    },
+    {
+     "nama": "Yoga Yulianto",
+     "nisn": "0061234580",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "yoga.yulianto@nusantara.eduvision.test",
+     "wali": "Orang Tua Yoga",
+     "hp": "081301000013",
+     "foto": "seed/foto/siswa/yoga-yulianto-s2.svg"
+    },
+    {
+     "nama": "Anisa Yulianto",
+     "nisn": "0061234581",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "anisa.yulianto@nusantara.eduvision.test",
+     "wali": "Orang Tua Anisa",
+     "hp": "081301000014",
+     "foto": "seed/foto/siswa/anisa-yulianto-s2.svg"
+    },
+    {
+     "nama": "Naufal Sembiring",
+     "nisn": "0061234582",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "naufal.sembiring@nusantara.eduvision.test",
+     "wali": "Orang Tua Naufal",
+     "hp": "081301000015",
+     "foto": "seed/foto/siswa/naufal-sembiring-s2.svg"
+    },
+    {
+     "nama": "Larasati Sembiring",
+     "nisn": "0061234583",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "larasati.sembiring@nusantara.eduvision.test",
+     "wali": "Orang Tua Larasati",
+     "hp": "081301000016",
+     "foto": "seed/foto/siswa/larasati-sembiring-s2.svg"
+    },
+    {
+     "nama": "Satria Halim",
+     "nisn": "0061234584",
+     "kelas": 2,
+     "jk": "Laki-laki",
+     "email": "satria.halim@nusantara.eduvision.test",
+     "wali": "Orang Tua Satria",
+     "hp": "081301000017",
+     "foto": "seed/foto/siswa/satria-halim-s2.svg"
+    },
+    {
+     "nama": "Cantika Halim",
+     "nisn": "0061234585",
+     "kelas": 2,
+     "jk": "Perempuan",
+     "email": "cantika.halim@nusantara.eduvision.test",
+     "wali": "Orang Tua Cantika",
+     "hp": "081301000018",
+     "foto": "seed/foto/siswa/cantika-halim-s2.svg"
+    }
+   ],
+   "prestasi": [
+    {
+     "siswa": 0,
+     "nama": "Olimpiade Sains Kota Bandung Bidang IPA",
+     "tingkat": "Kota",
+     "peringkat": "Juara 1",
+     "tanggal": "2026-08-20",
+     "bukti": "seed/sertifikat/s2-01-bagas-hakim.png"
+    },
+    {
+     "siswa": 6,
+     "nama": "Lomba Pidato Bahasa Inggris Tingkat Provinsi",
+     "tingkat": "Provinsi",
+     "peringkat": "Juara 2",
+     "tanggal": "2026-08-14",
+     "bukti": "seed/sertifikat/s2-02-reza-anggraini.png"
+    },
+    {
+     "siswa": 12,
+     "nama": "Lomba Karya Tulis Ilmiah Remaja",
+     "tingkat": "Nasional",
+     "peringkat": "Juara 3",
+     "tanggal": "2026-08-08",
+     "bukti": "seed/sertifikat/s2-03-yoga-yulianto.png"
+    }
+   ],
+   "meta": {
+    "nama": "SMA Negeri 2 Nusantara",
+    "npsn": "20200456",
+    "jenjang": "SMA",
+    "alamat": "Jl. Merdeka No. 45, Sumur Bandung",
+    "kota": "Bandung",
+    "telepon": "(022) 4231567",
+    "email": "info@sman2nusantara.sch.id",
+    "kepala": "Dra. Sri Wahyuningsih, M.Si.",
+    "nip": "197003151996012002",
+    "lat": -6.9147,
+    "lng": 107.6098,
+    "logo": "seed/logo/sekolah2.png"
+   }
+  }
+ ]
+}
