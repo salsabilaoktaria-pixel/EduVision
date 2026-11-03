@@ -23,7 +23,7 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kelas' => ['required', 'string', 'max:255', \Illuminate\Validation\Rule::unique('kelas', 'nama_kelas')->where('sekolah_id', \App\Support\Tenant::id())],
+            'nama_kelas' => 'required|string|max:255|unique:kelas,nama_kelas',
             'tingkat' => 'required|string',
             'wali_kelas_id' => 'nullable|exists:guru,id',
         ], [
@@ -31,12 +31,6 @@ class KelasController extends Controller
         ]);
         Kelas::create($validated);
         return redirect()->route('kelas.index')->with('sukses', 'Kelas berhasil ditambahkan.');
-    }
-
-    public function show(Kelas $kelas)
-    {
-        $kelas->load('waliKelas', 'siswa');
-        return view('kelas.show', compact('kelas'));
     }
 
     public function edit(Kelas $kelas)
@@ -48,7 +42,7 @@ class KelasController extends Controller
     public function update(Request $request, Kelas $kelas)
     {
         $validated = $request->validate([
-            'nama_kelas' => ['required', 'string', 'max:255', \Illuminate\Validation\Rule::unique('kelas', 'nama_kelas')->where('sekolah_id', \App\Support\Tenant::id())->ignore($kelas->id)],
+            'nama_kelas' => 'required|string|max:255|unique:kelas,nama_kelas,' . $kelas->id,
             'tingkat' => 'required|string',
             'wali_kelas_id' => 'nullable|exists:guru,id',
         ], [

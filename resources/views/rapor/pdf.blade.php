@@ -2,105 +2,78 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Hasil Belajar - {{ $siswa->nama }}</title>
     <style>
-        @page { margin: 42px 48px; }
-        body { font-family: 'Times', 'DejaVu Serif', serif; font-size: 12px; color: #111; line-height: 1.45; }
-        .kop { border-bottom: 3px double #111; padding-bottom: 8px; margin-bottom: 14px; }
-        .instansi { font-size: 15px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
-        .sub { font-size: 10.5px; margin-top: 2px; }
-        h2.judul { text-align: center; font-size: 14px; margin: 0 0 12px; text-transform: uppercase; text-decoration: underline; }
-        table.identitas { width: 100%; margin-bottom: 12px; }
-        table.identitas td { padding: 1.5px 0; vertical-align: top; }
-        table.nilai { width: 100%; border-collapse: collapse; }
-        table.nilai th, table.nilai td { border: 1px solid #111; padding: 5px 7px; font-size: 11.5px; }
-        table.nilai th { background: #e9e9e9; text-align: center; }
-        table.nilai td.c { text-align: center; }
-        table.nilai tr.jumlah td { font-weight: bold; background: #f4f4f4; }
-        table.rekap { width: 100%; border-collapse: collapse; margin-top: 14px; }
-        table.rekap td { border: 1px solid #111; padding: 5px 7px; font-size: 11.5px; }
-        .catatan { border: 1px solid #111; margin-top: 14px; padding: 7px 10px; min-height: 42px; }
-        .catatan b { display: block; margin-bottom: 3px; }
-        table.ttd { width: 100%; margin-top: 30px; text-align: center; }
-        table.ttd td { width: 33%; vertical-align: top; font-size: 11.5px; }
-        .nama-ttd { margin-top: 56px; font-weight: bold; text-decoration: underline; }
-        .catatan-kaki { margin-top: 22px; font-size: 9.5px; color: #444; border-top: 1px solid #999; padding-top: 5px; }
+        body { font-family: 'Helvetica', sans-serif; font-size: 12px; color: #1e293b; }
+        .header { text-align: center; border-bottom: 3px solid #0d9488; padding-bottom: 10px; margin-bottom: 20px; }
+        .header h1 { margin: 0; color: #0f766e; font-size: 20px; }
+        .header p { margin: 2px 0; color: #64748b; font-size: 11px; }
+        .info-table { width: 100%; margin-bottom: 15px; }
+        .info-table td { padding: 3px 0; font-size: 12px; }
+        .kartu { display: block; width: 32%; float: left; margin-right: 1%; background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 6px; padding: 10px; text-align: center; margin-bottom: 15px; }
+        .kartu p.label { font-size: 10px; color: #64748b; margin: 0; }
+        .kartu p.value { font-size: 18px; font-weight: bold; color: #0f766e; margin: 4px 0 0; }
+        .clear { clear: both; }
+        table.nilai { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        table.nilai th, table.nilai td { border: 1px solid #cbd5e1; padding: 6px 8px; font-size: 11px; text-align: left; }
+        table.nilai th { background: #0f766e; color: white; }
+        .motivasi { background: #f0fdfa; border-left: 4px solid #0d9488; padding: 10px 14px; margin-top: 20px; font-style: italic; font-size: 12px; }
+        .footer { margin-top: 40px; font-size: 10px; color: #94a3b8; }
     </style>
 </head>
 <body>
-    @php
-        $predikat = function ($n) { $n = (float) $n; return $n >= 90 ? 'A' : ($n >= 80 ? 'B' : ($n >= 70 ? 'C' : ($n >= 60 ? 'D' : 'E'))); };
-        $waliKelas = $siswa->kelas?->waliKelas?->nama;
-    @endphp
+    <div class="header">
+        <h1>EDUVISION — SISTEM AKADEMIK SEKOLAH</h1>
+        <p>Rapor Akademik Siswa</p>
+    </div>
 
-    <table class="kop" width="100%">
-        <tr>
-            <td width="14%" style="text-align:left;">@if($logoData)<img src="{{ $logoData }}" style="width:64px;height:64px;">@endif</td>
-            <td style="text-align:center;">
-                <div class="instansi">{{ $sekolah->nama }}</div>
-                <div class="sub">
-                    @if($sekolah->alamat){{ $sekolah->alamat }}@if($sekolah->kota), {{ $sekolah->kota }}@endif<br>@endif
-                    @if($sekolah->telepon)Telp. {{ $sekolah->telepon }}@endif @if($sekolah->telepon && $sekolah->email) | @endif @if($sekolah->email){{ $sekolah->email }}@endif
-                    @if($sekolah->npsn)<br>NPSN {{ $sekolah->npsn }}@endif
-                </div>
-            </td>
-            <td width="14%"></td>
-        </tr>
+    <table class="info-table">
+        <tr><td width="120"><b>Nama Siswa</b></td><td>: {{ $siswa->nama }}</td></tr>
+        <tr><td><b>NISN</b></td><td>: {{ $siswa->nisn }}</td></tr>
+        <tr><td><b>Kelas</b></td><td>: {{ $siswa->kelas->nama_kelas ?? '-' }}</td></tr>
+        <tr><td><b>Tanggal Cetak</b></td><td>: {{ now()->format('d F Y') }}</td></tr>
     </table>
 
-    <h2 class="judul">Laporan Hasil Belajar Siswa</h2>
-    <p style="text-align:center;margin:2px 0 10px;font-size:12px;">{{ $semesterLabel ?? "" }}</p>
-
-    <table class="identitas">
-        <tr><td width="22%">Nama Siswa</td><td width="3%">:</td><td width="40%">{{ $siswa->nama }}</td><td width="14%">Kelas</td><td width="3%">:</td><td>{{ $siswa->kelas->nama_kelas ?? '-' }}</td></tr>
-        <tr><td>NISN</td><td>:</td><td>{{ $siswa->nisn }}</td><td>Tanggal Cetak</td><td>:</td><td>{{ now()->translatedFormat('d F Y') }}</td></tr>
-    </table>
+    <div class="kartu">
+        <p class="label">RATA-RATA NILAI</p>
+        <p class="value">{{ $rataRata }}</p>
+    </div>
+    <div class="kartu">
+        <p class="label">PERSENTASE KEHADIRAN</p>
+        <p class="value">{{ $kehadiran }}%</p>
+    </div>
+    <div class="kartu">
+        <p class="label">PREDIKSI</p>
+        <p class="value" style="font-size:13px;">{{ $prediksi['status'] }}</p>
+    </div>
+    <div class="clear"></div>
 
     <table class="nilai">
         <thead>
-            <tr><th width="5%">No</th><th>Mata Pelajaran</th><th width="16%">Semester</th><th width="9%">Tugas</th><th width="8%">UTS</th><th width="8%">UAS</th><th width="10%">Nilai Akhir</th><th width="8%">Predikat</th></tr>
+            <tr><th>Mata Pelajaran</th><th>Semester</th><th>Tugas</th><th>UTS</th><th>UAS</th><th>Nilai Akhir</th></tr>
         </thead>
         <tbody>
-        @forelse($siswa->nilai as $i => $n)
+        @forelse($siswa->nilai as $n)
             <tr>
-                <td class="c">{{ $i + 1 }}</td>
                 <td>{{ $n->mataPelajaran->nama_mapel ?? '-' }}</td>
-                <td class="c">{{ $n->semester }} {{ $n->tahun_ajaran }}</td>
-                <td class="c">{{ $n->nilai_tugas }}</td>
-                <td class="c">{{ $n->nilai_uts }}</td>
-                <td class="c">{{ $n->nilai_uas }}</td>
-                <td class="c"><b>{{ $n->nilai_akhir }}</b></td>
-                <td class="c">{{ $predikat($n->nilai_akhir) }}</td>
+                <td>{{ $n->semester }} {{ $n->tahun_ajaran }}</td>
+                <td>{{ $n->nilai_tugas }}</td>
+                <td>{{ $n->nilai_uts }}</td>
+                <td>{{ $n->nilai_uas }}</td>
+                <td><b>{{ $n->nilai_akhir }}</b></td>
             </tr>
         @empty
-            <tr><td colspan="8" class="c">Belum ada nilai tercatat.</td></tr>
+            <tr><td colspan="6" style="text-align:center;">Belum ada nilai tercatat.</td></tr>
         @endforelse
-        @if($siswa->nilai->count())
-            <tr class="jumlah"><td colspan="6" style="text-align:right;">Rata-rata Nilai Akhir</td><td class="c">{{ $rataRata }}</td><td class="c">{{ $predikat($rataRata) }}</td></tr>
-        @endif
         </tbody>
     </table>
 
-    <table class="rekap">
-        <tr><td width="30%">Persentase Kehadiran</td><td width="20%">{{ $kehadiran }}%</td><td width="20%">Keterangan Akademik</td><td>{{ $prediksi['status'] }}</td></tr>
-    </table>
-
-    <div class="catatan">
-        <b>Catatan Wali Kelas</b>
-        {{ $motivasi }}
+    <div class="motivasi">
+        💬 <b>Catatan untuk siswa:</b> {{ $motivasi }}
     </div>
 
-    <table class="ttd">
-        <tr>
-            <td>Orang Tua / Wali<div class="nama-ttd">{{ $siswa->nama_wali ?: '..............................' }}</div></td>
-            <td>Wali Kelas<div class="nama-ttd">{{ $waliKelas ?: '..............................' }}</div></td>
-            <td>Kepala Sekolah<div class="nama-ttd">{{ $sekolah->kepala_sekolah ?: '..............................' }}</div>@if($sekolah->nip_kepala_sekolah)<div style="font-size:10px;">NIP. {{ $sekolah->nip_kepala_sekolah }}</div>@endif</td>
-        </tr>
-    </table>
-
-    <div class="catatan-kaki">
-        Predikat: A (90-100), B (80-89), C (70-79), D (60-69), E (&lt;60). Keterangan akademik dihitung dari rata-rata nilai dan persentase kehadiran,
-        bukan merupakan keputusan akhir kenaikan kelas. Dicetak melalui sistem EduVision, {{ now()->format('d/m/Y H:i') }}.
+    <div class="footer">
+        Dokumen ini dicetak otomatis oleh sistem EduVision pada {{ now()->format('d/m/Y H:i') }}.
+        Prediksi dihitung dari rata-rata nilai & persentase kehadiran (algoritma dasar), bukan keputusan akhir kelulusan.
     </div>
 </body>
 </html>

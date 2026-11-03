@@ -22,7 +22,7 @@
                     <td class="py-2 pr-4 text-slate-500">{{ $t->tanggal ?? '-' }}</td>
                     <td class="py-2 pr-4 text-right font-semibold">{{ $t->skor }}</td>
                     <td class="py-2 pr-4 text-right">
-                        <form method="POST" action="{{ route('nilai.tugas.hapus', $t) }}" data-konfirmasi="Hapus nilai tugas ini?">
+                        <form method="POST" action="{{ route('nilai.tugas.hapus', $t) }}" onsubmit="return confirm('Hapus nilai tugas ini?')">
                             @csrf @method('DELETE')
                             <button class="px-2 py-1 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
                         </form>
@@ -39,7 +39,7 @@
             <input type="text" name="nama_tugas" placeholder="Nama tugas (Tugas 1, Kuis, dst)" required class="flex-1 rounded-xl border-2 border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
             <input type="number" step="0.01" name="skor" placeholder="Skor" min="0" max="100" required class="w-28 rounded-xl border-2 border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
             <input type="date" name="tanggal" class="rounded-xl border-2 border-slate-300 px-3 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
-            <button class="bg-teal-600 text-white rounded-xl px-5 py-2 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah</button>
+            <button class="bg-teal-600 text-white rounded-xl px-5 py-2 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">+ Tambah</button>
         </form>
     </div>
 
@@ -47,13 +47,13 @@
         <p class="text-sm font-semibold opacity-90">Rata-rata Otomatis dari {{ $nilai->tugasHarian->count() }} Tugas</p>
         <p class="text-5xl font-extrabold my-3">{{ $nilai->rataRataTugasHarian() }}</p>
         <p class="text-xs opacity-80 mb-4">Nilai Tugas yang tersimpan saat ini: <b>{{ $nilai->nilai_tugas }}</b></p>
-        <form method="POST" action="{{ route('nilai.tugas.terapkan', $nilai) }}" data-konfirmasi="Terapkan rata-rata ini sebagai Nilai Tugas? Nilai Akhir akan dihitung ulang otomatis.">
+        <form method="POST" action="{{ route('nilai.tugas.terapkan', $nilai) }}" onsubmit="return confirm('Terapkan rata-rata ini sebagai Nilai Tugas? Nilai Akhir akan dihitung ulang otomatis.')">
             @csrf
             <button class="w-full bg-white text-indigo-700 rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-indigo-50 transition">Terapkan sebagai Nilai Tugas</button>
         </form>
         <p class="text-[11px] opacity-70 mt-3">Setelah diterapkan, Nilai Akhir otomatis dihitung ulang: rata-rata dari (Nilai Tugas + Nilai UTS + Nilai UAS) ÷ 3.</p>
 
-        <a href="{{ route('nilai.edit', $nilai) }}" class="mt-4 block text-center bg-white/15 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-white/25 transition">Lanjut Isi UTS & UAS <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" /></a>
+        <a href="{{ route('nilai.edit', $nilai) }}" class="mt-4 block text-center bg-white/15 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-white/25 transition">Lanjut Isi UTS & UAS →</a>
     </div>
 </div>
 @endsection

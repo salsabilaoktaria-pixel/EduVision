@@ -9,21 +9,19 @@
             <p class="text-xs font-bold uppercase tracking-widest text-indigo-600 bg-indigo-50 inline-block px-3 py-1 rounded-full mb-2">{{ $mapel->kode_mapel }}</p>
             <h2 class="text-xl font-extrabold text-ink-900">{{ $mapel->nama_mapel }}</h2>
         </div>
-        <x-aksi besar :edit="route('mapel.edit', $mapel)" :hapus="route('mapel.destroy', $mapel)" konfirmasi="Hapus mata pelajaran ini?" />
+        <div class="flex gap-2">
+            <a href="{{ route('mapel.edit', $mapel) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200">Edit</a>
+            <form method="POST" action="{{ route('mapel.destroy', $mapel) }}" onsubmit="return confirm('Hapus mapel ini?')">
+                @csrf @method('DELETE')
+                <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+            </form>
+        </div>
     </div>
 
     <div class="grid sm:grid-cols-2 gap-4 mt-5">
         <div class="bg-slate-50 rounded-xl p-4">
             <p class="text-xs text-slate-400 font-semibold uppercase">Guru Pengampu</p>
             <p class="font-bold text-ink-900 mt-1">{{ $mapel->guru->nama ?? '-' }}</p>
-        </div>
-        <div class="bg-slate-50 rounded-xl p-4">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Kurikulum</p>
-            <p class="font-bold text-ink-900 mt-1">{{ $mapel->kurikulum->nama ?? '-' }}</p>
-        </div>
-        <div class="bg-slate-50 rounded-xl p-4">
-            <p class="text-xs text-slate-400 font-semibold uppercase">Semester</p>
-            <p class="font-bold text-ink-900 mt-1">{{ $mapel->semester === 'Semua' ? 'Ganjil & Genap' : $mapel->semester }}</p>
         </div>
         <div class="bg-slate-50 rounded-xl p-4">
             <p class="text-xs text-slate-400 font-semibold uppercase">KKM</p>

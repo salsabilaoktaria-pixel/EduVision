@@ -20,10 +20,6 @@ use App\Http\Controllers\PengaturanController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\TugasController;
-use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\ApiKlienController;
-use App\Http\Controllers\SekolahController;
-use App\Http\Controllers\KredensialController;
 
 // ================= AUTH =================
 Route::get('/', function () {
@@ -42,26 +38,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // ---- Notifikasi: semua role login (rute literal didaftarkan sebelum rute berparameter) ----
-    Route::get('/notifikasi/cek', [NotifikasiController::class, 'cek'])->middleware('throttle:60,1')->name('notifikasi.cek');
-    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi.index');
-    Route::post('/notifikasi/baca-semua', [NotifikasiController::class, 'bacaSemua'])->name('notifikasi.bacaSemua');
-    Route::get('/notifikasi/{notifikasi}/baca', [NotifikasiController::class, 'baca'])->name('notifikasi.baca');
-
     // ---- Ganti Password: semua role login ----
     Route::get('/ganti-password', [AkunController::class, 'gantiPassword'])->name('akun.gantiPassword');
     Route::post('/ganti-password', [AkunController::class, 'updatePassword'])->name('akun.updatePassword');
 
-    // ---- Pilih semester yang ditampilkan (semua role login) ----
-    Route::post('/pilih-semester', [\App\Http\Controllers\SemesterController::class, 'pilih'])->name('semester.pilih');
-
     // ---- Kalender Tugas: semua role login (difilter di dalam controller) ----
     Route::get('/kalender-tugas', [TugasController::class, 'kalender'])->name('tugas.kalender');
-
-    // ---- Pemilik platform: kelola banyak sekolah (super_admin saja) ----
-    Route::middleware('role:super_admin')->group(function () {
-        Route::resource('sekolah', SekolahController::class)->parameters(['sekolah' => 'sekolah']);
-    });
 
     // ---- Master Data: hanya admin ----
     // PENTING soal URUTAN: rute literal seperti /siswa/create dan /mapel/create
@@ -69,42 +51,23 @@ Route::middleware('auth')->group(function () {
     // bawah, karena Laravel mencocokkan rute sesuai urutan daftar — kalau wildcard
     // {siswa} didaftarkan lebih dulu, "create" akan "tertangkap" sebagai ID siswa.
     Route::middleware('role:admin')->group(function () {
-        // ---- Akun pengguna: lihat/reset kredensial (wajib konfirmasi password admin) ----
-        Route::get('/konfirmasi-password', [KredensialController::class, 'formKonfirmasi'])->name('password.konfirmasi');
-        Route::post('/konfirmasi-password', [KredensialController::class, 'konfirmasi'])->middleware('throttle:10,1')->name('password.konfirmasi.post');
-        Route::middleware('konfirmasi.password')->group(function () {
-            Route::get('/akun-pengguna/kartu', [KredensialController::class, 'kartu'])->name('akun.kartu');
-            Route::get('/akun-pengguna/{user}', [KredensialController::class, 'lihat'])->name('akun.kredensial');
-            Route::post('/akun-pengguna/{user}/reset', [KredensialController::class, 'reset'])->name('akun.reset');
-        });
         Route::resource('siswa', SiswaController::class)->except(['index', 'show']);
         Route::resource('guru', GuruController::class);
 
         // PENTING: ->parameters() memaksa nama parameter tetap "kelas",
         // karena Laravel salah menyingularkan "kelas" (dikira jamak) jadi "kela".
         Route::resource('kelas', KelasController::class)->parameters(['kelas' => 'kelas']);
-        Route::get('/kelola-semester', [\App\Http\Controllers\SemesterController::class, 'index'])->name('semester.index');
-        Route::post('/kelola-semester', [\App\Http\Controllers\SemesterController::class, 'store'])->name('semester.store');
-        Route::post('/kelola-semester/berikutnya', [\App\Http\Controllers\SemesterController::class, 'berikutnya'])->name('semester.berikutnya');
-        Route::delete('/kelola-semester/{semesterSekolah}', [\App\Http\Controllers\SemesterController::class, 'destroy'])->name('semester.destroy');
-        Route::resource('kurikulum', \App\Http\Controllers\KurikulumController::class)->parameters(['kurikulum' => 'kurikulum']);
 
         // Menambah mata pelajaran baru tetap khusus admin. Lihat/edit/hapus mapel
         // sudah dibuka untuk guru juga di grup "Data Siswa & Mata Pelajaran" di bawah.
         Route::resource('mapel', MataPelajaranController::class)->only(['create', 'store']);
         Route::post('/mapel/{mapel}/kelas', [MataPelajaranController::class, 'assignKelas'])->name('mapel.assignKelas');
 
-        // Resource penuh: index, create, store, show (Detail), edit, update, destroy (Hapus).
-        Route::resource('spp', SppController::class);
+        Route::resource('spp', SppController::class)->except(['show', 'edit', 'update']);
         Route::post('/spp/{spp}/bayar', [SppController::class, 'bayar'])->name('spp.bayar');
+        Route::post('/absensi/{absensi}/verifikasi', [AbsensiController::class, 'verifikasi'])->name('absensi.verifikasi');
 
         // ---- Pengaturan Sekolah (lokasi Face ID) ----
-        // ---- Integrasi API (kunci untuk aplikasi Komite) ----
-        Route::get('/integrasi-api', [ApiKlienController::class, 'index'])->name('apiklien.index');
-        Route::post('/integrasi-api', [ApiKlienController::class, 'store'])->name('apiklien.store');
-        Route::patch('/integrasi-api/{apiklien}', [ApiKlienController::class, 'toggle'])->name('apiklien.toggle');
-        Route::delete('/integrasi-api/{apiklien}', [ApiKlienController::class, 'destroy'])->name('apiklien.destroy');
-
         Route::get('/pengaturan-sekolah', [PengaturanController::class, 'edit'])->name('pengaturan.edit');
         Route::post('/pengaturan-sekolah', [PengaturanController::class, 'update'])->name('pengaturan.update');
     });
@@ -121,7 +84,7 @@ Route::middleware('auth')->group(function () {
     //      Input Nilai, Bank Soal, Pengumpulan Tugas. Semua fungsinya tetap
     //      persis sama seperti sebelumnya, hanya saja admin tidak punya akses. ----
     Route::middleware('role:guru,wali_kelas')->group(function () {
-        Route::resource('nilai', NilaiController::class);
+        Route::resource('nilai', NilaiController::class)->except(['show']);
         Route::get('/nilai/{nilai}/tugas', [NilaiController::class, 'kelolaTugas'])->name('nilai.tugas');
         Route::post('/nilai/{nilai}/tugas', [NilaiController::class, 'simpanTugas'])->name('nilai.tugas.simpan');
         Route::delete('/nilai-tugas/{tugasHarian}', [NilaiController::class, 'hapusTugas'])->name('nilai.tugas.hapus');
@@ -131,7 +94,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/banksoal/create', [BankSoalController::class, 'create'])->name('banksoal.create');
         Route::post('/banksoal', [BankSoalController::class, 'store'])->name('banksoal.store');
         Route::get('/banksoal/import', [BankSoalController::class, 'importForm'])->name('banksoal.importForm');
-        Route::get('/banksoal/{banksoal}', [BankSoalController::class, 'show'])->name('banksoal.show');
         Route::get('/banksoal/{banksoal}/edit', [BankSoalController::class, 'edit'])->name('banksoal.edit');
         Route::put('/banksoal/{banksoal}', [BankSoalController::class, 'update'])->name('banksoal.update');
         Route::delete('/banksoal/{banksoal}', [BankSoalController::class, 'destroy'])->name('banksoal.destroy');
@@ -154,15 +116,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
         Route::post('/absensi/{absensi}/status', [AbsensiController::class, 'updateManual'])->name('absensi.status');
 
-        // ---- Persetujuan absen Face ID (tidak hadir / di luar radius): admin & guru ----
-        Route::get('/persetujuan-absensi', [AbsensiController::class, 'persetujuan'])->name('absensi.persetujuan');
-        Route::post('/absensi/{absensi}/setujui', [AbsensiController::class, 'setujui'])->name('absensi.setujui');
-        Route::post('/absensi/{absensi}/tolak', [AbsensiController::class, 'tolak'])->name('absensi.tolak');
-
         Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
         Route::get('/prestasi/create', [PrestasiController::class, 'create'])->name('prestasi.create');
         Route::post('/prestasi', [PrestasiController::class, 'store'])->name('prestasi.store');
-        Route::get('/prestasi/{prestasi}', [PrestasiController::class, 'show'])->name('prestasi.show');
         Route::get('/prestasi/{prestasi}/edit', [PrestasiController::class, 'edit'])->name('prestasi.edit');
         Route::put('/prestasi/{prestasi}', [PrestasiController::class, 'update'])->name('prestasi.update');
         Route::delete('/prestasi/{prestasi}', [PrestasiController::class, 'destroy'])->name('prestasi.destroy');
@@ -179,7 +135,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
         Route::get('/jadwal/create', [JadwalController::class, 'create'])->name('jadwal.create');
         Route::post('/jadwal', [JadwalController::class, 'store'])->name('jadwal.store');
-        Route::get('/jadwal/{jadwal}', [JadwalController::class, 'show'])->name('jadwal.show');
         Route::get('/jadwal/{jadwal}/edit', [JadwalController::class, 'edit'])->name('jadwal.edit');
         Route::put('/jadwal/{jadwal}', [JadwalController::class, 'update'])->name('jadwal.update');
         Route::delete('/jadwal/{jadwal}', [JadwalController::class, 'destroy'])->name('jadwal.destroy');
@@ -206,9 +161,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/materi', [MateriController::class, 'index'])->name('materi.index');
         Route::get('/materi/create', [MateriController::class, 'create'])->name('materi.create');
         Route::post('/materi', [MateriController::class, 'store'])->name('materi.store');
-        Route::get('/materi/{materi}/edit', [MateriController::class, 'edit'])->name('materi.edit');
-        Route::put('/materi/{materi}', [MateriController::class, 'update'])->name('materi.update');
-        Route::get('/materi/{materi}', [MateriController::class, 'show'])->name('materi.show');
         Route::delete('/materi/{materi}', [MateriController::class, 'destroy'])->name('materi.destroy');
     });
 
@@ -221,14 +173,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/rapor-saya/pdf', [RaporController::class, 'pdfSaya'])->name('rapor.pdfSaya');
 
         // ---- Absen QR per-mapel: sisi SISWA ----
-        // throttle:20,1 = maksimal 20 percobaan/menit per akun, supaya jalur ini
-        // tidak bisa dipakai untuk menebak-nebak kode/token lewat script otomatis
-        // ("brute force") walau ruang kombinasi tokennya sendiri sudah sangat besar.
         // Link hasil scan QR mengarah ke sini (dibuka otomatis oleh kamera HP siswa).
-        Route::get('/absen-mapel/konfirmasi/{sesi}/{token}', [AbsensiMapelController::class, 'konfirmasi'])->middleware('throttle:20,1')->name('absensimapel.konfirmasi');
+        Route::get('/absen-mapel/konfirmasi/{sesi}/{token}', [AbsensiMapelController::class, 'konfirmasi'])->name('absensimapel.konfirmasi');
         // Fallback input kode manual (juga dipakai untuk testing tanpa hosting).
         Route::get('/absen-mapel/manual', [AbsensiMapelController::class, 'formManual'])->name('absensimapel.formManual');
-        Route::post('/absen-mapel/manual', [AbsensiMapelController::class, 'prosesManual'])->middleware('throttle:20,1')->name('absensimapel.prosesManual');
+        Route::post('/absen-mapel/manual', [AbsensiMapelController::class, 'prosesManual'])->name('absensimapel.prosesManual');
 
         // ---- Materi Pembelajaran: sisi SISWA (lihat saja) ----
         Route::get('/materi-saya', [MateriController::class, 'materiSaya'])->name('materi.saya');

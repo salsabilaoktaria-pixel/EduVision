@@ -36,11 +36,11 @@
             <div class="grid grid-cols-2 gap-2 mt-1">
                 <label class="flex items-center justify-center gap-2 rounded-xl border-2 py-2.5 text-sm font-semibold cursor-pointer transition"
                        :class="tipe === 'link_youtube' ? 'bg-rose-600 text-white border-rose-600' : 'border-slate-300 text-slate-600'">
-                    <input type="radio" name="tipe" value="link_youtube" x-model="tipe" class="hidden"> <x-ikon nama="play" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Link YouTube
+                    <input type="radio" name="tipe" value="link_youtube" x-model="tipe" class="hidden"> ▶️ Link YouTube
                 </label>
                 <label class="flex items-center justify-center gap-2 rounded-xl border-2 py-2.5 text-sm font-semibold cursor-pointer transition"
                        :class="tipe === 'file' ? 'bg-indigo-600 text-white border-indigo-600' : 'border-slate-300 text-slate-600'">
-                    <input type="radio" name="tipe" value="file" x-model="tipe" class="hidden"> <x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Upload File
+                    <input type="radio" name="tipe" value="file" x-model="tipe" class="hidden"> 📄 Upload File
                 </label>
             </div>
         </div>
@@ -55,8 +55,8 @@
         </div>
 
         <div class="flex gap-3 pt-2">
-            <button class="tombol-aktif bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition"><x-ikon nama="check" class="w-4 h-4" /> Simpan</button>
-            <a href="{{ route('materi.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
+            <button class="tombol-aktif bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition">Simpan</button>
+            <a href="{{ route('materi.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
         </div>
     </form>
 </div>
