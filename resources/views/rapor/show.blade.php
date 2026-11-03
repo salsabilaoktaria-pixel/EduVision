@@ -14,7 +14,7 @@
         <div class="flex items-center gap-3">
             <a href="{{ auth()->user()->isSiswa() ? route('rapor.pdfSaya') : route('rapor.pdf', $siswa) }}"
                class="bg-rose-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-rose-600 transition shadow-lg shadow-rose-500/20 flex items-center gap-2">
-                <x-ikon nama="file-text" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Cetak PDF
+                📄 Cetak PDF
             </a>
             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal-400 to-teal-600 text-white flex items-center justify-center text-xl font-extrabold">
                 {{ strtoupper(substr($siswa->nama,0,1)) }}
@@ -23,7 +23,7 @@
     </div>
 
     <div class="bg-gradient-to-r from-indigo-50 to-teal-50 border border-indigo-100 rounded-2xl p-4 mb-6 flex items-start gap-3">
-        <span class="text-2xl"><x-ikon nama="message" class="w-6 h-6" /></span>
+        <span class="text-2xl">💬</span>
         <p class="text-sm text-slate-700 font-medium">{{ $motivasi }}</p>
     </div>
 

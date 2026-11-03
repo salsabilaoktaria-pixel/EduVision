@@ -67,9 +67,9 @@
                             @if($l->tipe === 'file')
                                 <a href="{{ asset('storage/'.$l->file_path) }}" target="_blank" class="text-xs font-semibold text-teal-600 hover:underline truncate">⬇️ {{ $l->file_nama_asli }}</a>
                             @else
-                                <a href="{{ $l->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:underline truncate"><x-ikon nama="link" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ $l->link }}</a>
+                                <a href="{{ $l->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:underline truncate">🔗 {{ $l->link }}</a>
                             @endif
-                            <form method="POST" action="{{ route('tugas.lampiran.hapus', $l) }}" data-konfirmasi="Hapus lampiran ini?">
+                            <form method="POST" action="{{ route('tugas.lampiran.hapus', $l) }}" onsubmit="return confirm('Hapus lampiran ini?')">
                                 @csrf @method('DELETE')
                                 <button class="text-xs font-semibold text-rose-500 hover:underline shrink-0">Hapus</button>
                             </form>
@@ -89,8 +89,8 @@
         </div>
 
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Simpan Perubahan</button>
-            <a href="{{ route('tugas.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Simpan Perubahan</button>
+            <a href="{{ route('tugas.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
         </div>
     </form>
 </div>

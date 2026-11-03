@@ -4,9 +4,9 @@
 <x-tombol-kembali :href="route('banksoal.index')" />
 
 <div class="flex gap-2 mb-5 flex-wrap">
-    <a href="{{ route('banksoal.create') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buat Manual</a>
-    <a href="{{ route('banksoal.importForm') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50"><x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Import File</a>
-    <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white"><x-ikon nama="sparkles" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Buat dengan AI</span>
+    <a href="{{ route('banksoal.create') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50">✍️ Buat Manual</a>
+    <a href="{{ route('banksoal.importForm') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50">📁 Import File</a>
+    <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white">✨ Buat dengan AI</span>
 </div>
 
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 max-w-2xl kartu">
@@ -31,7 +31,7 @@
                 </select>
             </div>
         </div>
-        <button type="submit" id="btnGenerateAi" onclick="document.getElementById('loadingAi').classList.remove('hidden'); this.disabled=true; this.innerText='Sedang membuat soal...';" class="w-full bg-gradient-to-r from-indigo-500 to-indigo-700 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:opacity-90 transition"><x-ikon nama="sparkles" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buatkan Soal dengan AI</button>
+        <button type="submit" id="btnGenerateAi" onclick="document.getElementById('loadingAi').classList.remove('hidden'); this.disabled=true; this.innerText='Sedang membuat soal...';" class="w-full bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:opacity-90 transition">✨ Buatkan Soal dengan AI</button>
         <p id="loadingAi" class="hidden text-xs text-slate-400 text-center">AI sedang meracik soal, mohon tunggu (biasanya 5–20 detik)...</p>
     </form>
 </div>

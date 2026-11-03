@@ -11,13 +11,13 @@
             </select>
             <select name="siswa_id" onchange="this.form.submit()" class="rounded-xl border-2 border-slate-300 px-4 py-2 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
                 <option value="">-- Semua Siswa --</option>
-                @foreach($siswaList as $s)<option value="{{ $s->id }}" @selected(request('siswa_id')==$s->id)>{{ $s->nama }} ({{ $s->kelas->nama_kelas ?? '-' }})</option>@endforeach
+                @foreach($siswaList as $s)<option value="{{ $s->id }}" @selected(request('siswa_id')==$s->id)>{{ $s->nama }}</option>@endforeach
             </select>
             @if(request('kelas_id') || request('siswa_id'))
                 <a href="{{ route('nilai.index') }}" class="px-4 py-2 text-sm text-slate-500 hover:text-slate-700">Reset</a>
             @endif
         </form>
-        <a href="{{ route('nilai.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="edit" class="w-4 h-4" /> Input Nilai</a>
+        <a href="{{ route('nilai.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif">+ Input Nilai</a>
     </div>
 
     @forelse($siswaPerKelas as $namaKelas => $daftarSiswa)
@@ -35,7 +35,14 @@
                                     <td class="py-2.5 pr-4 text-slate-600">{{ $n->semester }} - {{ $n->tahun_ajaran }}</td>
                                     <td class="py-2.5 pr-4 text-right font-bold {{ $n->nilai_akhir >= ($n->mataPelajaran->kkm ?? 75) ? 'text-emerald-600' : 'text-rose-600' }}">{{ $n->nilai_akhir }}</td>
                                     <td class="py-2.5 pr-4">
-                                        <div class="flex justify-end"><x-aksi :detail="route('nilai.show', $n)" :edit="route('nilai.edit', $n)" :hapus="route('nilai.destroy', $n)" konfirmasi="Hapus nilai ini?" /></div>
+                                        <div class="flex justify-end gap-2">
+                                            <a href="{{ route('nilai.tugas', $n) }}" class="px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-semibold hover:bg-indigo-200">Tugas Harian</a>
+                                            <a href="{{ route('nilai.edit', $n) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200">Edit</a>
+                                            <form method="POST" action="{{ route('nilai.destroy', $n) }}" onsubmit="return confirm('Hapus nilai ini?')">
+                                                @csrf @method('DELETE')
+                                                <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

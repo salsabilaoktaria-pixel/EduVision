@@ -11,7 +11,7 @@ class AspirasiController extends Controller
     public function index()
     {
         // Admin/guru melihat semua aspirasi masuk
-        $aspirasi = \App\Support\Semester::filterTanggal(Aspirasi::with('user'), \App\Support\Semester::terpilih(), 'created_at')->latest()->paginate(15)->withQueryString();
+        $aspirasi = Aspirasi::with('user')->latest()->paginate(15);
         return view('aspirasi.index', compact('aspirasi'));
     }
 
@@ -50,8 +50,6 @@ class AspirasiController extends Controller
             'status' => 'required|in:Baru,Diproses,Selesai',
         ]);
         $aspirasi->update($request->only('tanggapan', 'status'));
-        \App\Models\Notifikasi::kirim($aspirasi->user_id, 'aspirasi', 'Aspirasimu ditanggapi',
-            $aspirasi->judul . ' — status ' . $aspirasi->status, route('aspirasi.saya'));
         return back()->with('sukses', 'Tanggapan berhasil dikirim.');
     }
 }

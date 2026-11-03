@@ -11,8 +11,8 @@
             <input type="checkbox" name="anonim" value="1" class="rounded border-slate-300 text-teal-600"> Kirim sebagai anonim
         </label>
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="send" class="w-4 h-4" /> Kirim</button>
-            <a href="{{ route('aspirasi.saya') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Kirim</button>
+            <a href="{{ route('aspirasi.saya') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
         </div>
     </form>
 </div>

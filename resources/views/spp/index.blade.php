@@ -11,7 +11,7 @@
                 <option value="Belum Lunas" @selected(request('status')=='Belum Lunas')>Belum Lunas</option>
             </select>
         </form>
-        <a href="{{ route('spp.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Buat Tagihan</a>
+        <a href="{{ route('spp.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif">+ Buat Tagihan</a>
     </div>
 
     {{-- Dikelompokkan per KELAS, dan di dalamnya tiap SISWA tampil satu per satu
@@ -20,8 +20,8 @@
     @forelse($siswaPerKelas as $namaKelas => $daftarSiswa)
         <div class="mb-6" x-data="{ buka: true }">
             <button type="button" @click="buka = !buka" class="w-full flex items-center justify-between gap-3 bg-slate-50 hover:bg-slate-100 rounded-xl px-4 py-3 mb-2 transition">
-                <span class="font-bold text-ink-900 text-sm"><x-ikon nama="users" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Kelas {{ $namaKelas }} <span class="text-slate-400 font-normal">({{ $daftarSiswa->count() }} siswa)</span></span>
-                <span class="text-slate-400 text-xs inline-flex items-center gap-1"><span x-text="buka ? 'Tutup' : 'Buka'"></span><x-ikon nama="chevron-down" class="w-4 h-4 transition" x-bind:class="buka ? 'rotate-180' : ''" /></span>
+                <span class="font-bold text-ink-900 text-sm">🏫 Kelas {{ $namaKelas }} <span class="text-slate-400 font-normal">({{ $daftarSiswa->count() }} siswa)</span></span>
+                <span class="text-slate-400 text-xs" x-text="buka ? '▲ Tutup' : '▼ Buka'"></span>
             </button>
             <div x-show="buka" class="overflow-x-auto">
                 <table class="w-full text-sm">
@@ -53,8 +53,18 @@
                                         @endif
                                     </td>
                                     <td class="py-3 pr-4">
-                                        {{-- 3 tombol seragam di SETIAP baris tagihan: Detail, Edit, Hapus --}}
-                                        <div class="flex justify-end"><x-aksi :detail="route('spp.show', $s)" :edit="route('spp.edit', $s)" :hapus="route('spp.destroy', $s)" konfirmasi="Hapus tagihan SPP ini?" /></div>
+                                        <div class="flex justify-end gap-2">
+                                            @if($s->status != 'Lunas')
+                                            <form method="POST" action="{{ route('spp.bayar', $s) }}">
+                                                @csrf
+                                                <button class="px-3 py-1.5 rounded-lg bg-teal-100 text-teal-700 text-xs font-semibold hover:bg-teal-200">Tandai Lunas</button>
+                                            </form>
+                                            @endif
+                                            <form method="POST" action="{{ route('spp.destroy', $s) }}" onsubmit="return confirm('Hapus tagihan ini?')">
+                                                @csrf @method('DELETE')
+                                                <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

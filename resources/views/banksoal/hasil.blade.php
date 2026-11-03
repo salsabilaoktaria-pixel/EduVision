@@ -8,12 +8,12 @@
     <p class="text-6xl font-extrabold {{ $skor >= 70 ? 'text-emerald-600' : ($skor >= 50 ? 'text-amber-500' : 'text-rose-600') }} my-3">{{ $skor }}</p>
     <p class="text-sm text-slate-600">Benar {{ $benar }} dari {{ $total }} soal</p>
     <p class="text-sm text-slate-500 mt-2">
-        @if($skor >= 85) Mantap! Pemahamanmu terhadap materi ini sudah sangat baik. 
-        @elseif($skor >= 60) Lumayan bagus, tapi masih ada beberapa bagian yang perlu diulang lagi. 
-        @else Jangan berkecil hati, coba pelajari lagi bagian yang salah di bawah ini ya. 
+        @if($skor >= 85) Mantap! Pemahamanmu terhadap materi ini sudah sangat baik. 🎉
+        @elseif($skor >= 60) Lumayan bagus, tapi masih ada beberapa bagian yang perlu diulang lagi. 💪
+        @else Jangan berkecil hati, coba pelajari lagi bagian yang salah di bawah ini ya. 📚
         @endif
     </p>
-    <a href="{{ route('banksoal.latihan') }}" class="mt-6 inline-block bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="play" class="w-4 h-4" /> Latihan Mapel Lain</a>
+    <a href="{{ route('banksoal.latihan') }}" class="mt-6 inline-block bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Latihan Mapel Lain</a>
 </div>
 
 <div class="max-w-2xl mx-auto space-y-4">
@@ -33,7 +33,7 @@
                 <p class="px-2 py-1 rounded-lg
                     {{ $huruf === $d['jawaban_benar'] ? 'bg-emerald-50 text-emerald-700 font-semibold' : ($huruf === $d['jawaban_user'] && !$d['benar'] ? 'bg-rose-50 text-rose-700 font-semibold' : 'text-slate-500') }}">
                     {{ $huruf }}. {{ $d[$field] }}
-                    @if($huruf === $d['jawaban_benar']) <x-ikon nama="check" class="w-4 h-4 inline-block" /> @endif
+                    @if($huruf === $d['jawaban_benar']) ✓ @endif
                     @if($huruf === $d['jawaban_user'] && !$d['benar']) (Jawabanmu) @endif
                 </p>
             @endforeach

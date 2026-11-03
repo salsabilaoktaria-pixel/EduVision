@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('file_nama_asli');
             $table->timestamps();
 
-            $table->foreign('riwayat_pengumpulan_tugas_id', 'rwt_pengumpulan_tugas_file_fk')
+            $table->foreign('riwayat_pengumpulan_tugas_id', 'fk_riwayat_tugas_file')
                 ->references('id')->on('riwayat_pengumpulan_tugas')
                 ->onDelete('cascade');
         });

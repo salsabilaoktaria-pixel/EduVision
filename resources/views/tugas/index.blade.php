@@ -7,8 +7,8 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <p class="text-sm text-slate-500">Daftar tugas yang sudah dibuat, beserta jumlah siswa yang sudah mengumpulkan.</p>
         <div class="flex gap-2">
-            <a href="{{ route('tugas.kalender') }}" class="tombol-aktif bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition text-center"><x-ikon nama="calendar" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Kalender</a>
-            <a href="{{ route('tugas.create') }}" class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center"><x-ikon nama="plus" class="w-4 h-4" /> Buat Tugas</a>
+            <a href="{{ route('tugas.kalender') }}" class="tombol-aktif bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition text-center">🗓️ Kalender</a>
+            <a href="{{ route('tugas.create') }}" class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center">+ Buat Tugas</a>
         </div>
     </div>
 
@@ -37,7 +37,13 @@
                         <span class="text-xs font-semibold text-slate-600">{{ $sudahKumpul }}/{{ $totalSiswa }}</span>
                     </div>
                 </a>
-                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-end"><x-aksi :detail="route('tugas.show', $t)" :edit="route('tugas.edit', $t)" :hapus="route('tugas.destroy', $t)" konfirmasi="Hapus tugas ini beserta semua pengumpulannya?" /></div>
+                <div class="mt-3 pt-3 border-t border-slate-100 flex justify-end gap-2">
+                    <a href="{{ route('tugas.edit', $t) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200">Edit</a>
+                    <form method="POST" action="{{ route('tugas.destroy', $t) }}" onsubmit="return confirm('Hapus tugas ini beserta semua pengumpulannya?')">
+                        @csrf @method('DELETE')
+                        <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+                    </form>
+                </div>
             </div>
         @empty
             <p class="col-span-full text-center py-12 text-slate-400">Belum ada tugas yang dibuat.</p>

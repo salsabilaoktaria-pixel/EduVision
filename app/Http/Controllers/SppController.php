@@ -19,7 +19,7 @@ class SppController extends Controller
 
     public function index(Request $request)
     {
-        $query = \App\Support\Semester::filterSpp(Spp::query(), \App\Support\Semester::terpilih());
+        $query = Spp::query();
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -45,7 +45,7 @@ class SppController extends Controller
 
     public function create()
     {
-        $siswa = Siswa::with('kelas')->urutKelas()->get();
+        $siswa = Siswa::with('kelas')->get();
         return view('spp.create', compact('siswa'));
     }
 
@@ -71,73 +71,27 @@ class SppController extends Controller
             'jumlah' => $nominal,
             'status' => 'Belum Lunas',
         ]);
-        $siswaTagihan = \App\Models\Siswa::find($validated['siswa_id']);
-        \App\Models\Notifikasi::kirim($siswaTagihan->user_id ?? null, 'spp', 'Tagihan SPP baru',
-            $validated['bulan'] . ' ' . $validated['tahun'] . ' — Rp ' . number_format((float) $nominal, 0, ',', '.'), route('spp.saya'));
 
         return redirect()->route('spp.index')->with('sukses', 'Tagihan SPP berhasil dibuat.');
-    }
-
-    public function show(Spp $spp)
-    {
-        $spp->load('siswa.kelas');
-        // Riwayat tagihan lain milik siswa yang sama, supaya admin langsung lihat konteksnya.
-        $tagihanLain = Spp::where('siswa_id', $spp->siswa_id)->where('id', '!=', $spp->id)
-            ->orderByDesc('tahun')->orderByRaw(self::URUTAN_BULAN_SQL . ' DESC')->get();
-        return view('spp.show', compact('spp', 'tagihanLain'));
-    }
-
-    public function edit(Spp $spp)
-    {
-        $spp->load('siswa.kelas');
-        return view('spp.edit', compact('spp'));
-    }
-
-    public function update(Request $request, Spp $spp)
-    {
-        $validated = $request->validate([
-            'bulan' => 'required|in:Januari,Februari,Maret,April,Mei,Juni,Juli,Agustus,September,Oktober,November,Desember',
-            'tahun' => 'required|digits:4',
-            'jumlah' => 'required|numeric|min:0',
-            'status' => 'required|in:Lunas,Belum Lunas',
-        ]);
-
-        // Tanggal bayar mengikuti status: diisi saat berubah jadi Lunas, dikosongkan saat Belum Lunas.
-        if ($validated['status'] === 'Lunas') {
-            $validated['tanggal_bayar'] = $spp->tanggal_bayar ?: now();
-        } else {
-            $validated['tanggal_bayar'] = null;
-        }
-
-        $statusLama = $spp->status;
-        $spp->update($validated);
-        if ($statusLama !== $spp->status) {
-            \App\Models\Notifikasi::kirim($spp->siswa->user_id ?? null, 'spp', 'Status SPP ' . $spp->bulan . ' ' . $spp->tahun . ' diperbarui',
-                'Status sekarang: ' . $spp->status . '.', route('spp.saya'));
-        }
-        return redirect()->route('spp.show', $spp)->with('sukses', 'Tagihan SPP berhasil diperbarui.');
     }
 
     public function bayar(Spp $spp)
     {
         $spp->update(['status' => 'Lunas', 'tanggal_bayar' => now()]);
-        \App\Models\Notifikasi::kirim($spp->siswa->user_id ?? null, 'spp', 'SPP ' . $spp->bulan . ' ' . $spp->tahun . ' lunas', 'Pembayaranmu sudah dicatat.', route('spp.saya'));
         return back()->with('sukses', 'SPP ditandai sudah lunas.');
     }
 
     public function destroy(Spp $spp)
     {
         $spp->delete();
-        // redirect eksplisit (bukan back()) supaya tombol Hapus di halaman Detail tidak
-        // mengarah kembali ke halaman tagihan yang sudah terhapus.
-        return redirect()->route('spp.index')->with('sukses', 'Data SPP dihapus.');
+        return back()->with('sukses', 'Data SPP dihapus.');
     }
 
     // Halaman siswa melihat status SPP miliknya sendiri
     public function statusSaya()
     {
         $siswa = Auth::user()->siswa;
-        $spp = \App\Support\Semester::filterSpp(Spp::where('siswa_id', $siswa->id), \App\Support\Semester::terpilih())
+        $spp = Spp::where('siswa_id', $siswa->id)
             ->orderByDesc('tahun')->orderByRaw(self::URUTAN_BULAN_SQL . ' DESC')
             ->get();
         return view('spp.status', compact('spp'));

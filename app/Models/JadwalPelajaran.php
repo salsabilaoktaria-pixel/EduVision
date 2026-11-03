@@ -6,22 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class JadwalPelajaran extends Model
 {
-    use \App\Models\Concerns\BelongsToSekolah;
-
     protected $table = 'jadwal_pelajaran';
-    protected $fillable = ['kelas_id', 'mata_pelajaran_id', 'guru_id', 'hari', 'jam_ke', 'jam_mulai', 'jam_selesai', 'semester', 'tahun_ajaran'];
+    protected $fillable = ['kelas_id', 'mata_pelajaran_id', 'guru_id', 'hari', 'jam_ke', 'jam_mulai', 'jam_selesai'];
     protected $casts = ['jam_ke' => 'array'];
-
-    protected static function booted(): void
-    {
-        static::creating(function ($model) {
-            if (empty($model->semester)) {
-                $s = \App\Support\Semester::terpilih();
-                $model->semester = $s['semester'];
-                $model->tahun_ajaran = $s['tahun_ajaran'];
-            }
-        });
-    }
 
     public function kelas()
     {
