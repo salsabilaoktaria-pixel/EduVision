@@ -10,7 +10,11 @@ class PrestasiController extends Controller
 {
     public function index(Request $request)
     {
+<<<<<<< HEAD
         $query = Prestasi::with('siswa.kelas');
+=======
+        $query = Prestasi::with('siswa');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 
         // BUG LAMA: pencarian hanya mengecek nama_prestasi, padahal user sering
         // mencari berdasarkan NAMA SISWA. Sekarang keduanya dicek sekaligus.
@@ -27,6 +31,7 @@ class PrestasiController extends Controller
         // Urutkan berdasarkan TANGGAL PRESTASI asli (bukan kapan datanya disimpan),
         // supaya urutan tetap konsisten berdasarkan bulan & tanggal sebenarnya
         // walau data diinput tidak berurutan.
+<<<<<<< HEAD
         $prestasi = $query->orderByDesc('tanggal')->orderByDesc('created_at')->get();
         $prestasiPerSiswa = $prestasi->groupBy('siswa_id');
 
@@ -52,6 +57,10 @@ class PrestasiController extends Controller
             ->groupBy(fn ($s) => $s->kelas->nama_kelas ?? 'Tanpa Kelas');
 
         return view('prestasi.index', compact('siswaPerKelas', 'prestasiPerSiswa'));
+=======
+        $prestasi = $query->orderByDesc('tanggal')->orderByDesc('created_at')->paginate(15)->withQueryString();
+        return view('prestasi.index', compact('prestasi'));
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     public function create()

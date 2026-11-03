@@ -11,7 +11,10 @@
                 @foreach($kelasList as $k)<option value="{{ $k->id }}" @selected(request('kelas_id')==$k->id)>{{ $k->nama_kelas }}</option>@endforeach
             </select>
         </form>
+<<<<<<< HEAD
         <a href="{{ route('absensi.persetujuan') }}" class="bg-amber-500 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-amber-600 transition text-center tombol-aktif">⏳ Persetujuan Absen</a>
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         <a href="{{ route('absensi.monitor') }}" class="bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition text-center tombol-aktif">🛰️ Monitor Foto & Lokasi</a>
     </div>
 
@@ -56,19 +59,31 @@
                                 @endif
                             </td>
                             <td class="py-3 pr-4">
+<<<<<<< HEAD
                                 @if($a->status_persetujuan === 'ditolak')
                                     <span class="px-2 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-semibold">Ditolak</span>
                                 @elseif($a->status_persetujuan === 'disetujui')
                                     <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">Disetujui</span>
+=======
+                                @if($a->terverifikasi)
+                                    <span class="px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">Terverifikasi</span>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                                 @else
                                     <span class="px-2 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold">Menunggu</span>
                                 @endif
                             </td>
                             <td class="py-3 pr-4 text-right">
+<<<<<<< HEAD
                                 @if($a->menunggu())
                                 <form method="POST" action="{{ route('absensi.setujui', $a) }}">
                                     @csrf
                                     <button class="px-3 py-1.5 rounded-lg bg-emerald-100 text-emerald-700 text-xs font-semibold hover:bg-emerald-200">Setujui</button>
+=======
+                                @if(!$a->terverifikasi)
+                                <form method="POST" action="{{ route('absensi.verifikasi', $a) }}">
+                                    @csrf
+                                    <button class="px-3 py-1.5 rounded-lg bg-teal-100 text-teal-700 text-xs font-semibold hover:bg-teal-200">Verifikasi</button>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                                 </form>
                                 @endif
                             </td>

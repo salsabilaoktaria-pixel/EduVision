@@ -53,10 +53,20 @@
                                         @endif
                                     </td>
                                     <td class="py-3 pr-4">
+<<<<<<< HEAD
                                         {{-- 3 tombol seragam di SETIAP baris tagihan: Detail, Edit, Hapus --}}
                                         <div class="flex justify-end gap-2">
                                             <a href="{{ route('spp.show', $s) }}" class="px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-semibold hover:bg-indigo-200">Detail</a>
                                             <a href="{{ route('spp.edit', $s) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200">Edit</a>
+=======
+                                        <div class="flex justify-end gap-2">
+                                            @if($s->status != 'Lunas')
+                                            <form method="POST" action="{{ route('spp.bayar', $s) }}">
+                                                @csrf
+                                                <button class="px-3 py-1.5 rounded-lg bg-teal-100 text-teal-700 text-xs font-semibold hover:bg-teal-200">Tandai Lunas</button>
+                                            </form>
+                                            @endif
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                                             <form method="POST" action="{{ route('spp.destroy', $s) }}" onsubmit="return confirm('Hapus tagihan ini?')">
                                                 @csrf @method('DELETE')
                                                 <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>

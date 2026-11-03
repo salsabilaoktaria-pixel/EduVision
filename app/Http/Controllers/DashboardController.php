@@ -37,8 +37,12 @@ class DashboardController extends Controller
                 'totalGuru' => Guru::count(),
                 'totalKelas' => Kelas::count(),
                 'totalMapel' => MataPelajaran::count(),
+<<<<<<< HEAD
                 'absenHariIni' => Absensi::whereDate('tanggal', now())->where('status_persetujuan', 'disetujui')->count(),
                 'absenMenunggu' => Absensi::where('status_persetujuan', 'menunggu')->count(),
+=======
+                'absenHariIni' => Absensi::whereDate('tanggal', now())->count(),
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 'sppBelumLunas' => Spp::where('status', 'Belum Lunas')->count(),
                 'aspirasiBaru' => Aspirasi::where('status', 'Baru')->count(),
             ];
@@ -49,7 +53,11 @@ class DashboardController extends Controller
             for ($i = 6; $i >= 0; $i--) {
                 $tgl = now()->subDays($i);
                 $labelHari[] = $tgl->translatedFormat('D, d M');
+<<<<<<< HEAD
                 $dataHadir[] = Absensi::whereDate('tanggal', $tgl)->where('status', 'Hadir')->where('status_persetujuan', 'disetujui')->count();
+=======
+                $dataHadir[] = Absensi::whereDate('tanggal', $tgl)->where('status', 'Hadir')->count();
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             }
             $data['grafikKehadiranLabel'] = $labelHari;
             $data['grafikKehadiranData'] = $dataHadir;
@@ -83,7 +91,11 @@ class DashboardController extends Controller
             $data['grafikNilaiData'] = $nilaiSiswa->pluck('nilai_akhir');
 
             // Grafik rekap kehadiran (Hadir/Sakit/Izin/Alpa)
+<<<<<<< HEAD
             $rekapAbsen = $siswa->absensi()->where('status_persetujuan', '!=', 'menunggu')->select('status', DB::raw('count(*) as jumlah'))->groupBy('status')->pluck('jumlah', 'status');
+=======
+            $rekapAbsen = $siswa->absensi()->select('status', DB::raw('count(*) as jumlah'))->groupBy('status')->pluck('jumlah', 'status');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             $data['grafikAbsenLabel'] = $rekapAbsen->keys();
             $data['grafikAbsenData'] = $rekapAbsen->values();
 

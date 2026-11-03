@@ -5,9 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduVision — Sistem Akademik Sekolah</title>
     <script src="https://cdn.tailwindcss.com"></script>
+<<<<<<< HEAD
     @include('partials.tema')
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
     <style>
+=======
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body{font-family:'Plus Jakarta Sans',sans-serif;}
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         [x-cloak]{display:none!important;}
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
         .tombol-aktif:hover { transform: translateY(-2px); }
@@ -17,15 +24,46 @@
            dan sedikit "masuk" ke bawah (-1px) supaya tidak ada garis tipis/seam
            apa pun yang muncul di batas antara hero gelap dan konten terang. */
         .gelombang path { stroke: none; }
+<<<<<<< HEAD
     </style>
+=======
+    
+/* FINAL COLOR OVERRIDE — no green/teal in public pages */
+body [class*="from-teal-"], body [class*="via-teal-"], body [class*="to-teal-"], body [class*="from-emerald-"], body [class*="to-emerald-"] { --tw-gradient-from:#452078 var(--tw-gradient-from-position) !important; --tw-gradient-to:#1D4ED8 var(--tw-gradient-to-position) !important; }
+body [class*="bg-teal-"], body [class*="bg-emerald-"], body [class*="bg-green-"] { background-color:#6D28D9 !important; color:#fff !important; }
+body [class*="text-teal-"], body [class*="text-emerald-"], body [class*="text-green-"] { color:#7C3AED !important; }
+body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4B5FD !important; }
+
+
+/* LOGO EduVision */
+.ev-logo { background:linear-gradient(135deg,#F472B6 0%,#8B5CF6 50%,#22D3EE 100%) !important; color:#fff !important; box-shadow:0 6px 20px rgba(139,92,246,.55), inset 0 1px 0 rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.25); text-shadow:0 1px 3px rgba(0,0,0,.35); }
+</style>
+    <script>
+        // Palet yang SAMA PERSIS dengan halaman login & dashboard, supaya warnanya konsisten di semua halaman.
+        tailwind.config = { theme: { extend: { colors: {
+            ink: { 900:'#2f3646', 800:'#3f4653', 700:'#535b66' },
+            teal: { 50:'#f4f9f9',100:'#e1efec',200:'#c4ded9',300:'#9ec7c1',400:'#7aada4',500:'#50958b',600:'#437f76',700:'#3b6e67',800:'#38615a',900:'#325752' },
+            indigo: { 50:'#f6f5fa',100:'#edebf4',200:'#dcd7ec',300:'#c4bcdc',400:'#aa9fcb',500:'#9384b8',600:'#8272a7',700:'#6b5b92',800:'#5f5080',900:'#544a70' },
+            amber: { 50:'#f9f7f3',100:'#eee9dc',200:'#dbd0b6',300:'#c7b792',400:'#b6a279',500:'#a98f5d',600:'#957c4e',700:'#7f6944',800:'#705d3e',900:'#64543a' },
+            rose: { 50:'#faf5f6',100:'#f5ecee',200:'#ead6db',300:'#d8b8c1',400:'#c29aa5',500:'#a77c89',600:'#955d6f',700:'#835061',800:'#744857',900:'#694351' },
+        } } } }
+    </script>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 </head>
 <body class="bg-slate-50 text-slate-800">
 
     <!-- HERO -->
+<<<<<<< HEAD
     <header class="relative overflow-hidden bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 text-white">
         <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-300 to-brand-500 flex items-center justify-center font-extrabold text-lg">E</div>
+=======
+    <header class="relative overflow-hidden bg-gradient-to-br from-ink-900 via-teal-900 to-ink-900 text-white">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl ev-logo flex items-center justify-center font-extrabold text-lg">E</div>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 <span class="text-xl font-extrabold tracking-tight">EduVision</span>
             </div>
             <a href="{{ route('login') }}" class="tombol-aktif bg-white text-ink-900 rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-50 transition">Masuk →</a>
@@ -33,10 +71,17 @@
 
         <div class="max-w-6xl mx-auto px-6 pt-10 pb-28 text-center relative z-10">
             <span class="inline-block bg-white/10 text-teal-200 text-xs font-bold px-3 py-1.5 rounded-full mb-4">✨ Satu Platform, Seluruh Kegiatan Sekolah</span>
+<<<<<<< HEAD
             <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight max-w-3xl mx-auto">Sistem Akademik Sekolah yang <span class="bg-gradient-to-r from-brand-200 to-brand-400 bg-clip-text text-transparent">Rapi, Cepat, & Transparan</span></h1>
             <p class="text-slate-300 mt-5 max-w-xl mx-auto">Absensi Face ID & QR per mapel, nilai, tugas, rapor, bank soal, SPP, hingga kotak aspirasi — semua terhubung dalam satu sistem.</p>
             <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
                 <a href="{{ route('login') }}" class="tombol-aktif inline-block bg-gradient-to-r from-teal-500 to-teal-700 rounded-xl px-8 py-3.5 text-sm font-bold shadow-xl shadow-teal-700/40 hover:shadow-teal-900/60 transition">Masuk ke Akun Saya</a>
+=======
+            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight max-w-3xl mx-auto">Sistem Akademik Sekolah yang <span class="bg-gradient-to-r from-amber-300 to-teal-300 bg-clip-text text-transparent">Rapi, Cepat, & Transparan</span></h1>
+            <p class="text-slate-300 mt-5 max-w-xl mx-auto">Absensi Face ID & QR per mapel, nilai, tugas, rapor, bank soal, SPP, hingga kotak aspirasi — semua terhubung dalam satu sistem.</p>
+            <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
+                <a href="{{ route('login') }}" class="tombol-aktif inline-block bg-gradient-to-r from-teal-500 to-teal-700 rounded-xl px-8 py-3.5 text-sm font-bold shadow-xl shadow-teal-900/40 hover:shadow-teal-900/60 transition">Masuk ke Akun Saya</a>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 <a href="#fitur" class="tombol-aktif inline-block bg-white/10 border border-white/20 rounded-xl px-8 py-3.5 text-sm font-bold hover:bg-white/20 transition">Lihat Fitur ↓</a>
             </div>
 
@@ -134,6 +179,7 @@
             <p class="text-slate-500 mt-3">Setiap peran mendapat tampilan dan akses yang relevan dengan kebutuhannya masing-masing.</p>
         </div>
         <div class="grid sm:grid-cols-3 gap-5">
+<<<<<<< HEAD
             <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
                 <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3">🗂️</div>
                 <h3 class="font-bold mb-1">Admin / Tata Usaha</h3>
@@ -148,6 +194,22 @@
                 <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3">🎓</div>
                 <h3 class="font-bold mb-1">Siswa</h3>
                 <p class="text-sm text-white/90">Lihat jadwal, kumpulkan tugas, pantau nilai & rapor, latihan soal, hingga cek status SPP sendiri.</p>
+=======
+            <div class="kartu bg-gradient-to-br from-ink-900 to-teal-900 text-white rounded-2xl p-6">
+                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl mb-3">🗂️</div>
+                <h3 class="font-bold mb-1">Admin / Tata Usaha</h3>
+                <p class="text-sm text-slate-300">Kelola data siswa, guru, kelas, mapel, SPP, dan pantau seluruh aktivitas sekolah dari satu dashboard.</p>
+            </div>
+            <div class="kartu bg-gradient-to-br from-teal-700 to-teal-900 text-white rounded-2xl p-6">
+                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl mb-3">👨‍🏫</div>
+                <h3 class="font-bold mb-1">Guru / Wali Kelas</h3>
+                <p class="text-sm text-slate-300">Beri materi & tugas, nilai otomatis tersalur ke rapor, buka absen QR, dan pantau kelas binaan.</p>
+            </div>
+            <div class="kartu bg-gradient-to-br from-indigo-700 to-indigo-900 text-white rounded-2xl p-6">
+                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl mb-3">🎓</div>
+                <h3 class="font-bold mb-1">Siswa</h3>
+                <p class="text-sm text-slate-300">Lihat jadwal, kumpulkan tugas, pantau nilai & rapor, latihan soal, hingga cek status SPP sendiri.</p>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             </div>
         </div>
     </section>
@@ -179,19 +241,34 @@
 
     {{-- CTA BANNER --}}
     <section class="max-w-6xl mx-auto px-6 mt-20">
+<<<<<<< HEAD
         <div class="rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 text-white p-10 sm:p-14 text-center relative overflow-hidden">
             <h2 class="text-2xl sm:text-3xl font-extrabold max-w-xl mx-auto">Siap Merapikan Administrasi Akademik Sekolahmu?</h2>
             <p class="text-slate-300 mt-3 max-w-md mx-auto">Masuk sekarang dan rasakan kemudahan mengelola kegiatan sekolah dalam satu platform.</p>
             <a href="{{ route('login') }}" class="tombol-aktif inline-block mt-7 bg-gradient-to-r from-brand-500 to-brand-600 text-ink-900 rounded-xl px-8 py-3.5 text-sm font-extrabold shadow-xl shadow-amber-900/30 hover:shadow-amber-900/50 transition">Masuk ke Akun Saya →</a>
+=======
+        <div class="rounded-3xl bg-gradient-to-br from-ink-900 via-teal-900 to-ink-900 text-white p-10 sm:p-14 text-center relative overflow-hidden">
+            <h2 class="text-2xl sm:text-3xl font-extrabold max-w-xl mx-auto">Siap Merapikan Administrasi Akademik Sekolahmu?</h2>
+            <p class="text-slate-300 mt-3 max-w-md mx-auto">Masuk sekarang dan rasakan kemudahan mengelola kegiatan sekolah dalam satu platform.</p>
+            <a href="{{ route('login') }}" class="tombol-aktif inline-block mt-7 bg-gradient-to-r from-amber-400 to-amber-600 text-ink-900 rounded-xl px-8 py-3.5 text-sm font-extrabold shadow-xl shadow-amber-900/30 hover:shadow-amber-900/50 transition">Masuk ke Akun Saya →</a>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         </div>
     </section>
     </main>
 
+<<<<<<< HEAD
     <footer class="mt-20 bg-gradient-to-r from-teal-600 via-teal-700 to-teal-900 text-slate-300">
         <div class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-3 gap-8">
             <div>
                 <div class="flex items-center gap-3 mb-3">
                     <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-300 to-brand-500 flex items-center justify-center font-extrabold text-ink-900">E</div>
+=======
+    <footer class="mt-20 bg-gradient-to-r from-ink-900 via-teal-900 to-ink-900 text-slate-300">
+        <div class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-3 gap-8">
+            <div>
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-9 h-9 rounded-lg ev-logo flex items-center justify-center font-extrabold text-ink-900">E</div>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                     <span class="font-extrabold text-white text-lg">EduVision</span>
                 </div>
                 <p class="text-sm text-slate-400">Sistem akademik sekolah yang rapi, cepat, dan transparan — untuk admin, guru, dan siswa.</p>

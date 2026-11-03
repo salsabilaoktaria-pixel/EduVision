@@ -10,7 +10,12 @@ return [
     | Driver ini didaftarkan di App\Providers\AppServiceProvider.
     | PENTING: jangan ganti APP_KEY setelah ada akun — semua password akan tidak cocok lagi.
     */
+<<<<<<< HEAD
     'driver' => env('HASH_DRIVER', 'ganda'),
+=======
+    // Dikunci ke double hashing (tidak bisa diubah lewat .env): HMAC-SHA256 berkunci APP_KEY -> bcrypt.
+    'driver' => 'ganda',
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 
     'bcrypt' => [
         'rounds' => env('BCRYPT_ROUNDS', 12),

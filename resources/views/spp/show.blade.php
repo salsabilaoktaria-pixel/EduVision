@@ -25,6 +25,7 @@
         </dl>
 
         {{-- Tombol aksi seragam: Detail (halaman ini), Edit, Hapus — plus Tandai Lunas jika belum lunas --}}
+<<<<<<< HEAD
         <div class="flex flex-wrap gap-2 mt-6">
             <a href="{{ route('spp.edit', $spp) }}" class="px-4 py-2 rounded-xl bg-amber-100 text-amber-700 text-sm font-bold hover:bg-amber-200 tombol-aktif">Edit</a>
             @if($spp->status !== 'Lunas')
@@ -37,6 +38,16 @@
                 @csrf @method('DELETE')
                 <button class="px-4 py-2 rounded-xl bg-rose-100 text-rose-700 text-sm font-bold hover:bg-rose-200 tombol-aktif">Hapus</button>
             </form>
+=======
+        <div class="flex flex-wrap items-center justify-between gap-3 mt-6">
+            @if($spp->status !== 'Lunas')
+            <form method="POST" action="{{ route('spp.bayar', $spp) }}">
+                @csrf
+                <button class="btn-aksi" style="background:#e4efdf;border-color:#a8c99c;color:#2f4a2d"><x-ikon nama="check-circle" class="w-3.5 h-3.5" />Tandai Lunas</button>
+            </form>
+            @else<span></span>@endif
+            <x-aksi besar :edit="route('spp.edit', $spp)" :hapus="route('spp.destroy', $spp)" konfirmasi="Hapus tagihan ini?" />
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         </div>
     </div>
 

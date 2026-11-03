@@ -63,9 +63,15 @@ Route::middleware('auth')->group(function () {
         Route::resource('mapel', MataPelajaranController::class)->only(['create', 'store']);
         Route::post('/mapel/{mapel}/kelas', [MataPelajaranController::class, 'assignKelas'])->name('mapel.assignKelas');
 
+<<<<<<< HEAD
         // Resource penuh: index, create, store, show (Detail), edit, update, destroy (Hapus).
         Route::resource('spp', SppController::class);
         Route::post('/spp/{spp}/bayar', [SppController::class, 'bayar'])->name('spp.bayar');
+=======
+        Route::resource('spp', SppController::class)->except(['show', 'edit', 'update']);
+        Route::post('/spp/{spp}/bayar', [SppController::class, 'bayar'])->name('spp.bayar');
+        Route::post('/absensi/{absensi}/verifikasi', [AbsensiController::class, 'verifikasi'])->name('absensi.verifikasi');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 
         // ---- Pengaturan Sekolah (lokasi Face ID) ----
         Route::get('/pengaturan-sekolah', [PengaturanController::class, 'edit'])->name('pengaturan.edit');
@@ -116,11 +122,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
         Route::post('/absensi/{absensi}/status', [AbsensiController::class, 'updateManual'])->name('absensi.status');
 
+<<<<<<< HEAD
         // ---- Persetujuan absen Face ID (tidak hadir / di luar radius): admin & guru ----
         Route::get('/persetujuan-absensi', [AbsensiController::class, 'persetujuan'])->name('absensi.persetujuan');
         Route::post('/absensi/{absensi}/setujui', [AbsensiController::class, 'setujui'])->name('absensi.setujui');
         Route::post('/absensi/{absensi}/tolak', [AbsensiController::class, 'tolak'])->name('absensi.tolak');
 
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
         Route::get('/prestasi/create', [PrestasiController::class, 'create'])->name('prestasi.create');
         Route::post('/prestasi', [PrestasiController::class, 'store'])->name('prestasi.store');
@@ -178,6 +187,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/rapor-saya/pdf', [RaporController::class, 'pdfSaya'])->name('rapor.pdfSaya');
 
         // ---- Absen QR per-mapel: sisi SISWA ----
+<<<<<<< HEAD
         // throttle:20,1 = maksimal 20 percobaan/menit per akun, supaya jalur ini
         // tidak bisa dipakai untuk menebak-nebak kode/token lewat script otomatis
         // ("brute force") walau ruang kombinasi tokennya sendiri sudah sangat besar.
@@ -186,6 +196,13 @@ Route::middleware('auth')->group(function () {
         // Fallback input kode manual (juga dipakai untuk testing tanpa hosting).
         Route::get('/absen-mapel/manual', [AbsensiMapelController::class, 'formManual'])->name('absensimapel.formManual');
         Route::post('/absen-mapel/manual', [AbsensiMapelController::class, 'prosesManual'])->middleware('throttle:20,1')->name('absensimapel.prosesManual');
+=======
+        // Link hasil scan QR mengarah ke sini (dibuka otomatis oleh kamera HP siswa).
+        Route::get('/absen-mapel/konfirmasi/{sesi}/{token}', [AbsensiMapelController::class, 'konfirmasi'])->name('absensimapel.konfirmasi');
+        // Fallback input kode manual (juga dipakai untuk testing tanpa hosting).
+        Route::get('/absen-mapel/manual', [AbsensiMapelController::class, 'formManual'])->name('absensimapel.formManual');
+        Route::post('/absen-mapel/manual', [AbsensiMapelController::class, 'prosesManual'])->name('absensimapel.prosesManual');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 
         // ---- Materi Pembelajaran: sisi SISWA (lihat saja) ----
         Route::get('/materi-saya', [MateriController::class, 'materiSaya'])->name('materi.saya');

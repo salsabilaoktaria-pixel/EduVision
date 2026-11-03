@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use App\Models\Siswa;
 use App\Models\Kelas;
+<<<<<<< HEAD
 use App\Models\PengaturanSekolah;
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -46,14 +49,19 @@ class AbsensiController extends Controller
             ->map(fn ($grup) => $grup->sortByDesc('jam_masuk'));
 
         $kelasList = Kelas::orderBy('nama_kelas')->get();
+<<<<<<< HEAD
         $sekolah = PengaturanSekolah::ambil();
         return view('absensi.monitor', compact('absensiPerKelas', 'kelasList', 'tanggal', 'sekolah'));
+=======
+        return view('absensi.monitor', compact('absensiPerKelas', 'kelasList', 'tanggal'));
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     // Halaman absen mandiri untuk siswa (ambil foto via webcam)
     public function formAbsen()
     {
         $siswa = Auth::user()->siswa;
+<<<<<<< HEAD
         // Absen yang DITOLAK tidak dihitung "sudah absen" — siswa boleh mengirim ulang.
         $absensiHariIni = Absensi::where('siswa_id', $siswa->id)
             ->whereDate('tanggal', now())
@@ -66,6 +74,13 @@ class AbsensiController extends Controller
         $sudahAbsen = (bool) $absensiHariIni;
         $sekolah = PengaturanSekolah::ambil()->toArray();
         return view('absensi.form', compact('siswa', 'sudahAbsen', 'absensiHariIni', 'absensiDitolak', 'sekolah'));
+=======
+        $sudahAbsen = Absensi::where('siswa_id', $siswa->id)
+            ->whereDate('tanggal', now())
+            ->exists();
+        $sekolah = \App\Models\PengaturanSekolah::ambil()->toArray();
+        return view('absensi.form', compact('siswa', 'sudahAbsen', 'sekolah'));
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     public function simpanAbsen(Request $request)
@@ -74,9 +89,14 @@ class AbsensiController extends Controller
             'foto_base64' => 'required|string',
             'keterangan' => 'required|in:Hadir,Izin,Sakit,Lainnya',
             'keterangan_detail' => 'required_if:keterangan,Lainnya|nullable|string|max:255',
+<<<<<<< HEAD
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
             'akurasi' => 'nullable|numeric|min:0',
+=======
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         ], [
             'keterangan.required' => 'Keterangan wajib diisi sebelum mengirim absensi.',
             'keterangan_detail.required_if' => 'Karena memilih "Lainnya", tuliskan dulu keterangannya sebelum mengirim absensi.',
@@ -84,6 +104,7 @@ class AbsensiController extends Controller
 
         $siswa = Auth::user()->siswa;
 
+<<<<<<< HEAD
         $sudahAda = Absensi::where('siswa_id', $siswa->id)->whereDate('tanggal', now())
             ->where('status_persetujuan', '!=', 'ditolak')->exists();
         if ($sudahAda) {
@@ -92,6 +113,11 @@ class AbsensiController extends Controller
         // Absen yang ditolak admin/guru diganti dengan kiriman baru ini.
         Absensi::where('siswa_id', $siswa->id)->whereDate('tanggal', now())
             ->where('status_persetujuan', 'ditolak')->delete();
+=======
+        if (Absensi::where('siswa_id', $siswa->id)->whereDate('tanggal', now())->exists()) {
+            return back()->with('gagal', 'Anda sudah absen hari ini.');
+        }
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 
         // Simpan foto hasil capture kamera (base64 dari JavaScript) sebagai file
         $fotoData = $request->foto_base64;
@@ -101,6 +127,7 @@ class AbsensiController extends Controller
         Storage::disk('public')->put($namaFile, base64_decode($fotoData));
 
         // ==== VALIDASI GPS: cek apakah siswa absen dari area sekolah ====
+<<<<<<< HEAD
         // Memakai rumus jarak efektif yang SAMA dengan JavaScript di form & halaman
         // monitor (lihat Absensi::jarakEfektif), jadi angkanya selalu sinkron.
         $sekolah = PengaturanSekolah::ambil();
@@ -139,6 +166,30 @@ class AbsensiController extends Controller
             }
         }
 
+=======
+        $sekolah = \App\Models\PengaturanSekolah::ambil()->toArray();
+        $jarak = null;
+        $diAreaSekolah = false;
+
+        if ($request->filled('latitude') && $request->filled('longitude')) {
+            $jarak = Absensi::hitungJarakMeter(
+                $sekolah['latitude'], $sekolah['longitude'],
+                $request->latitude, $request->longitude
+            );
+            $diAreaSekolah = $jarak <= $sekolah['radius_meter'];
+        }
+
+        // Status yang disimpan ke kolom `status` TETAP salah satu dari Hadir/Izin/Sakit
+        // (supaya semua fitur lain yang sudah bergantung pada enum ini tidak perlu
+        // diubah). Kalau siswa memilih "Lainnya", disimpan sebagai "Izin" dan alasan
+        // aslinya yang ditulis manual disimpan lengkap di keterangan_detail.
+        $status = $request->keterangan === 'Lainnya' ? 'Izin' : $request->keterangan;
+        $terverifikasiOtomatis = ($status === 'Hadir' && $diAreaSekolah);
+
+        // CATATAN JUJUR: penyimpanan foto + GPS di sini BUKAN sistem liveness-detection
+        // anti-pemalsuan yang sudah teruji. Kombinasi "status Hadir + di dalam radius
+        // sekolah" dipakai untuk auto-verifikasi, selain itu tetap perlu ditinjau manual.
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         Absensi::create([
             'siswa_id' => $siswa->id,
             'tanggal' => now()->toDateString(),
@@ -149,6 +200,7 @@ class AbsensiController extends Controller
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
             'jarak_ke_sekolah_meter' => $jarak,
+<<<<<<< HEAD
             'akurasi_meter' => $akurasi,
             'di_area_sekolah' => $diAreaSekolah,
             'terverifikasi' => $otomatisDisetujui,
@@ -206,6 +258,23 @@ class AbsensiController extends Controller
             'diputuskan_pada' => now(),
         ]);
         return back()->with('sukses', 'Absen ' . ($absensi->siswa->nama ?? 'siswa') . ' ditolak. Siswa bisa mengirim ulang absennya.');
+=======
+            'di_area_sekolah' => $diAreaSekolah,
+            'terverifikasi' => $terverifikasiOtomatis,
+        ]);
+
+        if ($terverifikasiOtomatis) {
+            return redirect()->route('absensi.form')->with('sukses', 'Absen berhasil! Lokasi terkonfirmasi di area sekolah ✅');
+        }
+
+        return redirect()->route('absensi.form')->with('gagal', "Absen dengan keterangan \"{$request->keterangan}\" tersimpan, menunggu verifikasi manual dari wali kelas/admin.");
+    }
+
+    public function verifikasi(Absensi $absensi)
+    {
+        $absensi->update(['terverifikasi' => true]);
+        return back()->with('sukses', 'Absensi berhasil diverifikasi & dikunci — status tidak bisa diubah lagi.');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     public function updateManual(Request $request, Absensi $absensi)

@@ -11,7 +11,11 @@
                 <p class="text-xs text-slate-400 mt-0.5">Oleh: {{ $a->anonim ? 'Anonim' : ($a->user->name ?? '-') }} • {{ $a->created_at->diffForHumans() }}</p>
             </div>
             <span class="px-2 py-1 rounded-full text-xs font-semibold
+<<<<<<< HEAD
                 @class(['bg-amber-100 text-amber-700' => $a->status=='Baru', 'bg-indigo-100 text-indigo-700' => $a->status=='Diproses', 'bg-emerald-100 text-emerald-700' => $a->status=='Selesai'])">
+=======
+                @class(['bg-amber-100 text-amber-700' => $a->status=='Baru', 'bg-blue-100 text-blue-700' => $a->status=='Diproses', 'bg-emerald-100 text-emerald-700' => $a->status=='Selesai'])">
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 {{ $a->status }}
             </span>
         </div>

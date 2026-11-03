@@ -75,6 +75,7 @@ class SppController extends Controller
         return redirect()->route('spp.index')->with('sukses', 'Tagihan SPP berhasil dibuat.');
     }
 
+<<<<<<< HEAD
     public function show(Spp $spp)
     {
         $spp->load('siswa.kelas');
@@ -110,6 +111,8 @@ class SppController extends Controller
         return redirect()->route('spp.show', $spp)->with('sukses', 'Tagihan SPP berhasil diperbarui.');
     }
 
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     public function bayar(Spp $spp)
     {
         $spp->update(['status' => 'Lunas', 'tanggal_bayar' => now()]);
@@ -119,9 +122,13 @@ class SppController extends Controller
     public function destroy(Spp $spp)
     {
         $spp->delete();
+<<<<<<< HEAD
         // redirect eksplisit (bukan back()) supaya tombol Hapus di halaman Detail tidak
         // mengarah kembali ke halaman tagihan yang sudah terhapus.
         return redirect()->route('spp.index')->with('sukses', 'Data SPP dihapus.');
+=======
+        return back()->with('sukses', 'Data SPP dihapus.');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     // Halaman siswa melihat status SPP miliknya sendiri

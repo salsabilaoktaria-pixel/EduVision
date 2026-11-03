@@ -40,7 +40,11 @@
             @if($prestasi->file_bukti)
                 <div class="mt-2">
                     @if(Str::endsWith($prestasi->file_bukti, '.pdf'))
+<<<<<<< HEAD
                         <a href="{{ asset('storage/' . $prestasi->file_bukti) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-rose-50 text-rose-700 rounded-xl border border-red-100 hover:bg-red-100 transition">
+=======
+                        <a href="{{ asset('storage/' . $prestasi->file_bukti) }}" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 rounded-xl border border-red-100 hover:bg-red-100 transition">
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                             <span>📄</span> Lihat PDF
                         </a>
                     @else

@@ -23,7 +23,11 @@
                     <div class="kartu border-2 border-slate-200 rounded-xl p-4">
                         <div class="flex items-start justify-between gap-2">
                             <div class="w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0
+<<<<<<< HEAD
                                 {{ $m->tipe === 'link_youtube' ? 'bg-rose-100 text-rose-700' : (in_array($m->ekstensiFile(),['pdf']) ? 'bg-rose-100 text-rose-700' : 'bg-indigo-100 text-indigo-700') }}">
+=======
+                                {{ $m->tipe === 'link_youtube' ? 'bg-rose-100 text-rose-700' : (in_array($m->ekstensiFile(),['pdf']) ? 'bg-red-100 text-red-700' : 'bg-indigo-100 text-indigo-700') }}">
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                                 {{ $m->tipe === 'link_youtube' ? '▶️' : ($m->ekstensiFile() === 'pdf' ? '📕' : '📄') }}
                             </div>
                             @unless(auth()->user()->isAdmin())

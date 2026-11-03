@@ -56,19 +56,28 @@ class Siswa extends Model
         return $this->absensi()
             ->whereDate('tanggal', now()->toDateString())
             ->where('status', 'Hadir')
+<<<<<<< HEAD
             // Absen yang masih "menunggu"/"ditolak" TIDAK dihitung sebagai hadir.
             ->where('status_persetujuan', 'disetujui')
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             ->exists();
     }
 
     // Persentase kehadiran (dipakai untuk fitur prediksi)
     public function persentaseKehadiran()
     {
+<<<<<<< HEAD
         // Absen yang masih menunggu persetujuan belum dihitung (belum final).
         $dasar = fn () => $this->absensi()->where('status_persetujuan', '!=', 'menunggu');
         $total = $dasar()->count();
         if ($total == 0) return 100;
         $hadir = $dasar()->where('status', 'Hadir')->count();
+=======
+        $total = $this->absensi()->count();
+        if ($total == 0) return 100;
+        $hadir = $this->absensi()->where('status', 'Hadir')->count();
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         return round(($hadir / $total) * 100, 2);
     }
 

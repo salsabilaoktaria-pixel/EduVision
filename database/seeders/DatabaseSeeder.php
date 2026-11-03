@@ -12,8 +12,11 @@ use App\Models\Spp;
 use App\Models\Prestasi;
 use App\Models\Aspirasi;
 use App\Models\BankSoal;
+<<<<<<< HEAD
 use App\Models\Nilai;
 use App\Models\TugasHarian;
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -251,6 +254,7 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+<<<<<<< HEAD
         // ===== Bank Soal: 5 soal pilihan ganda NYATA per mapel (45 soal total) =====
         // Soal sungguhan (bukan placeholder) sesuai mata pelajaran masing-masing; kunci jawaban & tingkat kesulitan sudah diisi.
         $dataBankSoal = [
@@ -381,6 +385,23 @@ class DatabaseSeeder extends Seeder
                     ]);
                     $jumlahTugasHarian++;
                 }
+=======
+        // ===== Bank Soal: 5 soal pilihan ganda per mapel (45 soal total) =====
+        $tingkatKesulitanUrutan = ['Mudah', 'Sedang', 'Sulit'];
+        foreach ($mapelList as $mi => $mapel) {
+            for ($s = 1; $s <= 5; $s++) {
+                BankSoal::create([
+                    'mata_pelajaran_id' => $mapel->id,
+                    'pertanyaan' => "Contoh soal {$s} untuk mata pelajaran {$mapel->nama_mapel} (tingkat kesulitan bervariasi).",
+                    'pilihan_a' => 'Pilihan A',
+                    'pilihan_b' => 'Pilihan B',
+                    'pilihan_c' => 'Pilihan C',
+                    'pilihan_d' => 'Pilihan D',
+                    'pilihan_e' => 'Pilihan E',
+                    'jawaban_benar' => ['A', 'B', 'C', 'D', 'E'][$s % 5],
+                    'tingkat_kesulitan' => $tingkatKesulitanUrutan[$s % 3],
+                ]);
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             }
         }
 
@@ -395,9 +416,13 @@ class DatabaseSeeder extends Seeder
         $this->command->info('');
         $jumlahPrestasi = (int) floor((count($siswaList) - 1) / 6) + 1;
         $this->command->info('Data tambahan: ' . (count($siswaList) * 3) . ' tagihan SPP, ' . $jumlahPrestasi . ' prestasi siswa,');
+<<<<<<< HEAD
         $this->command->info(count($daftarAspirasi) . ' kotak aspirasi, ' . $jumlahSoal . ' soal bank soal asli (5 per mapel),');
         $this->command->info('dan ' . $jumlahNilai . ' data Nilai (semua siswa x semua mapel, semester ' . $semesterAktif . ' ' . $tahunAjaranAktif . ')');
         $this->command->info('beserta ' . $jumlahTugasHarian . ' nilai tugas harian (4 per mapel per siswa).');
+=======
+        $this->command->info(count($daftarAspirasi) . ' kotak aspirasi, dan ' . (count($mapelList) * 5) . ' soal bank soal (5 per mapel).');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     /**

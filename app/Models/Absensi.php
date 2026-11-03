@@ -10,6 +10,7 @@ class Absensi extends Model
     protected $fillable = [
         'siswa_id', 'tanggal', 'jam_masuk', 'status', 'keterangan_detail',
         'foto_wajah', 'latitude', 'longitude', 'terverifikasi',
+<<<<<<< HEAD
         'jarak_ke_sekolah_meter', 'akurasi_meter', 'di_area_sekolah',
         'status_persetujuan', 'alasan_menunggu', 'catatan_persetujuan',
         'diputuskan_oleh', 'diputuskan_pada',
@@ -58,6 +59,11 @@ class Absensi extends Model
         return $this->status_persetujuan === 'menunggu';
     }
 
+=======
+        'jarak_ke_sekolah_meter', 'di_area_sekolah',
+    ];
+
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);

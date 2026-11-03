@@ -5,7 +5,11 @@
 <div class="kartu bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 max-w-2xl">
     <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4 mb-5 text-xs text-indigo-700">
         <p class="font-bold mb-1">📍 Kenapa ini penting?</p>
+<<<<<<< HEAD
         <p>Titik koordinat di sini dipakai untuk menghitung jarak siswa saat absen Face ID — kalau siswa memilih Hadir dan jaraknya masih di dalam radius, absen otomatis disetujui. Selain itu (tidak hadir / di luar radius) absen menunggu persetujuan admin/guru. Sebelumnya nilainya cuma contoh/placeholder, isi dengan koordinat sekolah Anda yang SESUNGGUHNYA di sini.</p>
+=======
+        <p>Titik koordinat di sini dipakai untuk menghitung jarak siswa saat absen Face ID — kalau jaraknya masih di dalam radius, absen otomatis terverifikasi "di area sekolah". Sebelumnya nilainya cuma contoh/placeholder, isi dengan koordinat sekolah Anda yang SESUNGGUHNYA di sini.</p>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     </div>
 
     @if(session('sukses'))
@@ -51,16 +55,20 @@
 </div>
 
 <script>
+<<<<<<< HEAD
 // Titik sekolah diambil dengan GPS AKURASI TINGGI selama beberapa detik dan memakai fix
 // terbaik — supaya titik yang tersimpan setara kualitasnya dengan titik GPS siswa.
 // (Sebelumnya memakai fix pertama yang kasar, jadi siswa yang berdiri di tempat yang sama
 // bisa terbaca puluhan meter dari sekolah.)
+=======
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 document.getElementById('btnLokasiSaya').addEventListener('click', () => {
     const status = document.getElementById('statusLokasiSaya');
     if (!navigator.geolocation) {
         status.innerText = '⚠️ Browser ini tidak mendukung deteksi lokasi.';
         return;
     }
+<<<<<<< HEAD
     status.innerText = '📡 Mendeteksi lokasi dengan akurasi tinggi, tunggu beberapa detik...';
     let terbaik = null, watchId = null;
     const selesai = () => {
@@ -78,6 +86,16 @@ document.getElementById('btnLokasiSaya').addEventListener('click', () => {
         if (terbaik.accuracy <= 10) selesai();
     }, selesai, { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 });
     setTimeout(selesai, 12000);
+=======
+    status.innerText = '📡 Mendeteksi lokasi...';
+    navigator.geolocation.getCurrentPosition(pos => {
+        document.getElementById('latitude').value = pos.coords.latitude;
+        document.getElementById('longitude').value = pos.coords.longitude;
+        status.innerText = '✅ Lokasi terdeteksi (akurasi ± ' + Math.round(pos.coords.accuracy) + ' meter). Klik Simpan untuk menerapkan.';
+    }, () => {
+        status.innerText = '⚠️ Gagal mendeteksi lokasi. Pastikan izin GPS diaktifkan di browser.';
+    });
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 });
 </script>
 @endsection

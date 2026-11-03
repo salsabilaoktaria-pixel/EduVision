@@ -11,7 +11,11 @@
 @endphp
 <div class="mb-4">
     <a href="{{ $tujuan }}"
+<<<<<<< HEAD
        class="inline-flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 pl-2 pr-4 py-2 rounded-full shadow-sm shadow-teal-700/25 border-2 border-teal-400/30 transition group">
+=======
+       class="inline-flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 pl-2 pr-4 py-2 rounded-full shadow-sm shadow-teal-900/20 border-2 border-teal-400/30 transition group">
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition">←</span>
         Kembali
     </a>

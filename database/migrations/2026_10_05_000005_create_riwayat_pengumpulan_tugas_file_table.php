@@ -18,7 +18,11 @@ return new class extends Migration
             $table->string('file_nama_asli');
             $table->timestamps();
 
+<<<<<<< HEAD
             $table->foreign('riwayat_pengumpulan_tugas_id', 'fk_rp_tugas_file_id')
+=======
+            $table->foreign('riwayat_pengumpulan_tugas_id', 'fk_riwayat_tugas_file')
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 ->references('id')->on('riwayat_pengumpulan_tugas')
                 ->onDelete('cascade');
         });

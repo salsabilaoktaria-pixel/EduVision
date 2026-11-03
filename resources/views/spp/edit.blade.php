@@ -36,8 +36,13 @@
         </div>
 
         <div class="flex gap-3 pt-2">
+<<<<<<< HEAD
             <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Simpan Perubahan</button>
             <a href="{{ route('spp.show', $spp) }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
+=======
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Simpan Perubahan</button>
+            <a href="{{ route('spp.show', $spp) }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         </div>
     </form>
 </div>

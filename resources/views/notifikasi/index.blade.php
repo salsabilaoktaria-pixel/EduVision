@@ -24,10 +24,19 @@
             @unless($n->dibaca_pada)<span class="w-2 h-2 rounded-full bg-teal-500 mt-2 shrink-0"></span>@endunless
         </a>
         @empty
+<<<<<<< HEAD
         <div class="text-center py-14">
             <x-ikon nama="bell" class="w-10 h-10 text-slate-300 mx-auto" />
             <p class="mt-2 font-bold text-ink-900">Belum ada notifikasi</p>
             <p class="text-sm text-slate-400">Pemberitahuan baru akan muncul di sini.</p>
+=======
+        <div class="flex items-start gap-4 px-2 py-8">
+            <span class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center shrink-0"><x-ikon nama="bell" class="w-6 h-6" /></span>
+            <div>
+                <p class="font-bold text-ink-900">Belum ada notifikasi</p>
+                <p class="text-sm text-slate-400">Pemberitahuan baru akan muncul di sini.</p>
+            </div>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         </div>
         @endforelse
     </div>

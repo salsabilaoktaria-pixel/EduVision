@@ -31,7 +31,11 @@
                 </select>
             </div>
         </div>
+<<<<<<< HEAD
         <button type="submit" id="btnGenerateAi" onclick="document.getElementById('loadingAi').classList.remove('hidden'); this.disabled=true; this.innerText='Sedang membuat soal...';" class="w-full bg-gradient-to-r from-indigo-500 to-indigo-700 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:opacity-90 transition">✨ Buatkan Soal dengan AI</button>
+=======
+        <button type="submit" id="btnGenerateAi" onclick="document.getElementById('loadingAi').classList.remove('hidden'); this.disabled=true; this.innerText='Sedang membuat soal...';" class="w-full bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:opacity-90 transition">✨ Buatkan Soal dengan AI</button>
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         <p id="loadingAi" class="hidden text-xs text-slate-400 text-center">AI sedang meracik soal, mohon tunggu (biasanya 5–20 detik)...</p>
     </form>
 </div>
