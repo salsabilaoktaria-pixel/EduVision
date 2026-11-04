@@ -13,10 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
-<<<<<<< HEAD
+
             'konfirmasi.password' => \App\Http\Middleware\KonfirmasiPassword::class,
-=======
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
