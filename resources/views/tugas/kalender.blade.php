@@ -30,7 +30,7 @@
                 <div class="mt-1 space-y-1">
                     @foreach($tugasHariIni as $t)
                         <a href="{{ $user->isSiswa() ? route('tugas.formKumpulkan', $t) : route('tugas.show', $t) }}"
-                           class="block text-[10px] sm:text-xs font-semibold px-1.5 py-1 rounded-md truncate bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition"
+                           data-popup class="block text-[10px] sm:text-xs font-semibold px-1.5 py-1 rounded-md truncate bg-indigo-100 text-indigo-700 hover:bg-indigo-200 transition"
                            title="{{ $t->judul }} ({{ $t->mataPelajaran->nama_mapel ?? '-' }})">
                             {{ $t->judul }}
                         </a>

@@ -90,6 +90,25 @@ class Semester
             return $cache[$kunciCache];
         }
 
+        // Dihitung dari ±14 query, jadi hasilnya disimpan 2 menit per sekolah (halaman tidak lagi lambat).
+        // Dihapus otomatis saat admin menambah/menghapus semester (lihat lupakanCache()).
+        return $cache[$kunciCache] = \Illuminate\Support\Facades\Cache::remember(
+            self::kunciCache(), 120, fn () => self::hitungOpsi()
+        );
+    }
+
+    public static function kunciCache(): string
+    {
+        return 'semester_opsi_' . (\App\Support\Tenant::id() ?: 'semua');
+    }
+
+    public static function lupakanCache(): void
+    {
+        \Illuminate\Support\Facades\Cache::forget(self::kunciCache());
+    }
+
+    private static function hitungOpsi(): array
+    {
         $daftar = [];
         $tambah = function (?string $sem, ?string $ta) use (&$daftar) {
             if (in_array($sem, ['Ganjil', 'Genap'], true) && $ta && preg_match('/^\d{4}\/\d{4}$/', $ta)) {
@@ -132,7 +151,7 @@ class Semester
 
         $daftar = array_values($daftar);
         usort($daftar, fn ($x, $y) => self::urut($y) <=> self::urut($x));
-        return $cache[$kunciCache] = $daftar;
+        return $daftar;
     }
 
     /** [mulai, selesai] tanggal semester tsb. */

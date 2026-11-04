@@ -10,7 +10,7 @@
                 @foreach($kelasList as $k)<option value="{{ $k->id }}" @selected(request('kelas_id')==$k->id)>{{ $k->nama_kelas }}</option>@endforeach
             </select>
         </form>
-        <a href="{{ route('jadwal.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Jadwal</a>
+        <a href="{{ route('jadwal.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Jadwal</a>
     </div>
 
     @forelse($jadwal as $hari => $daftar)

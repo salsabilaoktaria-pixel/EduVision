@@ -38,7 +38,9 @@
             <button class="tombol-aktif btn-utama w-full"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Semester Berikutnya</button>
             <p class="text-xs text-slate-500 mt-2">Satu klik menambah semester tepat setelah yang terbaru (mis. Genap 2026/2027, lalu Ganjil 2027/2028).</p>
         </form>
-        <p class="text-sm font-semibold text-slate-700 mb-2">Atau isi manual:</p>
+        <details class="group" @if($errors->any()) open @endif>
+            <summary class="cursor-pointer text-sm font-semibold text-teal-700 hover:underline list-none flex items-center gap-1.5"><x-ikon nama="plus" class="w-4 h-4" /> Atau isi manual (tahun ajaran tertentu)</summary>
+            <div class="mt-3">
         <form method="POST" action="{{ route('semester.store') }}" class="space-y-3">
             @csrf
             <div><label class="text-sm font-semibold text-slate-700">Semester</label>
@@ -46,8 +48,10 @@
             <div><label class="text-sm font-semibold text-slate-700">Tahun Ajaran</label>
                 <input type="text" name="tahun_ajaran" value="{{ old('tahun_ajaran') }}" placeholder="2027/2028" class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
                 @error('tahun_ajaran')<p class="text-xs text-rose-600 mt-1">{{ $message }}</p>@enderror</div>
-            <button class="tombol-aktif btn-utama w-full"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Semester</button>
+            <button class="tombol-aktif btn-sekunder w-full"><x-ikon nama="check" class="w-4 h-4" /> Simpan Semester</button>
         </form>
+            </div>
+        </details>
         <p class="text-xs text-slate-500 mt-4 leading-relaxed">Contoh: untuk tahun ajaran berikutnya isi <b>Ganjil</b> dengan <b>2027/2028</b>. Setelah ditambahkan, semester itu otomatis terpilih sehingga mapel, jadwal, tugas, dan materi baru langsung tercatat di semester tersebut.</p>
     </div>
 </div>

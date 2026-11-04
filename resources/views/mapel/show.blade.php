@@ -33,13 +33,15 @@
 
     <div class="mt-5">
         <p class="text-xs text-slate-400 font-semibold uppercase mb-2">Diajarkan di Kelas</p>
-        <div>
-            @forelse($mapel->kelas as $k)
-                <span class="inline-block px-3 py-1 mb-1 mr-1 rounded-full bg-indigo-50 text-indigo-600 text-sm font-semibold">{{ $k->nama_kelas }}</span>
-            @empty
-                <span class="text-slate-300 text-sm">Belum diatur di kelas manapun.</span>
-            @endforelse
+        @if($mapel->kelas->count())
+        <div class="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-8 gap-2 max-w-3xl">
+            @foreach($mapel->kelas as $k)
+                <span class="flex items-center justify-center h-8 rounded-full whitespace-nowrap bg-indigo-50 text-indigo-800 text-xs font-bold text-center border-2 border-indigo-600">{{ $k->nama_kelas }}</span>
+            @endforeach
         </div>
+        @else
+            <span class="text-slate-400 text-sm">Belum diatur di kelas manapun.</span>
+        @endif
     </div>
 </div>
 @endsection

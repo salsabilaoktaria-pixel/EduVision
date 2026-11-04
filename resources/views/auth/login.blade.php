@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - EduVision</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     @include('partials.tema-sekolah')
     <style>
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
         .tombol-aktif:hover { transform: translateY(-2px); filter: brightness(1.05); }
     </style>
+    @include('partials.css-tailwind')
 </head>
 <body class="min-h-screen flex items-center justify-center hero-pastel p-4">
     <div class="w-full max-w-4xl grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden">

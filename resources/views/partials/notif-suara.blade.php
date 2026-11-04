@@ -49,6 +49,6 @@
             }).catch(function () {});
     }
     setTimeout(cek, 1500);
-    setInterval(cek, 30000);
+    setInterval(cek, 60000);
 })();
 </script>

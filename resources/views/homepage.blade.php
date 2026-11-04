@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduVision — Sistem Akademik Sekolah</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     @include('partials.tema-sekolah')
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
+    <script defer src="{{ asset('vendor/alpine.min.js') }}"></script>
     <style>
         [x-cloak]{display:none!important;}
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
@@ -18,6 +17,7 @@
            apa pun yang muncul di batas antara hero gelap dan konten terang. */
         .gelombang path { stroke: none; }
     </style>
+    @include('partials.css-tailwind')
 </head>
 <body class="bg-slate-50 text-slate-800">
 
@@ -47,7 +47,7 @@
                     <p class="text-xs text-slate-300 mt-1">Modul Akademik</p>
                 </div>
                 <div>
-                    <p class="text-2xl sm:text-3xl font-extrabold text-amber-300">3</p>
+                    <p class="text-2xl sm:text-3xl font-extrabold text-amber-300">4</p>
                     <p class="text-xs text-slate-300 mt-1">Peran Pengguna</p>
                 </div>
                 <div>
@@ -130,13 +130,18 @@
     <section class="max-w-6xl mx-auto px-6 mt-20">
         <div class="text-center max-w-2xl mx-auto mb-10">
             <span class="text-indigo-600 text-xs font-bold uppercase tracking-widest">Untuk Siapa</span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-ink-900 mt-2">Satu Sistem, Tiga Peran</h2>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-ink-900 mt-2">Satu Sistem, Empat Peran</h2>
             <p class="text-slate-500 mt-3">Setiap peran mendapat tampilan dan akses yang relevan dengan kebutuhannya masing-masing.</p>
         </div>
-        <div class="grid sm:grid-cols-3 gap-5">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
+                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3"><x-ikon nama="school" class="w-6 h-6" /></div>
+                <h3 class="font-bold mb-1">Super Admin</h3>
+                <p class="text-sm text-slate-700">Pemilik platform: mendaftarkan sekolah baru, membuat akun admin tiap sekolah, dan memantau seluruh sekolah.</p>
+            </div>
             <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
                 <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3"><x-ikon nama="folder" class="w-6 h-6" /></div>
-                <h3 class="font-bold mb-1">Admin / Tata Usaha</h3>
+                <h3 class="font-bold mb-1">Admin Sekolah</h3>
                 <p class="text-sm text-slate-700">Kelola data siswa, guru, kelas, mapel, SPP, dan pantau seluruh aktivitas sekolah dari satu dashboard.</p>
             </div>
             <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">

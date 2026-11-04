@@ -1,13 +1,24 @@
+@if(request()->headers->has('X-Modal'))
+{{-- Mode pop-up: hanya isi halaman (tanpa sidebar/navbar), dimuat ke dalam jendela pop-up oleh partials/popup-aksi --}}
+@php
+    // Pesan sukses/gagal diteruskan ke halaman lengkap berikutnya, kecuali tujuannya memang halaman yang sedang ada di pop-up.
+    $asalPopup = [request()->header('X-Modal-Asal'), request()->header('X-Modal-Sekarang')];
+    if (!in_array(request()->fullUrl(), $asalPopup, true)) { foreach (['sukses', 'gagal'] as $kunciFlash) { if (session()->has($kunciFlash)) { session()->keep([$kunciFlash]); } } }
+@endphp
+@if($errors->any())
+    <div class="popup-galat mb-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 text-sm"><ul class="list-disc pl-4">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
+@endif
+<div data-judul="@yield('title')">@yield('content')</div>
+@else
 <!DOCTYPE html>
 <html lang="id" x-data="{ sidebarOpen: false, fotoModalUrl: null }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Dashboard') - EduVision</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     @include('partials.tema-sekolah')
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script defer src="{{ asset('vendor/alpine.min.js') }}"></script>
+    @if(request()->routeIs('dashboard'))<script src="{{ asset('vendor/chart.umd.min.js') }}"></script>@endif
     <style>
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-thumb { background: #aac3e6; border-radius: 10px; }
@@ -23,27 +34,32 @@
             transition: transform .25s ease, box-shadow .25s ease;
             isolation: isolate;
         }
-        .kartu::before {
-            content: '';
-            position: absolute; inset: -1.5px;
-            border-radius: inherit;
-            padding: 1.5px;
-            background: conic-gradient(from var(--shimmer-angle, 0deg), transparent 0%, #efc23f 8%, #5f86c4 16%, transparent 28%);
+        /* Kilau melingkar yang menyambung: satu lapisan gradien kerucut diputar (rotate = dikerjakan GPU, jadi mulus),
+           dipotong menjadi cincin tipis di tepi kartu. Elemen .kilau-ring dipasang otomatis oleh skrip di bawah. */
+        .kartu::after { content: ''; position: absolute; left: 0; right: 0; bottom: -8px; height: 8px; } /* jembatan hover: kartu tidak "berkedip" saat terangkat */
+        .kartu > .kilau-ring {
+            position: absolute !important; inset: 0; margin: 0 !important; border: 0 !important; padding: 3px;
+            display: block; border-radius: inherit; overflow: hidden; pointer-events: none; z-index: 3;
             -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude;
-            opacity: 0; transition: opacity .3s ease;
-            z-index: -1;
-            animation: putar-shimmer 2.5s linear infinite paused;
+            opacity: 0; transition: opacity .25s ease;
         }
-        .kartu:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -12px rgba(15,23,42,.18); }
-        .kartu:hover::before { opacity: 1; animation-play-state: running; }
-        @property --shimmer-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-        @keyframes putar-shimmer { to { --shimmer-angle: 360deg; } }
+        .kilau-ring > i {
+            position: absolute; left: 50%; top: 50%; display: block;
+            width: var(--kd, 700px); height: var(--kd, 700px); margin: calc(var(--kd, 700px) / -2) 0 0 calc(var(--kd, 700px) / -2);
+            background: conic-gradient(from 0deg, transparent 0%, rgba(239,194,63,.2) 6%, #efc23f 26%, #5f86c4 40%, transparent 40.4%, transparent 100%);
+            animation: putar-kilau 2.4s linear infinite paused; will-change: transform;
+        }
+        .kartu:hover { transform: translateY(-3px); box-shadow: 0 14px 28px -12px rgba(15,23,42,.18); }
+        .kartu:hover > .kilau-ring { opacity: 1; }
+        .kartu:hover > .kilau-ring > i { animation-play-state: running; }
+        @keyframes putar-kilau { to { transform: rotate(360deg); } }
 
         /* Tombol jadi sedikit terangkat saat hover, senada dengan kartu */
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
         .tombol-aktif:hover { transform: translateY(-2px); filter: brightness(1.05); }
     </style>
+    @include('partials.css-tailwind')
 </head>
 <body class="text-slate-800 min-h-screen overflow-x-hidden">
     <div class="flex min-h-screen">
@@ -118,7 +134,6 @@
                 <a href="{{ route('kurikulum.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl border-l-4 {{ $menu('kurikulum.*') }} transition"><span class="menu-ikon"><x-ikon nama="book-open" class="w-[18px] h-[18px]" /></span><span class="text-sm font-semibold">Kurikulum</span></a>
                 <a href="{{ route('semester.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl border-l-4 {{ $menu('semester.index') }} transition"><span class="menu-ikon"><x-ikon nama="calendar" class="w-[18px] h-[18px]" /></span><span class="text-sm font-semibold">Semester</span></a>
                 <a href="{{ route('spp.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl border-l-4 {{ $menu('spp.index') }} transition"><span class="menu-ikon"><x-ikon nama="credit-card" class="w-[18px] h-[18px]" /></span><span class="text-sm font-semibold">SPP</span></a>
-                <a href="{{ route('apiklien.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl border-l-4 {{ $menu('apiklien.*') }} transition"><span class="menu-ikon"><x-ikon nama="code" class="w-[18px] h-[18px]" /></span><span class="text-sm font-semibold">Integrasi API</span></a>
                 <a href="{{ route('pengaturan.edit') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-xl border-l-4 {{ $menu('pengaturan.*') }} transition"><span class="menu-ikon"><x-ikon nama="settings" class="w-[18px] h-[18px]" /></span><span class="text-sm font-semibold">Pengaturan Sekolah</span></a>
                 @endif
 
@@ -185,16 +200,14 @@
                         <button @click="userMenu = !userMenu"
                                 class="w-11 h-11 rounded-full bg-teal-600 text-white font-bold flex items-center justify-center ring-2 ring-teal-200 hover:ring-brand-300 transition shrink-0 overflow-hidden">
                             @if(auth()->user()->fotoUrl())
-                                {{-- Klik langsung pada foto membuka pop-up ukuran penuh (lihat modal
-                                     global di bagian bawah halaman), bukan membuka menu dropdown. --}}
-                                <img src="{{ auth()->user()->fotoUrl() }}" class="w-full h-full object-cover cursor-zoom-in"
-                                     @click.stop="fotoModalUrl = '{{ auth()->user()->fotoUrl() }}'" alt="Foto profil">
+                                {{-- Klik foto = membuka menu profil (sama untuk semua peran). Foto ukuran penuh: menu "Lihat Foto". --}}
+                                <img src="{{ auth()->user()->fotoUrl() }}" class="w-full h-full object-cover" alt="Foto profil">
                             @else
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             @endif
                         </button>
                         <div x-show="userMenu" x-cloak x-transition
-                             class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border-2 border-slate-200 py-2 z-30">
+                             class="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border-2 border-slate-200 py-2 z-30">
                             <div class="px-4 py-2 border-b border-slate-50 sm:hidden">
                                 <p class="text-sm font-semibold text-ink-900">{{ auth()->user()->name }}</p>
                                 <p class="text-xs text-slate-500 capitalize">{{ str_replace('_',' ', auth()->user()->role) }}</p>
@@ -204,6 +217,10 @@
                                     </select>
                                 </form>
                             </div>
+                            <a href="{{ route('profil') }}" class="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"><x-ikon nama="user" class="w-4 h-4 inline-block align-[-2px] mr-1.5" />Profil Saya</a>
+                            @if(auth()->user()->fotoUrl())
+                            <button type="button" @click="fotoModalUrl = '{{ auth()->user()->fotoUrl() }}'; userMenu = false" class="block w-full text-left px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"><x-ikon nama="eye" class="w-4 h-4 inline-block align-[-2px] mr-1.5" />Lihat Foto</button>
+                            @endif
                             <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"><x-ikon nama="grid" class="w-4 h-4 inline-block align-[-2px] mr-1.5" />Dashboard</a>
                             <a href="{{ route('akun.gantiPassword') }}" class="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50"><x-ikon nama="lock" class="w-4 h-4 inline-block align-[-2px] mr-1.5" />Ganti Password</a>
                             <form method="POST" action="{{ route('logout') }}">
@@ -298,6 +315,31 @@
         </div>
     </div>
     <script>
+        // Pasang lapisan kilau ke setiap kartu (termasuk kartu yang muncul belakangan lewat pop-up / pembaruan halaman).
+        (function () {
+            function pasang(root) {
+                (root || document).querySelectorAll('.kartu:not([data-kilau])').forEach(function (k) {
+                    k.dataset.kilau = '1';
+                    var r = document.createElement('span'); r.className = 'kilau-ring'; r.setAttribute('aria-hidden', 'true');
+                    r.appendChild(document.createElement('i')); k.appendChild(r);
+                });
+            }
+            pasang();
+            var menunggu = false;
+            new MutationObserver(function () {
+                if (menunggu) return; menunggu = true;
+                requestAnimationFrame(function () { menunggu = false; pasang(); });
+            }).observe(document.body, { childList: true, subtree: true });
+            // Ukuran lapisan putar disesuaikan dengan diagonal kartu supaya cincin selalu tertutup penuh
+            document.addEventListener('mouseover', function (e) {
+                var k = e.target.closest ? e.target.closest('.kartu') : null;
+                if (!k) return;
+                var d = Math.ceil(Math.hypot(k.offsetWidth, k.offsetHeight)) + 8;
+                if (k.dataset.kd !== String(d)) { k.dataset.kd = d; k.style.setProperty('--kd', d + 'px'); }
+            }, { passive: true });
+        })();
+    </script>
+    <script>
         // Tabel lebar otomatis dibungkus area scroll horizontal, supaya saat jendela dikecilkan
         // tabelnya bergeser di dalam kartu dan tidak merusak tata letak seluruh halaman.
         document.querySelectorAll('main table').forEach(t => {
@@ -310,5 +352,7 @@
     </script>
 @include('partials.dialog')
     @include('partials.notif-suara')
+    @include('partials.popup-aksi')
 </body>
 </html>
+@endif

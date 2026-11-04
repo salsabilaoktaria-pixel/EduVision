@@ -4,7 +4,7 @@
 <x-tombol-kembali :first-page="true" />
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-5 kartu">
     <div class="flex justify-end mb-5">
-        <a href="{{ route('kelas.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Kelas</a>
+        <a href="{{ route('kelas.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Kelas</a>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
     @forelse($kelas as $k)

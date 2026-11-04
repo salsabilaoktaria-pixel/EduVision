@@ -11,7 +11,7 @@
                 <option value="Belum Lunas" @selected(request('status')=='Belum Lunas')>Belum Lunas</option>
             </select>
         </form>
-        <a href="{{ route('spp.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Buat Tagihan</a>
+        <a href="{{ route('spp.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Buat Tagihan</a>
     </div>
 
     {{-- Dikelompokkan per KELAS, dan di dalamnya tiap SISWA tampil satu per satu

@@ -21,15 +21,11 @@ use App\Http\Controllers\MateriController;
 use App\Http\Controllers\AkunController;
 use App\Http\Controllers\TugasController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\ApiKlienController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\KredensialController;
 
 // ================= AUTH =================
-Route::get('/', function () {
-    // Kalau sudah login, langsung ke dashboard. Kalau belum, tampilkan homepage.
-    return auth()->check() ? redirect()->route('dashboard') : view('homepage');
-})->name('home');
+Route::get('/', [DashboardController::class, 'home'])->name('home'); // pakai controller (bukan closure) supaya `php artisan optimize` bisa menyimpan cache rute
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -49,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/notifikasi/{notifikasi}/baca', [NotifikasiController::class, 'baca'])->name('notifikasi.baca');
 
     // ---- Ganti Password: semua role login ----
+    Route::get('/profil', [AkunController::class, 'profil'])->name('profil');
     Route::get('/ganti-password', [AkunController::class, 'gantiPassword'])->name('akun.gantiPassword');
     Route::post('/ganti-password', [AkunController::class, 'updatePassword'])->name('akun.updatePassword');
 
@@ -99,11 +96,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/spp/{spp}/bayar', [SppController::class, 'bayar'])->name('spp.bayar');
 
         // ---- Pengaturan Sekolah (lokasi Face ID) ----
-        // ---- Integrasi API (kunci untuk aplikasi Komite) ----
-        Route::get('/integrasi-api', [ApiKlienController::class, 'index'])->name('apiklien.index');
-        Route::post('/integrasi-api', [ApiKlienController::class, 'store'])->name('apiklien.store');
-        Route::patch('/integrasi-api/{apiklien}', [ApiKlienController::class, 'toggle'])->name('apiklien.toggle');
-        Route::delete('/integrasi-api/{apiklien}', [ApiKlienController::class, 'destroy'])->name('apiklien.destroy');
 
         Route::get('/pengaturan-sekolah', [PengaturanController::class, 'edit'])->name('pengaturan.edit');
         Route::post('/pengaturan-sekolah', [PengaturanController::class, 'update'])->name('pengaturan.update');

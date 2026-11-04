@@ -11,7 +11,7 @@ class BankSoal extends Model
     protected $table = 'bank_soal';
     protected $fillable = [
         'mata_pelajaran_id', 'pertanyaan', 'gambar', 'pilihan_a', 'pilihan_b',
-        'pilihan_c', 'pilihan_d', 'pilihan_e', 'jawaban_benar', 'tingkat_kesulitan'
+        'pilihan_c', 'pilihan_d', 'pilihan_e', 'jawaban_benar', 'tingkat_kesulitan', 'pembahasan'
     ];
 
     public function mataPelajaran()

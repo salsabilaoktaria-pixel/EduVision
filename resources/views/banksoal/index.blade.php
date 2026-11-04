@@ -11,7 +11,7 @@
             </select>
         </form>
         <div class="flex gap-2 flex-wrap">
-            <a href="{{ route('banksoal.create') }}" class="bg-teal-600 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Manual</a>
+            <a href="{{ route('banksoal.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Manual</a>
             <a href="{{ route('banksoal.importForm') }}" class="bg-slate-700 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-slate-800 transition text-center"><x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Import File</a>
         </div>
     </div>

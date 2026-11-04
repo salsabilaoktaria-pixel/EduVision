@@ -4,7 +4,7 @@
 <x-tombol-kembali :href="route('banksoal.index')" />
 
 <div class="flex gap-2 mb-5 flex-wrap">
-    <a href="{{ route('banksoal.create') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buat Manual</a>
+    <a href="{{ route('banksoal.create') }}" data-popup class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buat Manual</a>
     <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white"><x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Import File</span>
 </div>
 

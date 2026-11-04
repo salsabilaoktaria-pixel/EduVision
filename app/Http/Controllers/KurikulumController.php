@@ -67,6 +67,10 @@ class KurikulumController extends Controller
 
     public function destroy(Kurikulum $kurikulum)
     {
+        // Kurikulum yang sedang aktif dilindungi: harus dinonaktifkan/diganti dulu sebelum bisa dihapus.
+        if ($kurikulum->aktif) {
+            return redirect()->route('kurikulum.index')->with('gagal', 'Kurikulum yang sedang aktif tidak bisa dihapus. Aktifkan kurikulum lain terlebih dahulu.');
+        }
         $kurikulum->mataPelajaran()->update(['kurikulum_id' => null]);
         $kurikulum->delete();
         return redirect()->route('kurikulum.index')->with('sukses', 'Kurikulum berhasil dihapus. Mapel di dalamnya tetap ada tanpa kurikulum.');

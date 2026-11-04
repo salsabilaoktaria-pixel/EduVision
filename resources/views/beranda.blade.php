@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selamat Datang — EduVision</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     @include('partials.tema-sekolah')
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
+    <script defer src="{{ asset('vendor/alpine.min.js') }}"></script>
     <style>
         [x-cloak]{display:none!important;}
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
@@ -15,6 +14,7 @@
         .kartu:hover { transform: translateY(-4px); box-shadow: 0 16px 32px -12px rgba(15,23,42,.18); }
         .gelombang path { stroke: none; }
     </style>
+    @include('partials.css-tailwind')
 </head>
 <body class="bg-slate-50 text-slate-800" x-data="{ fotoModalUrl: null }">
 

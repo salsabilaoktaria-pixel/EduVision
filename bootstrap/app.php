@@ -14,7 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
-            'api.key' => \App\Http\Middleware\ApiKey::class,
             'konfirmasi.password' => \App\Http\Middleware\KonfirmasiPassword::class,
         ]);
         $middleware->appendToGroup('web', \App\Http\Middleware\HeaderKeamanan::class);

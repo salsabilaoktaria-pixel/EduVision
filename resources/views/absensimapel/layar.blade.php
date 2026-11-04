@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="{{ asset('vendor/qrcode.min.js') }}"></script>
 <script>
 const urlToken = "{{ route('absensimapel.token', $sesi) }}";
 const urlStatus = "{{ route('absensimapel.status', $sesi) }}";

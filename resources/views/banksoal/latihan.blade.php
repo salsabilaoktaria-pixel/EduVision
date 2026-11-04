@@ -14,13 +14,13 @@
     <form method="POST" action="{{ route('banksoal.koreksi') }}" class="space-y-6">
         @csrf
         @foreach($soal as $i => $s)
-        <div class="border-2 border-slate-200 rounded-xl p-4">
+        <div class="soal-kartu border-2 border-slate-200 rounded-xl p-4">
             <p class="font-semibold text-ink-900 mb-3">{{ $i+1 }}. {{ $s->pertanyaan }}</p>
             @if($s->gambar)<img src="{{ asset('storage/'.$s->gambar) }}" class="mb-3 max-h-56 rounded-xl border-2 border-slate-200">@endif
             <div class="space-y-2 text-sm">
                 @foreach(['A'=>'pilihan_a','B'=>'pilihan_b','C'=>'pilihan_c','D'=>'pilihan_d','E'=>'pilihan_e'] as $huruf => $field)
                 @continue(empty($s->$field)) {{-- soal 4 pilihan: pilihan E kosong, jangan ditampilkan --}}
-                <label class="flex items-center gap-2 p-2 rounded-lg hover:bg-slate-50 cursor-pointer">
+                <label class="pilihan flex items-center gap-2 p-2 rounded-lg border-2 border-transparent hover:bg-slate-50 cursor-pointer" data-huruf="{{ $huruf }}">
                     <input type="radio" name="jawaban[{{ $s->id }}]" value="{{ $huruf }}" required class="text-teal-600">
                     {{ $huruf }}. {{ $s->$field }}
                 </label>
@@ -28,10 +28,12 @@
             </div>
         </div>
         @endforeach
+        <p class="text-xs text-slate-500">Kunci jawaban dan penjelasan baru ditampilkan setelah kamu menekan tombol selesai.</p>
         <button class="bg-teal-600 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check-circle" class="w-4 h-4" /> Selesai & Lihat Skor</button>
     </form>
     @elseif(request('mapel_id'))
         <p class="text-center py-10 text-slate-400">Belum ada soal untuk mapel ini.</p>
     @endif
 </div>
+
 @endsection

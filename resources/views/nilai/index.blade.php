@@ -17,7 +17,7 @@
                 <a href="{{ route('nilai.index') }}" class="px-4 py-2 text-sm text-slate-500 hover:text-slate-700">Reset</a>
             @endif
         </form>
-        <a href="{{ route('nilai.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="edit" class="w-4 h-4" /> Input Nilai</a>
+        <a href="{{ route('nilai.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="edit" class="w-4 h-4" /> Input Nilai</a>
     </div>
 
     @forelse($siswaPerKelas as $namaKelas => $daftarSiswa)

@@ -42,7 +42,7 @@
         e.preventDefault();
         const bahaya = /^(hapus|tolak|buang)/i.test(teks);
         buka(teks, { bahaya, judul: bahaya ? 'Yakin ingin melanjutkan?' : 'Konfirmasi', ok: bahaya ? 'Ya, hapus' : 'Ya, lanjutkan',
-            aksi: () => { f.dataset.sudahOk = '1'; f.submit(); } });
+            aksi: () => { f.dataset.sudahOk = '1'; if (window.eduKirim) { window.eduKirim(f); } else { f.submit(); } } });
     }, true);
     window.alert = function (pesan) { buka(String(pesan), { bahaya: false, info: true, judul: 'Pemberitahuan', ok: 'Mengerti' }); };
 })();

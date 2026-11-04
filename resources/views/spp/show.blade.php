@@ -40,7 +40,7 @@
         <h3 class="font-bold text-ink-900 mb-3">Tagihan lain siswa ini</h3>
         <div class="space-y-2">
             @forelse($tagihanLain as $t)
-                <a href="{{ route('spp.show', $t) }}" class="flex items-center justify-between text-sm rounded-xl border-2 border-slate-100 px-3 py-2 hover:border-teal-300 transition">
+                <a href="{{ route('spp.show', $t) }}" class="flex items-center justify-between text-sm rounded-xl border-2 border-slate-100 px-3 py-2 hover:border-teal-300 transition" data-popup>
                     <span class="font-semibold text-ink-900">{{ $t->bulan }} {{ $t->tahun }}</span>
                     <span class="text-xs font-bold {{ $t->status === 'Lunas' ? 'text-emerald-600' : 'text-rose-600' }}">{{ $t->status }}</span>
                 </a>

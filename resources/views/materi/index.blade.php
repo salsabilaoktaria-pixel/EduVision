@@ -11,7 +11,7 @@
             </select>
         </form>
         @unless(auth()->user()->isAdmin())
-        <a href="{{ route('materi.create') }}" class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Materi</a>
+        <a href="{{ route('materi.create') }}" data-popup class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Materi</a>
         @endunless
     </div>
 

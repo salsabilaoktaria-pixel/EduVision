@@ -35,7 +35,7 @@
             </div>
         </div>
     @empty
-        <p class="text-center py-10 text-slate-400">Tidak ada jadwal mengajar untuk hari {{ $hariIni }}. <a href="{{ route('jadwal.create') }}" class="text-teal-600 font-semibold hover:underline">Tambah jadwal</a> dulu kalau belum ada.</p>
+        <p class="text-center py-10 text-slate-400">Tidak ada jadwal mengajar untuk hari {{ $hariIni }}. <a href="{{ route('jadwal.create') }}" data-popup class="text-teal-600 font-semibold hover:underline">Tambah jadwal</a> dulu kalau belum ada.</p>
     @endforelse
 </div>
 @endsection

@@ -39,6 +39,7 @@ class BankSoalController extends Controller
             'pilihan_e' => 'nullable|string',
             'jawaban_benar' => 'required|in:A,B,C,D,E',
             'tingkat_kesulitan' => 'required|string',
+            'pembahasan' => 'nullable|string|max:2000',
         ]);
         if ($request->hasFile('gambar')) {
             $validated['gambar'] = $request->file('gambar')->store('banksoal', 'public');
@@ -67,6 +68,7 @@ class BankSoalController extends Controller
             'pilihan_e' => 'nullable|string',
             'jawaban_benar' => 'required|in:A,B,C,D,E',
             'tingkat_kesulitan' => 'required|string',
+            'pembahasan' => 'nullable|string|max:2000',
         ]);
         if ($request->hasFile('gambar')) {
             $validated['gambar'] = $request->file('gambar')->store('banksoal', 'public');
@@ -540,6 +542,7 @@ class BankSoalController extends Controller
                 'pilihan_c' => $soal->pilihan_c, 'pilihan_d' => $soal->pilihan_d, 'pilihan_e' => $soal->pilihan_e,
                 'jawaban_user' => $jawaban,
                 'jawaban_benar' => $soal->jawaban_benar,
+                'pembahasan' => $soal->pembahasan,
                 'benar' => $isBenar,
             ];
         }

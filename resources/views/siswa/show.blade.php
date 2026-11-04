@@ -23,8 +23,8 @@
             <p><span class="text-slate-500">Alamat:</span> <span class="font-semibold">{{ $siswa->alamat ?? '-' }}</span></p>
             <p><span class="text-slate-500">Wali:</span> <span class="font-semibold">{{ $siswa->nama_wali ?? '-' }} ({{ $siswa->no_hp_wali ?? '-' }})</span></p>
         </div>
-        <a href="{{ route('rapor.show', $siswa) }}" class="mt-5 block text-center bg-teal-600 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="eye" class="w-4 h-4" /> Lihat Rapor & Prediksi</a>
-        @if(auth()->user()->isAdmin() && $siswa->user)<a href="{{ route('akun.kredensial', $siswa->user) }}" class="mt-3 tombol-aktif btn-sekunder w-full justify-center"><x-ikon nama="key" class="w-4 h-4" /> Lihat Username &amp; Password</a>@endif
+        <a href="{{ route('rapor.show', $siswa) }}" class="mt-5 block text-center bg-teal-600 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif" data-popup><x-ikon nama="eye" class="w-4 h-4" /> Lihat Rapor & Prediksi</a>
+        @if(auth()->user()->isAdmin() && $siswa->user)<a href="{{ route('akun.kredensial', $siswa->user) }}" data-popup class="mt-3 tombol-aktif btn-sekunder w-full justify-center"><x-ikon nama="key" class="w-4 h-4" /> Lihat Username &amp; Password</a>@endif
         @if(auth()->user()->isAdmin())<div class="mt-4 flex justify-end"><x-aksi besar :edit="route('siswa.edit', $siswa)" :hapus="route('siswa.destroy', $siswa)" konfirmasi="Hapus data siswa ini beserta akunnya?" /></div>@endif
     </div>
 
@@ -45,20 +45,6 @@
                 @endforelse
                 </tbody>
             </table>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 kartu">
-            <h3 class="font-bold text-ink-900 mb-3">Pembayaran Komite <span class="text-xs font-normal text-slate-400">(dari aplikasi Komite)</span></h3>
-            <div class="space-y-2">
-                @forelse($siswa->komite()->orderByDesc('periode')->get() as $km)
-                    <div class="flex justify-between items-center text-sm border-b border-slate-50 pb-2">
-                        <span>{{ $km->periode }} <span class="text-slate-400">— Rp {{ number_format($km->nominal, 0, ',', '.') }}</span></span>
-                        <span class="px-2 py-1 rounded-lg text-xs font-bold {{ $km->status === 'Lunas' ? 'bg-emerald-100 text-emerald-700' : ($km->status === 'Cicilan' ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700') }}">{{ $km->status }}</span>
-                    </div>
-                @empty
-                    <p class="text-sm text-slate-400">Belum ada data dari aplikasi Komite.</p>
-                @endforelse
-            </div>
         </div>
 
         <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 kartu">

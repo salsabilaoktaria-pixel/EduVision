@@ -20,7 +20,7 @@
             <p><span class="text-slate-500">No. HP:</span> <span class="font-semibold">{{ $guru->no_hp ?? '-' }}</span></p>
             <p><span class="text-slate-500">Alamat:</span> <span class="font-semibold">{{ $guru->alamat ?? '-' }}</span></p>
         </div>
-        @if(auth()->user()->isAdmin() && $guru->user)<a href="{{ route('akun.kredensial', $guru->user) }}" class="mt-5 tombol-aktif btn-sekunder w-full justify-center"><x-ikon nama="key" class="w-4 h-4" /> Lihat Username &amp; Password</a>@endif
+        @if(auth()->user()->isAdmin() && $guru->user)<a href="{{ route('akun.kredensial', $guru->user) }}" data-popup class="mt-5 tombol-aktif btn-sekunder w-full justify-center"><x-ikon nama="key" class="w-4 h-4" /> Lihat Username &amp; Password</a>@endif
         <div class="mt-5 flex justify-end"><x-aksi besar :edit="route('guru.edit', $guru)" :hapus="route('guru.destroy', $guru)" konfirmasi="Hapus data guru ini beserta akunnya?" /></div>
     </div>
 

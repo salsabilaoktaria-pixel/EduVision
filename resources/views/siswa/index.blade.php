@@ -25,7 +25,7 @@
         </form>
         @if(auth()->user()->isAdmin())
         <a href="{{ route('akun.kartu') }}" class="tombol-aktif btn-sekunder"><x-ikon nama="key" class="w-4 h-4" /> Kartu Akun</a>
-        <a href="{{ route('siswa.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Siswa</a>
+        <a href="{{ route('siswa.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Siswa</a>
         @endif
     </div>
 
@@ -57,7 +57,7 @@
                 <tr class="border-b border-slate-50 hover:bg-slate-50/60">
                     <td class="py-3 pr-4 font-medium text-slate-700">{{ $s->nisn }}</td>
                     <td class="py-3 pr-4">
-                        <a href="{{ route('siswa.show', $s) }}" class="flex items-center gap-3 font-semibold text-ink-900 hover:text-teal-600"><x-avatar :nama="$s->nama" :foto="$s->foto" class="w-9 h-9" teks="text-xs" />{{ $s->nama }}</a>
+                        <a href="{{ route('siswa.show', $s) }}" class="flex items-center gap-3 font-semibold text-ink-900 hover:text-teal-600" data-popup><x-avatar :nama="$s->nama" :foto="$s->foto" class="w-9 h-9" teks="text-xs" />{{ $s->nama }}</a>
                     </td>
                     <td class="py-3 pr-4 text-slate-600">{{ $s->kelas->nama_kelas ?? '-' }}</td>
                     <td class="py-3 pr-4 text-slate-600">{{ $s->jenis_kelamin ?? '-' }}</td>

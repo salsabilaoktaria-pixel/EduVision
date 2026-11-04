@@ -26,6 +26,7 @@ class SemesterController extends Controller
             return back()->withInput()->withErrors(['tahun_ajaran' => 'Tahun ajaran harus berurutan, misalnya 2027/2028.']);
         }
         \App\Models\SemesterSekolah::firstOrCreate($data);
+        Semester::lupakanCache();
         $request->session()->put(Semester::SESI, Semester::kunci($data));
         return redirect()->route('semester.index')->with('sukses', 'Semester ' . $data['semester'] . ' ' . $data['tahun_ajaran'] . ' ditambahkan dan sekarang dipilih.');
     }
@@ -39,6 +40,7 @@ class SemesterController extends Controller
             ? ['semester' => 'Genap', 'tahun_ajaran' => $a . '/' . $b]
             : ['semester' => 'Ganjil', 'tahun_ajaran' => $b . '/' . ($b + 1)];
         \App\Models\SemesterSekolah::firstOrCreate($baru);
+        Semester::lupakanCache();
         $request->session()->put(Semester::SESI, Semester::kunci($baru));
         return redirect()->route('semester.index')->with('sukses', 'Semester ' . $baru['semester'] . ' ' . $baru['tahun_ajaran'] . ' ditambahkan dan sekarang dipilih.');
     }
@@ -46,6 +48,7 @@ class SemesterController extends Controller
     public function destroy(\App\Models\SemesterSekolah $semesterSekolah)
     {
         $semesterSekolah->delete();
+        Semester::lupakanCache();
         return back()->with('sukses', 'Semester tambahan dihapus dari daftar (data di dalamnya tidak dihapus).');
     }
 

@@ -49,10 +49,6 @@ class Siswa extends Model
         return $this->hasMany(Spp::class);
     }
 
-    public function komite()
-    {
-        return $this->hasMany(KomitePembayaran::class);
-    }
 
     public function prestasi()
     {

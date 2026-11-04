@@ -57,7 +57,7 @@
                     <td class="py-2 pr-4 font-semibold text-ink-900">{{ $s->nama }}</td>
                     <td class="py-2 pr-4 text-slate-600">{{ $s->jenis_kelamin ?? '-' }}</td>
                     <td class="py-2 pr-4 text-right">
-                        <a href="{{ route('siswa.show', $s) }}" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200">Detail</a>
+                        <a href="{{ route('siswa.show', $s) }}" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200" data-popup>Detail</a>
                     </td>
                 </tr>
             @endforeach

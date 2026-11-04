@@ -11,7 +11,8 @@
         @if($kurikulum->aktif)<span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold border border-emerald-300">Kurikulum aktif</span>@endif
     </div>
     @if($kurikulum->deskripsi)<p class="text-sm text-slate-600 mt-3 max-w-3xl">{{ $kurikulum->deskripsi }}</p>@endif
-    <div class="mt-5 flex justify-end"><x-aksi besar :edit="route('kurikulum.edit', $kurikulum)" :hapus="route('kurikulum.destroy', $kurikulum)" konfirmasi="Hapus kurikulum ini? Mapel di dalamnya tetap ada." /></div>
+    @if($kurikulum->aktif)<p class="mt-5 text-xs text-slate-500 text-right">Kurikulum aktif tidak bisa dihapus. Aktifkan kurikulum lain dulu bila ingin menghapusnya.</p>@endif
+    <div class="mt-3 flex justify-end"><x-aksi besar :edit="route('kurikulum.edit', $kurikulum)" :hapus="$kurikulum->aktif ? null : route('kurikulum.destroy', $kurikulum)" konfirmasi="Hapus kurikulum ini? Mapel di dalamnya tetap ada." /></div>
 </div>
 <h3 class="font-display text-lg text-ink-900 mt-6 mb-3">Struktur Mata Pelajaran per Semester</h3>
 <div class="grid md:grid-cols-2 gap-4">

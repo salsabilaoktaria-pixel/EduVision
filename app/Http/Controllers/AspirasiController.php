@@ -27,8 +27,14 @@ class AspirasiController extends Controller
             'isi' => 'required|string',
             'anonim' => 'nullable|boolean',
         ]);
-        $validated['user_id'] = Auth::id();
         $validated['anonim'] = $request->boolean('anonim');
+        if ($validated['anonim']) {
+            // ANONIM SUNGGUHAN: identitas tidak disimpan di database (user_id kosong).
+            $validated['user_id'] = null;
+            $validated['pemilik_hash'] = Aspirasi::hashPemilik(Auth::id());
+        } else {
+            $validated['user_id'] = Auth::id();
+        }
         $validated['status'] = 'Baru';
 
         Aspirasi::create($validated);
@@ -39,7 +45,7 @@ class AspirasiController extends Controller
     // Riwayat aspirasi milik user yang login
     public function saya()
     {
-        $aspirasi = Aspirasi::where('user_id', Auth::id())->latest()->get();
+        $aspirasi = Aspirasi::milik(Auth::id())->latest()->get();
         return view('aspirasi.saya', compact('aspirasi'));
     }
 

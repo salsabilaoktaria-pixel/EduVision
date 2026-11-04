@@ -53,7 +53,7 @@
         </form>
         <p class="text-[11px] opacity-70 mt-3">Setelah diterapkan, Nilai Akhir otomatis dihitung ulang: rata-rata dari (Nilai Tugas + Nilai UTS + Nilai UAS) ÷ 3.</p>
 
-        <a href="{{ route('nilai.edit', $nilai) }}" class="mt-4 block text-center bg-white/15 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-white/25 transition">Lanjut Isi UTS & UAS <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" /></a>
+        <a href="{{ route('nilai.edit', $nilai) }}" class="mt-4 block text-center bg-white/15 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-white/25 transition" data-popup>Lanjut Isi UTS & UAS <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" /></a>
     </div>
 </div>
 @endsection

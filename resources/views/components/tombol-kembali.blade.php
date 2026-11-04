@@ -9,7 +9,7 @@
 @php
     $tujuan = $href ?? ($firstPage ? route('dashboard') : url()->previous());
 @endphp
-<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+<div class="tombol-kembali-bar mb-4 flex flex-wrap items-center justify-between gap-3">
     <a href="{{ $tujuan }}" class="tombol-aktif btn-sekunder"><x-ikon nama="arrow-left" class="w-4 h-4" /> Kembali</a>
     @if(!$slot->isEmpty())<div class="flex flex-wrap items-center gap-2">{{ $slot }}</div>@endif
 </div>

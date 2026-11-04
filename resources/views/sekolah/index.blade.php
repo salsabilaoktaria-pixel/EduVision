@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex items-center justify-between gap-3 flex-wrap mb-5">
     <p class="text-sm text-slate-500">Setiap sekolah punya data, akun, logo, dan lokasi absen sendiri-sendiri.</p>
-    <a href="{{ route('sekolah.create') }}" class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold transition"><x-ikon nama="school" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Tambah Sekolah</a>
+    <a href="{{ route('sekolah.create') }}" data-popup class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold transition"><x-ikon nama="school" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Tambah Sekolah</a>
 </div>
 <div class="kartu bg-white rounded-2xl border-2 border-slate-200 p-5">
     <table class="w-full text-sm">

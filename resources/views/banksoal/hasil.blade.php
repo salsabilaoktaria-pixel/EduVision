@@ -38,6 +38,12 @@
                 </p>
             @endforeach
         </div>
+        @php $teksKunci = $d['pilihan_' . strtolower($d['jawaban_benar'])] ?? ''; @endphp
+        <div class="mt-3 rounded-xl border-[2.5px] p-3 text-sm space-y-1.5 {{ $d['benar'] ? 'bg-emerald-50 border-emerald-500 text-emerald-800' : 'bg-rose-50 border-rose-500 text-rose-800' }}">
+            <p class="font-bold">{{ $d['benar'] ? 'Jawabanmu benar.' : 'Jawabanmu salah.' }}</p>
+            <p><span class="font-semibold">Jawaban yang benar:</span> {{ $d['jawaban_benar'] }}. {{ $teksKunci }}</p>
+            <p><span class="font-semibold">Penjelasan:</span> {{ !empty($d['pembahasan']) ? $d['pembahasan'] : 'Jawaban yang tepat adalah ' . $d['jawaban_benar'] . ' (' . $teksKunci . '). Pelajari kembali materi terkait soal ini.' }}</p>
+        </div>
     </div>
     @endforeach
 </div>

@@ -10,6 +10,7 @@
         <label class="flex items-center gap-2 text-sm text-slate-600">
             <input type="checkbox" name="anonim" value="1" class="rounded border-slate-300 text-teal-600"> Kirim sebagai anonim
         </label>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">Jika dicentang, identitasmu <b>tidak disimpan</b> di database sehingga admin dan guru tidak bisa melihat siapa pengirimnya. Tanggapan bisa kamu lihat di Riwayat Aspirasi (tanpa notifikasi).</p>
         <div class="flex gap-3 pt-2">
             <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="send" class="w-4 h-4" /> Kirim</button>
             <a href="{{ route('aspirasi.saya') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>

@@ -285,7 +285,7 @@ class DatabaseSeeder extends Seeder
         ];
         foreach ($daftarAspirasi as $i => $a) {
             $pengirim = $siswaList[$i * 7 % count($siswaList)];
-            $baru = Aspirasi::create(['user_id' => $pengirim->user_id, 'judul' => $a['judul'], 'isi' => $a['isi'], 'anonim' => $a['anonim'], 'status' => $a['status'], 'tanggapan' => $a['tanggapan']]);
+            $baru = Aspirasi::create(['user_id' => $a['anonim'] ? null : $pengirim->user_id, 'pemilik_hash' => $a['anonim'] ? Aspirasi::hashPemilik($pengirim->user_id) : null, 'judul' => $a['judul'], 'isi' => $a['isi'], 'anonim' => $a['anonim'], 'status' => $a['status'], 'tanggapan' => $a['tanggapan']]);
             // Aspirasi yang sudah selesai ditanggapi dibuat pada semester Genap sebelumnya; sisanya semester berjalan.
             $waktu = $a['status'] === 'Selesai' ? \Carbon\Carbon::create(2026, 3 + $i, 10, 9, 15) : now()->subDays(3 + $i * 4);
             $baru->forceFill(['created_at' => $waktu, 'updated_at' => $waktu])->saveQuietly();
@@ -297,11 +297,11 @@ class DatabaseSeeder extends Seeder
         $data = $this->dataBankSoal();
         $jumlah = 0;
         foreach ($mapelList as $mapel) {
-            foreach ($data[$mapel->nama_mapel] ?? [] as [$tanya, $opsi, $kunci, $tingkat]) {
+            foreach ($data[$mapel->nama_mapel] ?? [] as [$tanya, $opsi, $kunci, $tingkat, $bahas]) {
                 BankSoal::create([
                     'mata_pelajaran_id' => $mapel->id, 'pertanyaan' => $tanya,
                     'pilihan_a' => $opsi[0], 'pilihan_b' => $opsi[1], 'pilihan_c' => $opsi[2], 'pilihan_d' => $opsi[3], 'pilihan_e' => $opsi[4],
-                    'jawaban_benar' => $kunci, 'tingkat_kesulitan' => $tingkat,
+                    'jawaban_benar' => $kunci, 'tingkat_kesulitan' => $tingkat, 'pembahasan' => $bahas,
                 ]);
                 $jumlah++;
             }
@@ -525,67 +525,67 @@ class DatabaseSeeder extends Seeder
     {
         return [
             'Matematika' => [
-                ['Hasil dari 2³ × 3² adalah ...', ['36', '48', '72', '54', '64'], 'C', 'Mudah'],
-                ['Nilai x yang memenuhi persamaan 2x + 7 = 19 adalah ...', ['4', '5', '6', '7', '8'], 'C', 'Mudah'],
-                ['Akar-akar persamaan kuadrat x² − 5x + 6 = 0 adalah ...', ['1 dan 6', '2 dan 3', '−2 dan −3', '2 dan −3', '−1 dan 6'], 'B', 'Sedang'],
-                ['Jika f(x) = 3x − 2, maka nilai f(4) adalah ...', ['8', '12', '10', '14', '6'], 'C', 'Mudah'],
-                ['Turunan pertama dari f(x) = x³ + 2x² adalah ...', ['3x² + 4x', '3x² + 2x', 'x² + 4x', '3x + 4', '2x² + 4x'], 'A', 'Sulit'],
+                ['Hasil dari 2³ × 3² adalah ...', ['36', '48', '72', '54', '64'], 'C', 'Mudah', '2³ = 8 dan 3² = 9, sehingga 8 × 9 = 72.'],
+                ['Nilai x yang memenuhi persamaan 2x + 7 = 19 adalah ...', ['4', '5', '6', '7', '8'], 'C', 'Mudah', '2x + 7 = 19 → 2x = 19 − 7 = 12 → x = 12 : 2 = 6.'],
+                ['Akar-akar persamaan kuadrat x² − 5x + 6 = 0 adalah ...', ['1 dan 6', '2 dan 3', '−2 dan −3', '2 dan −3', '−1 dan 6'], 'B', 'Sedang', 'x² − 5x + 6 = 0 difaktorkan menjadi (x − 2)(x − 3) = 0, sehingga x = 2 atau x = 3.'],
+                ['Jika f(x) = 3x − 2, maka nilai f(4) adalah ...', ['8', '12', '10', '14', '6'], 'C', 'Mudah', 'f(4) = 3(4) − 2 = 12 − 2 = 10.'],
+                ['Turunan pertama dari f(x) = x³ + 2x² adalah ...', ['3x² + 4x', '3x² + 2x', 'x² + 4x', '3x + 4', '2x² + 4x'], 'A', 'Sulit', 'Turunan xⁿ adalah n·xⁿ⁻¹. Maka turunan x³ = 3x² dan turunan 2x² = 4x, jadi f′(x) = 3x² + 4x.'],
             ],
             'Bahasa Indonesia' => [
-                ['Kalimat yang penggunaan huruf kapitalnya benar adalah ...', ['Dia lahir di kota bandung.', 'Adik membaca buku di Perpustakaan.', 'Ibu pergi ke Pasar Minggu hari Senin.', 'Kami berlibur ke pulau Bali.', 'Ayah bekerja di jakarta.'], 'C', 'Mudah'],
-                ['Penulisan kata baku yang benar adalah ...', ['apotik', 'apotek', 'apoteck', 'appotek', 'apotheek'], 'B', 'Mudah'],
-                ['Majas pada kalimat "Angin malam berbisik lembut di telingaku" adalah ...', ['Hiperbola', 'Personifikasi', 'Metafora', 'Litotes', 'Ironi'], 'B', 'Sedang'],
-                ['Gagasan pokok sebuah paragraf biasanya terdapat pada ...', ['kalimat penjelas', 'kalimat utama', 'kalimat penutup saja', 'judul bacaan', 'kata sambung'], 'B', 'Mudah'],
-                ['Antonim dari kata "transparan" adalah ...', ['bening', 'tembus pandang', 'jelas', 'buram', 'cerah'], 'D', 'Sedang'],
+                ['Kalimat yang penggunaan huruf kapitalnya benar adalah ...', ['Dia lahir di kota bandung.', 'Adik membaca buku di Perpustakaan.', 'Ibu pergi ke Pasar Minggu hari Senin.', 'Kami berlibur ke pulau Bali.', 'Ayah bekerja di jakarta.'], 'C', 'Mudah', 'Huruf kapital dipakai untuk nama tempat dan hari. “Pasar Minggu” dan “Senin” sudah benar, sedangkan “kota bandung”, “pulau Bali”, “Perpustakaan”, dan “jakarta” salah penulisannya.'],
+                ['Penulisan kata baku yang benar adalah ...', ['apotik', 'apotek', 'apoteck', 'appotek', 'apotheek'], 'B', 'Mudah', 'Bentuk baku menurut KBBI adalah “apotek”, bukan “apotik”.'],
+                ['Majas pada kalimat "Angin malam berbisik lembut di telingaku" adalah ...', ['Hiperbola', 'Personifikasi', 'Metafora', 'Litotes', 'Ironi'], 'B', 'Sedang', 'Personifikasi memberi sifat manusia pada benda mati. Angin “berbisik” seolah-olah manusia yang berbicara.'],
+                ['Gagasan pokok sebuah paragraf biasanya terdapat pada ...', ['kalimat penjelas', 'kalimat utama', 'kalimat penutup saja', 'judul bacaan', 'kata sambung'], 'B', 'Mudah', 'Gagasan pokok (ide utama) paragraf terletak pada kalimat utama, sedangkan kalimat penjelas hanya mendukungnya.'],
+                ['Antonim dari kata "transparan" adalah ...', ['bening', 'tembus pandang', 'jelas', 'buram', 'cerah'], 'D', 'Sedang', 'Transparan berarti tembus pandang atau bening. Lawan katanya adalah buram, yaitu tidak tembus pandang.'],
             ],
             'Bahasa Inggris' => [
-                ['She ___ to school every morning.', ['go', 'goes', 'going', 'gone', 'went'], 'B', 'Mudah'],
-                ['They ___ playing football when it started to rain.', ['was', 'is', 'were', 'are', 'be'], 'C', 'Sedang'],
-                ['What is the past tense of the verb "write"?', ['writed', 'written', 'wrote', 'writes', 'writing'], 'C', 'Mudah'],
-                ['If I ___ rich, I would travel around the world.', ['am', 'was', 'be', 'were', 'will be'], 'D', 'Sulit'],
-                ['The synonym of the word "enormous" is ...', ['tiny', 'huge', 'narrow', 'quiet', 'ancient'], 'B', 'Sedang'],
+                ['She ___ to school every morning.', ['go', 'goes', 'going', 'gone', 'went'], 'B', 'Mudah', 'Subjek “She” adalah orang ketiga tunggal dalam simple present tense, sehingga kata kerjanya memakai tambahan -s/-es: “goes”.'],
+                ['They ___ playing football when it started to rain.', ['was', 'is', 'were', 'are', 'be'], 'C', 'Sedang', 'Kalimat ini memakai past continuous (kejadian yang sedang berlangsung di masa lalu). Subjek “They” jamak sehingga memakai “were playing”.'],
+                ['What is the past tense of the verb "write"?', ['writed', 'written', 'wrote', 'writes', 'writing'], 'C', 'Mudah', 'Bentuk lampau (past tense) dari “write” adalah “wrote”. “Written” adalah past participle.'],
+                ['If I ___ rich, I would travel around the world.', ['am', 'was', 'be', 'were', 'will be'], 'D', 'Sulit', 'Pada pengandaian (conditional type 2) yang tidak nyata, setelah “if” dipakai “were” untuk semua subjek: “If I were rich...”.'],
+                ['The synonym of the word "enormous" is ...', ['tiny', 'huge', 'narrow', 'quiet', 'ancient'], 'B', 'Sedang', '“Enormous” berarti sangat besar, sinonimnya “huge”. “Tiny” justru berarti sangat kecil.'],
             ],
             'IPA' => [
-                ['Organel sel yang berfungsi sebagai tempat berlangsungnya respirasi sel adalah ...', ['Ribosom', 'Mitokondria', 'Kloroplas', 'Lisosom', 'Nukleus'], 'B', 'Mudah'],
-                ['Satuan SI untuk gaya adalah ...', ['Joule', 'Watt', 'Pascal', 'Newton', 'Ampere'], 'D', 'Mudah'],
-                ['Rumus kimia dari air adalah ...', ['CO₂', 'O₂', 'NaCl', 'H₂O₂', 'H₂O'], 'E', 'Mudah'],
-                ['Sebuah benda bermassa 2 kg dipercepat 3 m/s². Besar gaya yang bekerja pada benda adalah ...', ['1,5 N', '5 N', '6 N', '9 N', '12 N'], 'C', 'Sedang'],
-                ['Proses pembuatan makanan pada tumbuhan hijau dengan bantuan cahaya matahari disebut ...', ['respirasi', 'transpirasi', 'fotosintesis', 'fermentasi', 'osmosis'], 'C', 'Sedang'],
+                ['Organel sel yang berfungsi sebagai tempat berlangsungnya respirasi sel adalah ...', ['Ribosom', 'Mitokondria', 'Kloroplas', 'Lisosom', 'Nukleus'], 'B', 'Mudah', 'Mitokondria disebut “pembangkit tenaga sel” karena di sinilah respirasi sel menghasilkan energi (ATP).'],
+                ['Satuan SI untuk gaya adalah ...', ['Joule', 'Watt', 'Pascal', 'Newton', 'Ampere'], 'D', 'Mudah', 'Satuan gaya dalam SI adalah Newton (N). Joule untuk energi, Watt untuk daya, Pascal untuk tekanan, Ampere untuk arus listrik.'],
+                ['Rumus kimia dari air adalah ...', ['CO₂', 'O₂', 'NaCl', 'H₂O₂', 'H₂O'], 'E', 'Mudah', 'Satu molekul air terdiri dari dua atom hidrogen dan satu atom oksigen, rumusnya H₂O. H₂O₂ adalah hidrogen peroksida.'],
+                ['Sebuah benda bermassa 2 kg dipercepat 3 m/s². Besar gaya yang bekerja pada benda adalah ...', ['1,5 N', '5 N', '6 N', '9 N', '12 N'], 'C', 'Sedang', 'Hukum II Newton: F = m × a = 2 kg × 3 m/s² = 6 N.'],
+                ['Proses pembuatan makanan pada tumbuhan hijau dengan bantuan cahaya matahari disebut ...', ['respirasi', 'transpirasi', 'fotosintesis', 'fermentasi', 'osmosis'], 'C', 'Sedang', 'Fotosintesis adalah proses tumbuhan hijau membuat makanan (glukosa) dari air dan CO₂ dengan bantuan cahaya matahari dan klorofil.'],
             ],
             'IPS' => [
-                ['Proklamasi kemerdekaan Indonesia dibacakan pada tanggal ...', ['17 Agustus 1945', '18 Agustus 1945', '1 Juni 1945', '28 Oktober 1928', '10 November 1945'], 'A', 'Mudah'],
-                ['Kegiatan menyalurkan barang dari produsen ke konsumen disebut ...', ['produksi', 'distribusi', 'konsumsi', 'investasi', 'ekspor'], 'B', 'Mudah'],
-                ['Organisasi pergerakan nasional pertama di Indonesia adalah ...', ['Sarekat Islam', 'Indische Partij', 'Budi Utomo', 'PNI', 'Muhammadiyah'], 'C', 'Sedang'],
-                ['Menurut hukum permintaan, jika harga suatu barang naik maka jumlah barang yang diminta cenderung ...', ['naik', 'tetap', 'turun', 'tak terbatas', 'berubah-ubah'], 'C', 'Sedang'],
-                ['Benua terluas di dunia adalah ...', ['Afrika', 'Amerika Utara', 'Eropa', 'Asia', 'Antartika'], 'D', 'Mudah'],
+                ['Proklamasi kemerdekaan Indonesia dibacakan pada tanggal ...', ['17 Agustus 1945', '18 Agustus 1945', '1 Juni 1945', '28 Oktober 1928', '10 November 1945'], 'A', 'Mudah', 'Proklamasi kemerdekaan Indonesia dibacakan Ir. Soekarno pada 17 Agustus 1945. Tanggal 18 Agustus 1945 adalah pengesahan UUD 1945.'],
+                ['Kegiatan menyalurkan barang dari produsen ke konsumen disebut ...', ['produksi', 'distribusi', 'konsumsi', 'investasi', 'ekspor'], 'B', 'Mudah', 'Distribusi adalah kegiatan menyalurkan barang dari produsen ke konsumen. Produksi membuat barang, konsumsi menggunakannya.'],
+                ['Organisasi pergerakan nasional pertama di Indonesia adalah ...', ['Sarekat Islam', 'Indische Partij', 'Budi Utomo', 'PNI', 'Muhammadiyah'], 'C', 'Sedang', 'Budi Utomo (didirikan 20 Mei 1908) adalah organisasi pergerakan nasional pertama, sehingga tanggal berdirinya diperingati sebagai Hari Kebangkitan Nasional.'],
+                ['Menurut hukum permintaan, jika harga suatu barang naik maka jumlah barang yang diminta cenderung ...', ['naik', 'tetap', 'turun', 'tak terbatas', 'berubah-ubah'], 'C', 'Sedang', 'Hukum permintaan: harga naik, jumlah barang yang diminta turun (ceteris paribus), karena konsumen mencari alternatif atau mengurangi pembelian.'],
+                ['Benua terluas di dunia adalah ...', ['Afrika', 'Amerika Utara', 'Eropa', 'Asia', 'Antartika'], 'D', 'Mudah', 'Asia adalah benua terluas di dunia, dengan luas sekitar 44 juta km².'],
             ],
             'PPKn' => [
-                ['Sila ketiga Pancasila berbunyi ...', ['Ketuhanan Yang Maha Esa', 'Kemanusiaan yang adil dan beradab', 'Persatuan Indonesia', 'Kerakyatan yang dipimpin oleh hikmat kebijaksanaan', 'Keadilan sosial bagi seluruh rakyat Indonesia'], 'C', 'Mudah'],
-                ['Lambang sila kedua Pancasila adalah ...', ['bintang', 'rantai', 'pohon beringin', 'kepala banteng', 'padi dan kapas'], 'B', 'Mudah'],
-                ['UUD 1945 disahkan oleh PPKI pada tanggal ...', ['17 Agustus 1945', '18 Agustus 1945', '19 Agustus 1945', '1 Juni 1945', '22 Juni 1945'], 'B', 'Sedang'],
-                ['Berikut ini yang termasuk kewajiban warga negara adalah ...', ['mendapat pendidikan', 'memeluk agama', 'membayar pajak', 'mengemukakan pendapat', 'mendapat pekerjaan'], 'C', 'Sedang'],
-                ['Semboyan "Bhinneka Tunggal Ika" memiliki arti ...', ['Berbeda-beda tetapi tetap satu', 'Satu nusa satu bangsa', 'Bersatu kita teguh', 'Tut Wuri Handayani', 'Gotong royong'], 'A', 'Mudah'],
+                ['Sila ketiga Pancasila berbunyi ...', ['Ketuhanan Yang Maha Esa', 'Kemanusiaan yang adil dan beradab', 'Persatuan Indonesia', 'Kerakyatan yang dipimpin oleh hikmat kebijaksanaan', 'Keadilan sosial bagi seluruh rakyat Indonesia'], 'C', 'Mudah', 'Sila ketiga Pancasila berbunyi “Persatuan Indonesia”, berlambang pohon beringin.'],
+                ['Lambang sila kedua Pancasila adalah ...', ['bintang', 'rantai', 'pohon beringin', 'kepala banteng', 'padi dan kapas'], 'B', 'Mudah', 'Sila kedua (Kemanusiaan yang adil dan beradab) berlambang rantai yang melambangkan hubungan antarmanusia.'],
+                ['UUD 1945 disahkan oleh PPKI pada tanggal ...', ['17 Agustus 1945', '18 Agustus 1945', '19 Agustus 1945', '1 Juni 1945', '22 Juni 1945'], 'B', 'Sedang', 'UUD 1945 disahkan oleh PPKI sehari setelah proklamasi, yaitu 18 Agustus 1945.'],
+                ['Berikut ini yang termasuk kewajiban warga negara adalah ...', ['mendapat pendidikan', 'memeluk agama', 'membayar pajak', 'mengemukakan pendapat', 'mendapat pekerjaan'], 'C', 'Sedang', 'Membayar pajak adalah kewajiban warga negara. Mendapat pendidikan, beragama, berpendapat, dan bekerja adalah hak.'],
+                ['Semboyan "Bhinneka Tunggal Ika" memiliki arti ...', ['Berbeda-beda tetapi tetap satu', 'Satu nusa satu bangsa', 'Bersatu kita teguh', 'Tut Wuri Handayani', 'Gotong royong'], 'A', 'Mudah', '“Bhinneka Tunggal Ika” berasal dari kitab Sutasoma, artinya berbeda-beda tetapi tetap satu.'],
             ],
             'Penjaskes' => [
-                ['Dalam permainan sepak bola, jumlah pemain satu tim di lapangan adalah ...', ['9 orang', '10 orang', '11 orang', '12 orang', '15 orang'], 'C', 'Mudah'],
-                ['Start yang dipakai dalam lari jarak pendek (sprint) adalah start ...', ['melayang', 'jongkok', 'berdiri', 'duduk', 'berjalan'], 'B', 'Mudah'],
-                ['Ukuran lapangan bola voli adalah ...', ['18 × 9 meter', '20 × 10 meter', '15 × 8 meter', '28 × 15 meter', '24 × 12 meter'], 'A', 'Sedang'],
-                ['Olahraga yang paling melatih daya tahan jantung dan paru-paru adalah ...', ['angkat beban', 'lari jarak jauh', 'lompat jauh', 'tolak peluru', 'lempar lembing'], 'B', 'Sedang'],
-                ['Pemanasan sebelum berolahraga bertujuan untuk ...', ['mengurangi tenaga', 'mencegah cedera', 'menambah kelelahan', 'memperlambat detak jantung', 'membuat mengantuk'], 'B', 'Mudah'],
+                ['Dalam permainan sepak bola, jumlah pemain satu tim di lapangan adalah ...', ['9 orang', '10 orang', '11 orang', '12 orang', '15 orang'], 'C', 'Mudah', 'Satu tim sepak bola bermain dengan 11 pemain di lapangan, termasuk satu penjaga gawang.'],
+                ['Start yang dipakai dalam lari jarak pendek (sprint) adalah start ...', ['melayang', 'jongkok', 'berdiri', 'duduk', 'berjalan'], 'B', 'Mudah', 'Pada lari jarak pendek (sprint) dipakai start jongkok agar tubuh dapat meluncur dengan daya dorong maksimal.'],
+                ['Ukuran lapangan bola voli adalah ...', ['18 × 9 meter', '20 × 10 meter', '15 × 8 meter', '28 × 15 meter', '24 × 12 meter'], 'A', 'Sedang', 'Lapangan bola voli berukuran 18 × 9 meter, dibagi dua oleh net.'],
+                ['Olahraga yang paling melatih daya tahan jantung dan paru-paru adalah ...', ['angkat beban', 'lari jarak jauh', 'lompat jauh', 'tolak peluru', 'lempar lembing'], 'B', 'Sedang', 'Lari jarak jauh adalah latihan aerobik yang paling melatih daya tahan jantung dan paru-paru.'],
+                ['Pemanasan sebelum berolahraga bertujuan untuk ...', ['mengurangi tenaga', 'mencegah cedera', 'menambah kelelahan', 'memperlambat detak jantung', 'membuat mengantuk'], 'B', 'Mudah', 'Pemanasan menaikkan suhu otot dan melancarkan peredaran darah sehingga tubuh siap bergerak dan risiko cedera berkurang.'],
             ],
             'Seni Budaya' => [
-                ['Alat musik tradisional Jawa Barat yang terbuat dari bambu adalah ...', ['sasando', 'angklung', 'gamelan', 'kolintang', 'tifa'], 'B', 'Mudah'],
-                ['Tari Kecak berasal dari daerah ...', ['Jawa Barat', 'Bali', 'Aceh', 'Sumatera Barat', 'Papua'], 'B', 'Mudah'],
-                ['Warna primer dalam seni rupa adalah ...', ['merah, kuning, biru', 'merah, hijau, biru', 'hijau, oranye, ungu', 'hitam, putih, abu-abu', 'merah, jingga, kuning'], 'A', 'Sedang'],
-                ['Teknik membatik yang menggunakan cap dari tembaga disebut batik ...', ['tulis', 'cap', 'lukis', 'ikat celup', 'printing'], 'B', 'Sedang'],
-                ['Tangga nada diatonis terdiri dari ... nada dasar.', ['5', '6', '7', '8', '12'], 'C', 'Sulit'],
+                ['Alat musik tradisional Jawa Barat yang terbuat dari bambu adalah ...', ['sasando', 'angklung', 'gamelan', 'kolintang', 'tifa'], 'B', 'Mudah', 'Angklung adalah alat musik tradisional Jawa Barat yang terbuat dari bambu dan dimainkan dengan cara digoyangkan.'],
+                ['Tari Kecak berasal dari daerah ...', ['Jawa Barat', 'Bali', 'Aceh', 'Sumatera Barat', 'Papua'], 'B', 'Mudah', 'Tari Kecak berasal dari Bali dan dibawakan oleh banyak penari laki-laki yang bersuara “cak”.'],
+                ['Warna primer dalam seni rupa adalah ...', ['merah, kuning, biru', 'merah, hijau, biru', 'hijau, oranye, ungu', 'hitam, putih, abu-abu', 'merah, jingga, kuning'], 'A', 'Sedang', 'Warna primer adalah warna dasar yang tidak bisa dibuat dari campuran warna lain: merah, kuning, dan biru.'],
+                ['Teknik membatik yang menggunakan cap dari tembaga disebut batik ...', ['tulis', 'cap', 'lukis', 'ikat celup', 'printing'], 'B', 'Sedang', 'Batik cap dibuat menggunakan stempel (cap) dari tembaga, berbeda dengan batik tulis yang digambar dengan canting.'],
+                ['Tangga nada diatonis terdiri dari ... nada dasar.', ['5', '6', '7', '8', '12'], 'C', 'Sulit', 'Tangga nada diatonis terdiri dari 7 nada dasar (do, re, mi, fa, sol, la, si); nada kedelapan adalah do oktaf.'],
             ],
             'Prakarya' => [
-                ['Kerajinan dari tanah liat yang dibentuk lalu dibakar disebut ...', ['anyaman', 'gerabah', 'batik', 'kriya kayu', 'rajut'], 'B', 'Mudah'],
-                ['Tahap pertama dalam proses membuat produk kerajinan adalah ...', ['pengemasan', 'produksi', 'perencanaan dan penentuan ide', 'pemasaran', 'evaluasi'], 'C', 'Sedang'],
-                ['Bahan yang umum dipakai untuk membuat anyaman adalah ...', ['rotan, bambu, dan pandan', 'besi', 'kaca', 'plastik cair', 'beton'], 'A', 'Mudah'],
-                ['Pengeringan bahan pangan dilakukan dengan tujuan ...', ['menambah kadar air', 'mengawetkan', 'mempercepat pembusukan', 'memperbanyak jumlah', 'mengubah warna'], 'B', 'Sedang'],
-                ['Kemasan produk yang baik sebaiknya ...', ['menutupi seluruh produk', 'melindungi dan menarik minat pembeli', 'dibuat semahal mungkin', 'tanpa informasi apa pun', 'berukuran sebesar mungkin'], 'B', 'Mudah'],
+                ['Kerajinan dari tanah liat yang dibentuk lalu dibakar disebut ...', ['anyaman', 'gerabah', 'batik', 'kriya kayu', 'rajut'], 'B', 'Mudah', 'Gerabah adalah kerajinan dari tanah liat yang dibentuk lalu dibakar, misalnya kendi dan pot.'],
+                ['Tahap pertama dalam proses membuat produk kerajinan adalah ...', ['pengemasan', 'produksi', 'perencanaan dan penentuan ide', 'pemasaran', 'evaluasi'], 'C', 'Sedang', 'Proses kerajinan selalu diawali dengan perencanaan dan penentuan ide sebelum bahan disiapkan dan diproduksi.'],
+                ['Bahan yang umum dipakai untuk membuat anyaman adalah ...', ['rotan, bambu, dan pandan', 'besi', 'kaca', 'plastik cair', 'beton'], 'A', 'Mudah', 'Anyaman dibuat dari bahan alam yang lentur dan mudah dianyam, seperti rotan, bambu, dan pandan.'],
+                ['Pengeringan bahan pangan dilakukan dengan tujuan ...', ['menambah kadar air', 'mengawetkan', 'mempercepat pembusukan', 'memperbanyak jumlah', 'mengubah warna'], 'B', 'Sedang', 'Pengeringan menurunkan kadar air sehingga pertumbuhan jamur dan bakteri terhambat dan bahan pangan lebih awet.'],
+                ['Kemasan produk yang baik sebaiknya ...', ['menutupi seluruh produk', 'melindungi dan menarik minat pembeli', 'dibuat semahal mungkin', 'tanpa informasi apa pun', 'berukuran sebesar mungkin'], 'B', 'Mudah', 'Kemasan yang baik melindungi produk dari kerusakan sekaligus menarik minat pembeli dan memuat informasi produk.'],
             ],
         ];
     }

@@ -9,7 +9,7 @@
             <button class="bg-slate-100 rounded-xl px-4 py-2 text-sm font-semibold hover:bg-slate-200 btn-sekunder"><x-ikon nama="search" class="w-4 h-4" /> Cari</button>
             @if(request('cari'))<a href="{{ url()->current() }}" class="btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Reset</a>@endif
         </form>
-        <a href="{{ route('guru.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Guru</a>
+        <a href="{{ route('guru.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Guru</a>
     </div>
     <div class="overflow-x-auto">
         <table class="w-full text-sm">
@@ -22,7 +22,7 @@
                 <tr class="border-b border-slate-50 hover:bg-slate-50/60">
                     <td class="py-3 pr-4 font-medium">{{ $g->nip }}</td>
                     <td class="py-3 pr-4">
-                        <a href="{{ route('guru.show', $g) }}" class="flex items-center gap-3 font-semibold text-ink-900 hover:text-teal-600"><x-avatar :nama="$g->nama" :foto="$g->foto" class="w-9 h-9" teks="text-xs" />{{ $g->nama }}</a>
+                        <a href="{{ route('guru.show', $g) }}" class="flex items-center gap-3 font-semibold text-ink-900 hover:text-teal-600" data-popup><x-avatar :nama="$g->nama" :foto="$g->foto" class="w-9 h-9" teks="text-xs" />{{ $g->nama }}</a>
                     </td>
                     <td class="py-3 pr-4 text-slate-600">{{ $g->no_hp ?? '-' }}</td>
                     <td class="py-3 pr-4">

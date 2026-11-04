@@ -20,6 +20,12 @@ class DashboardController extends Controller
      * berhasil login, SEBELUM masuk ke dashboard (lihat AuthController::login()).
      * Cuma halaman statis berisi slide panjang, tidak perlu ambil data apa-apa.
      */
+    // Halaman depan: sudah login -> dashboard; belum -> homepage.
+    public function home()
+    {
+        return auth()->check() ? redirect()->route('dashboard') : view('homepage');
+    }
+
     public function beranda()
     {
         $user = Auth::user();

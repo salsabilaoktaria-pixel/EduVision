@@ -6,10 +6,10 @@
 @props(['detail' => null, 'edit' => null, 'hapus' => null, 'konfirmasi' => 'Hapus data ini? Tindakan ini tidak dapat dibatalkan.', 'besar' => false])
 <div class="aksi-grup {{ $besar ? 'aksi-besar' : '' }}">
     @if($detail)
-        <a href="{{ $detail }}" class="btn-aksi btn-detail"><x-ikon nama="eye" class="{{ $besar ? 'w-4 h-4' : 'w-3.5 h-3.5' }}" />Detail</a>
+        <a href="{{ $detail }}" data-popup class="btn-aksi btn-detail"><x-ikon nama="eye" class="{{ $besar ? 'w-4 h-4' : 'w-3.5 h-3.5' }}" />Detail</a>
     @endif
     @if($edit)
-        <a href="{{ $edit }}" class="btn-aksi btn-edit"><x-ikon nama="pencil" class="{{ $besar ? 'w-4 h-4' : 'w-3.5 h-3.5' }}" />Edit</a>
+        <a href="{{ $edit }}" data-popup class="btn-aksi btn-edit"><x-ikon nama="pencil" class="{{ $besar ? 'w-4 h-4' : 'w-3.5 h-3.5' }}" />Edit</a>
     @endif
     @if($hapus)
         <form method="POST" action="{{ $hapus }}" class="aksi-form" data-konfirmasi="{{ $konfirmasi }}">

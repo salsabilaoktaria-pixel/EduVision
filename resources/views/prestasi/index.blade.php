@@ -16,13 +16,13 @@
                 <a href="{{ route('prestasi.index') }}" class="bg-slate-100 rounded-xl px-4 py-2 text-sm font-semibold hover:bg-slate-200 flex items-center btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Reset</a>
             @endif
         </form>
-        <a href="{{ route('prestasi.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Prestasi</a>
+        <a href="{{ route('prestasi.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Prestasi</a>
     </div>
 
     <div class="grid grid-cols-3 gap-3 mb-5 text-center">
         <div class="rounded-xl border-2 border-slate-200 bg-teal-50 p-3"><p class="text-2xl font-extrabold text-ink-900">{{ $ringkas['semester'] }}</p><p class="text-[11px] font-bold text-slate-500 uppercase">Prestasi semester ini</p></div>
         <div class="rounded-xl border-2 border-slate-200 bg-teal-50 p-3"><p class="text-2xl font-extrabold text-ink-900">{{ $ringkas['siswa'] }}</p><p class="text-[11px] font-bold text-slate-500 uppercase">Siswa berprestasi</p></div>
-        <div class="rounded-xl border-2 border-slate-200 bg-teal-50 p-3"><p class="text-2xl font-extrabold text-ink-900">{{ $ringkas['total'] }}</p><p class="text-[11px] font-bold text-slate-500 uppercase">Total semua waktu</p></div>
+        <div class="rounded-xl border-2 border-slate-200 bg-teal-50 p-3"><p class="text-2xl font-extrabold text-ink-900">{{ $ringkas['total'] }}</p><p class="text-[11px] font-bold text-slate-500 uppercase">Total semua waktu</p><p class="text-[10px] text-slate-400 leading-tight mt-0.5">seluruh semester</p></div>
     </div>
 
     {{-- Dikelompokkan per KELAS sama seperti halaman SPP: tiap kelas bisa
@@ -114,7 +114,7 @@
                     <td class="py-3 pr-4 text-center"><span class="inline-block min-w-[1.75rem] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-xs font-extrabold">{{ $r['jumlah'] }}</span></td>
                     <td class="py-3 pr-4 text-slate-600">
                         @foreach($r['daftar'] as $pp)
-                            <a href="{{ route('prestasi.show', $pp) }}" class="block hover:text-teal-700">• {{ $pp->nama_prestasi }} <span class="text-slate-400">— {{ $pp->peringkat ?: $pp->tingkat }}, {{ \Carbon\Carbon::parse($pp->tanggal)->translatedFormat('d M Y') }}</span></a>
+                            <a href="{{ route('prestasi.show', $pp) }}" class="block hover:text-teal-700" data-popup>• {{ $pp->nama_prestasi }} <span class="text-slate-400">— {{ $pp->peringkat ?: $pp->tingkat }}, {{ \Carbon\Carbon::parse($pp->tanggal)->translatedFormat('d M Y') }}</span></a>
                         @endforeach
                     </td>
                 </tr>

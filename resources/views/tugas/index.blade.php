@@ -8,7 +8,7 @@
         <p class="text-sm text-slate-500">Daftar tugas yang sudah dibuat, beserta jumlah siswa yang sudah mengumpulkan.</p>
         <div class="flex gap-2">
             <a href="{{ route('tugas.kalender') }}" class="tombol-aktif bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition text-center"><x-ikon nama="calendar" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Kalender</a>
-            <a href="{{ route('tugas.create') }}" class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center"><x-ikon nama="plus" class="w-4 h-4" /> Buat Tugas</a>
+            <a href="{{ route('tugas.create') }}" data-popup class="tombol-aktif bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center"><x-ikon nama="plus" class="w-4 h-4" /> Buat Tugas</a>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
                 $lewatDeadline = $t->sudahLewatDeadline();
             @endphp
             <div class="kartu border-2 border-slate-200 rounded-xl p-4 hover:border-teal-300 transition">
-                <a href="{{ route('tugas.show', $t) }}" class="block">
+                <a href="{{ route('tugas.show', $t) }}" class="block" data-popup>
                     <div class="flex items-start justify-between gap-2">
                         <span class="text-xs font-bold uppercase tracking-wide px-2.5 py-1 rounded-full {{ $lewatDeadline ? 'bg-slate-100 text-slate-500' : 'bg-emerald-100 text-emerald-700' }}">
                             {{ $lewatDeadline ? 'Ditutup' : 'Terbuka' }}

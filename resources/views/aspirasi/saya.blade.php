@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Riwayat Aspirasi Saya')
 @section('content')
-<x-tombol-kembali :first-page="true"><a href="{{ route('aspirasi.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="send" class="w-4 h-4" /> Kirim Aspirasi Baru</a></x-tombol-kembali>
+<x-tombol-kembali :first-page="true"><a href="{{ route('aspirasi.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="send" class="w-4 h-4" /> Kirim Aspirasi Baru</a></x-tombol-kembali>
 <div class="space-y-4">
 @forelse($aspirasi as $a)
     <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-5 kartu">

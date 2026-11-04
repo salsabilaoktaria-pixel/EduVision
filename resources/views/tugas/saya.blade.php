@@ -12,7 +12,7 @@
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         @forelse($tugas as $t)
             @php $p = $t->pengumpulan->first(); @endphp
-            <a href="{{ route('tugas.formKumpulkan', $t) }}" class="kartu border-2 border-slate-200 rounded-xl p-4 hover:border-teal-300 transition block">
+            <a href="{{ route('tugas.formKumpulkan', $t) }}" class="kartu border-2 border-slate-200 rounded-xl p-4 hover:border-teal-300 transition block" data-popup>
                 <div class="flex items-start justify-between gap-2">
                     @if(!$p)
                         <span class="text-xs font-bold px-2.5 py-1 rounded-full {{ $t->sudahLewatDeadline() ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-500' }}">Belum Dikumpulkan</span>
