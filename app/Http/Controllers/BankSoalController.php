@@ -563,29 +563,4 @@ class BankSoalController extends Controller
         }
         return view('banksoal.hasil', $data);
     }
-
-    public function show(BankSoal $banksoal)
-    {
-        $banksoal->load('mataPelajaran');
-        $baris = [
-            'Mata Pelajaran' => $banksoal->mataPelajaran->nama_mapel ?? '-',
-            'Tingkat Kesulitan' => $banksoal->tingkat_kesulitan,
-            'Pertanyaan' => $banksoal->pertanyaan,
-            'Pilihan A' => $banksoal->pilihan_a,
-            'Pilihan B' => $banksoal->pilihan_b,
-            'Pilihan C' => $banksoal->pilihan_c,
-            'Pilihan D' => $banksoal->pilihan_d,
-        ];
-        if ($banksoal->pilihan_e) {
-            $baris['Pilihan E'] = $banksoal->pilihan_e;
-        }
-        $baris['Kunci Jawaban'] = $banksoal->jawaban_benar ?: 'Belum diisi';
-        return view('detail', [
-            'judul' => 'Detail Soal',
-            'kembali' => route('banksoal.index'),
-            'baris' => $baris,
-            'edit' => route('banksoal.edit', $banksoal),
-            'hapus' => route('banksoal.destroy', $banksoal),
-        ]);
-    }
 }

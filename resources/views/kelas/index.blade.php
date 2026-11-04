@@ -4,7 +4,11 @@
 <x-tombol-kembali :first-page="true" />
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-5 kartu">
     <div class="flex justify-end mb-5">
+<<<<<<< HEAD
         <a href="{{ route('kelas.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Kelas</a>
+=======
+        <a href="{{ route('kelas.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 tombol-aktif">+ Tambah Kelas</a>
+>>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
     @forelse($kelas as $k)
@@ -13,7 +17,13 @@
             <h3 class="text-lg font-extrabold text-ink-900">{{ $k->nama_kelas }}</h3>
             <p class="text-sm text-slate-500 mt-1">Wali: {{ $k->waliKelas->nama ?? '-' }}</p>
             <p class="text-sm text-slate-500">Jumlah Siswa: {{ $k->siswa->count() }}</p>
-            <div class="mt-4"><x-aksi :detail="route('kelas.show', $k)" :edit="route('kelas.edit', $k)" :hapus="route('kelas.destroy', $k)" konfirmasi="Hapus kelas ini?" /></div>
+            <div class="flex gap-2 mt-4">
+                <a href="{{ route('kelas.edit', $k) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200">Edit</a>
+                <form method="POST" action="{{ route('kelas.destroy', $k) }}" onsubmit="return confirm('Hapus kelas ini?')">
+                    @csrf @method('DELETE')
+                    <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+                </form>
+            </div>
         </div>
     @empty
         <p class="text-slate-400 col-span-full text-center py-10">Belum ada kelas.</p>

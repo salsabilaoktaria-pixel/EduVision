@@ -5,8 +5,8 @@
 
 <!-- Navigasi antar metode tambah soal (halaman terpisah, bukan tab, supaya tidak reset saat error) -->
 <div class="flex gap-2 mb-5 flex-wrap">
-    <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Buat Manual</span>
-    <a href="{{ route('banksoal.importForm') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50"><x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Import File</a>
+    <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white">✍️ Buat Manual</span>
+    <a href="{{ route('banksoal.importForm') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50">📁 Import File</a>
 </div>
 
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 max-w-2xl kartu">
@@ -42,8 +42,8 @@
         <div><label class="text-sm font-semibold text-slate-700">Pembahasan / Penjelasan <span class="text-slate-400 font-normal">(opsional, tampil ke siswa setelah menjawab)</span></label>
             <textarea name="pembahasan" rows="3" class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none">{{ old('pembahasan') }}</textarea></div>
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Simpan</button>
-            <a href="{{ route('banksoal.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Simpan</button>
+            <a href="{{ route('banksoal.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
         </div>
     </form>
 </div>

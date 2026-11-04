@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aspirasi extends Model
 {
-    use \App\Models\Concerns\BelongsToSekolah;
-
     protected $table = 'aspirasi';
     protected $fillable = ['user_id', 'judul', 'isi', 'anonim', 'status', 'tanggapan', 'pemilik_hash'];
 

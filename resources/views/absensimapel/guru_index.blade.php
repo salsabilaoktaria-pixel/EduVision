@@ -8,7 +8,7 @@
             <h2 class="font-extrabold text-lg text-ink-900">Jadwal Mengajar Hari Ini</h2>
             <p class="text-sm text-slate-500">{{ $hariIni }}, {{ now()->translatedFormat('d F Y') }}</p>
         </div>
-        <a href="{{ route('jadwal.index') }}" class="text-sm font-semibold text-teal-600 hover:underline">Kelola Jadwal <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" /></a>
+        <a href="{{ route('jadwal.index') }}" class="text-sm font-semibold text-teal-600 hover:underline">Kelola Jadwal →</a>
     </div>
 
     @forelse($jadwalHariIni as $j)
@@ -19,17 +19,17 @@
                 <p class="text-xs text-slate-500">Jam ke {{ $j->labelJamKe() }} • Guru: {{ $j->guru->nama ?? '-' }}</p>
                 @if($sesi)
                     <span class="inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-semibold {{ $sesi->status === 'dibuka' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' }}">
-                        @if($sesi->status === 'dibuka')<span class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1.5"></span>Sesi sedang dibuka @else<span class="inline-block w-2 h-2 rounded-full bg-slate-400 mr-1.5"></span>Sesi sudah ditutup @endif
+                        {{ $sesi->status === 'dibuka' ? '🟢 Sesi sedang dibuka' : '⚫ Sesi sudah ditutup' }}
                     </span>
                 @endif
             </div>
             <div class="flex gap-2">
                 @if($sesi && $sesi->status === 'dibuka')
-                    <a href="{{ route('absensimapel.layar', $sesi) }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition whitespace-nowrap tombol-aktif">Lanjutkan Sesi <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" /></a>
+                    <a href="{{ route('absensimapel.layar', $sesi) }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition whitespace-nowrap tombol-aktif">Lanjutkan Sesi →</a>
                 @else
                     <form method="POST" action="{{ route('absensimapel.buka', $j) }}">
                         @csrf
-                        <button class="bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition whitespace-nowrap tombol-aktif"><x-ikon nama="qr-code" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Buka Absen QR</button>
+                        <button class="bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition whitespace-nowrap tombol-aktif">📶 Buka Absen QR</button>
                     </form>
                 @endif
             </div>

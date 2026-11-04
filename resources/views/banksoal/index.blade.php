@@ -11,8 +11,13 @@
             </select>
         </form>
         <div class="flex gap-2 flex-wrap">
+<<<<<<< HEAD
             <a href="{{ route('banksoal.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Manual</a>
             <a href="{{ route('banksoal.importForm') }}" class="bg-slate-700 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-slate-800 transition text-center"><x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Import File</a>
+=======
+            <a href="{{ route('banksoal.create') }}" class="bg-teal-600 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-teal-700 transition shadow-lg shadow-teal-600/20 text-center tombol-aktif">✍️ Manual</a>
+            <a href="{{ route('banksoal.importForm') }}" class="bg-slate-700 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-slate-800 transition text-center">📁 Import File</a>
+>>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
         </div>
     </div>
     <div class="space-y-3">
@@ -31,10 +36,16 @@
                     @if($s->jawaban_benar)
                         <p class="text-xs text-emerald-600 font-bold mt-2">Jawaban Benar: {{ $s->jawaban_benar }}</p>
                     @else
-                        <p class="text-xs text-amber-600 font-bold mt-2 inline-flex items-center gap-1"><x-ikon nama="alert" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Kunci jawaban belum diisi — lengkapi lewat Edit</p>
+                        <p class="text-xs text-amber-600 font-bold mt-2 inline-flex items-center gap-1">⚠️ Kunci jawaban belum diisi — lengkapi lewat Edit</p>
                     @endif
                 </div>
-                <div class="shrink-0"><x-aksi :detail="route('banksoal.show', $s)" :edit="route('banksoal.edit', $s)" :hapus="route('banksoal.destroy', $s)" konfirmasi="Hapus soal ini?" /></div>
+                <div class="flex gap-2 shrink-0">
+                    <a href="{{ route('banksoal.edit', $s) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200 h-fit">Edit</a>
+                    <form method="POST" action="{{ route('banksoal.destroy', $s) }}" onsubmit="return confirm('Hapus soal ini?')">
+                        @csrf @method('DELETE')
+                        <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+                    </form>
+                </div>
             </div>
         </div>
     @empty

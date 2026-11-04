@@ -29,11 +29,7 @@ class AkunController extends Controller
         }
 
         $user->password = Hash::make($validated['password_baru']);
-        $user->password_awal = null; // pemilik sudah memegang password sendiri
-        $user->gagal_login = 0;
-        $user->dikunci_sampai = null;
         $user->save();
-        \App\Models\LogKeamanan::catat('ganti_password', 'Pemilik akun mengganti password.');
 
         return back()->with('sukses', 'Password berhasil diganti. Gunakan password baru ini untuk login berikutnya.');
     }

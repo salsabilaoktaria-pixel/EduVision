@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tugas extends Model
 {
-    use \App\Models\Concerns\BelongsToSekolah;
-
     protected $table = 'tugas';
     protected $fillable = ['mata_pelajaran_id', 'guru_id', 'kelas_id', 'semester', 'tahun_ajaran', 'judul', 'deskripsi', 'deadline'];
     protected $casts = ['deadline' => 'datetime'];

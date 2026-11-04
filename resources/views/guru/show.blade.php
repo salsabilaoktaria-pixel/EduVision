@@ -7,10 +7,13 @@
 <div class="grid lg:grid-cols-3 gap-5">
     <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 lg:col-span-1 kartu">
         @if($guru->foto)
-            <img src="{{ asset('storage/'.$guru->foto) }}" alt="Foto {{ $guru->nama }}" @click="modalFoto = '{{ asset('storage/'.$guru->foto) }}'"
-                 class="w-28 h-28 rounded-2xl object-cover mb-4 ring-1 ring-slate-300 cursor-pointer hover:opacity-90 transition">
+            <img src="{{ asset('storage/'.$guru->foto) }}" alt="Foto {{ $guru->nama }}"
+                 @click="modalFoto = '{{ asset('storage/'.$guru->foto) }}'"
+                 class="w-24 h-24 rounded-2xl object-cover mb-4 ring-1 ring-slate-200 cursor-pointer hover:opacity-90 transition">
         @else
-            <div class="mb-4"><x-avatar :nama="$guru->nama" class="w-28 h-28 !rounded-2xl" teks="text-4xl" /></div>
+            <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-400 to-indigo-600 text-white flex items-center justify-center text-3xl font-extrabold mb-4">
+                {{ strtoupper(substr($guru->nama,0,1)) }}
+            </div>
         @endif
         <h2 class="text-xl font-extrabold text-ink-900">{{ $guru->nama }}</h2>
         <p class="text-sm text-slate-500 mb-4">NIP: {{ $guru->nip }}</p>
@@ -20,8 +23,12 @@
             <p><span class="text-slate-500">No. HP:</span> <span class="font-semibold">{{ $guru->no_hp ?? '-' }}</span></p>
             <p><span class="text-slate-500">Alamat:</span> <span class="font-semibold">{{ $guru->alamat ?? '-' }}</span></p>
         </div>
+<<<<<<< HEAD
         @if(auth()->user()->isAdmin() && $guru->user)<a href="{{ route('akun.kredensial', $guru->user) }}" data-popup class="mt-5 tombol-aktif btn-sekunder w-full justify-center"><x-ikon nama="key" class="w-4 h-4" /> Lihat Username &amp; Password</a>@endif
         <div class="mt-5 flex justify-end"><x-aksi besar :edit="route('guru.edit', $guru)" :hapus="route('guru.destroy', $guru)" konfirmasi="Hapus data guru ini beserta akunnya?" /></div>
+=======
+        <a href="{{ route('guru.edit', $guru) }}" class="mt-5 block text-center bg-amber-500 text-white rounded-xl px-4 py-2.5 text-sm font-bold hover:bg-amber-600 transition">Edit Data</a>
+>>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     </div>
 
     <div class="lg:col-span-2 space-y-5">
@@ -30,7 +37,7 @@
             <div class="space-y-2">
                 @forelse($guru->mataPelajaran as $m)
                     <div class="flex justify-between text-sm border-b border-slate-50 pb-2">
-                        <span><x-ikon nama="book" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ $m->nama_mapel }} <span class="text-slate-400">({{ $m->kode_mapel }})</span></span>
+                        <span>📘 {{ $m->nama_mapel }} <span class="text-slate-400">({{ $m->kode_mapel }})</span></span>
                         <span class="text-slate-500">KKM {{ $m->kkm }}</span>
                     </div>
                 @empty
@@ -44,7 +51,7 @@
             <div class="space-y-2">
                 @forelse($guru->kelasWali as $k)
                     <div class="flex justify-between text-sm border-b border-slate-50 pb-2">
-                        <span><x-ikon nama="users" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ $k->nama_kelas }}</span>
+                        <span>🏫 {{ $k->nama_kelas }}</span>
                         <span class="text-slate-500">{{ $k->siswa->count() }} siswa</span>
                     </div>
                 @empty

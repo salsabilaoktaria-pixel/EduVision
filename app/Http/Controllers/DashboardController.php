@@ -29,22 +29,13 @@ class DashboardController extends Controller
     public function beranda()
     {
         $user = Auth::user();
-        if ($user->isSuperAdmin()) {
-            return redirect()->route('sekolah.index');
-        }
         return view('beranda', compact('user'));
     }
 
     public function index()
     {
         $user = Auth::user();
-        if ($user->isSuperAdmin()) {
-            return redirect()->route('sekolah.index');
-        }
         $data = [];
-        $sem = \App\Support\Semester::terpilih();
-        [$semMulai, $semSelesai] = \App\Support\Semester::rentang($sem);
-        $akhirTampil = $semSelesai->lt(now()) ? $semSelesai->copy() : now();
 
         if ($user->isAdmin() || $user->isGuru()) {
             $data += [
@@ -52,19 +43,27 @@ class DashboardController extends Controller
                 'totalGuru' => Guru::count(),
                 'totalKelas' => Kelas::count(),
                 'totalMapel' => MataPelajaran::count(),
+<<<<<<< HEAD
                 'absenHariIni' => Absensi::whereDate('tanggal', now())->where('status_persetujuan', 'disetujui')->count(),
                 'absenMenunggu' => Absensi::where('status_persetujuan', 'menunggu')->count(),
-                'sppBelumLunas' => \App\Support\Semester::filterSpp(Spp::where('status', 'Belum Lunas'), $sem)->count(),
+=======
+                'absenHariIni' => Absensi::whereDate('tanggal', now())->count(),
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
+                'sppBelumLunas' => Spp::where('status', 'Belum Lunas')->count(),
                 'aspirasiBaru' => Aspirasi::where('status', 'Baru')->count(),
             ];
 
-            // Grafik 1: Tren kehadiran 7 hari terakhir pada semester terpilih
+            // Grafik 1: Tren kehadiran 7 hari terakhir
             $labelHari = [];
             $dataHadir = [];
             for ($i = 6; $i >= 0; $i--) {
-                $tgl = $akhirTampil->copy()->subDays($i);
+                $tgl = now()->subDays($i);
                 $labelHari[] = $tgl->translatedFormat('D, d M');
+<<<<<<< HEAD
                 $dataHadir[] = Absensi::whereDate('tanggal', $tgl)->where('status', 'Hadir')->where('status_persetujuan', 'disetujui')->count();
+=======
+                $dataHadir[] = Absensi::whereDate('tanggal', $tgl)->where('status', 'Hadir')->count();
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             }
             $data['grafikKehadiranLabel'] = $labelHari;
             $data['grafikKehadiranData'] = $dataHadir;
@@ -75,11 +74,11 @@ class DashboardController extends Controller
             $data['grafikKelasData'] = $siswaPerKelas->pluck('siswa_count');
 
             // Grafik 3: SPP lunas vs belum lunas
-            $data['grafikSppLunas'] = \App\Support\Semester::filterSpp(Spp::where('status', 'Lunas'), $sem)->count();
-            $data['grafikSppBelum'] = \App\Support\Semester::filterSpp(Spp::where('status', 'Belum Lunas'), $sem)->count();
+            $data['grafikSppLunas'] = Spp::where('status', 'Lunas')->count();
+            $data['grafikSppBelum'] = Spp::where('status', 'Belum Lunas')->count();
 
             // Grafik 4: Rata-rata nilai per mapel
-            $rataPerMapel = Nilai::where('semester', $sem['semester'])->where('tahun_ajaran', $sem['tahun_ajaran'])->select('mata_pelajaran_id', DB::raw('AVG(nilai_akhir) as rata'))
+            $rataPerMapel = Nilai::select('mata_pelajaran_id', DB::raw('AVG(nilai_akhir) as rata'))
                 ->groupBy('mata_pelajaran_id')->with('mataPelajaran')->get();
             $data['grafikMapelLabel'] = $rataPerMapel->pluck('mataPelajaran.nama_mapel');
             $data['grafikMapelData'] = $rataPerMapel->pluck('rata')->map(fn($v) => round($v, 1));
@@ -93,12 +92,16 @@ class DashboardController extends Controller
             $data['kehadiran'] = $siswa->persentaseKehadiran();
 
             // Grafik nilai per mapel milik siswa ini
-            $nilaiSiswa = $siswa->nilai()->where('semester', $sem['semester'])->where('tahun_ajaran', $sem['tahun_ajaran'])->with('mataPelajaran')->get();
+            $nilaiSiswa = $siswa->nilai()->with('mataPelajaran')->get();
             $data['grafikNilaiLabel'] = $nilaiSiswa->pluck('mataPelajaran.nama_mapel');
             $data['grafikNilaiData'] = $nilaiSiswa->pluck('nilai_akhir');
 
             // Grafik rekap kehadiran (Hadir/Sakit/Izin/Alpa)
-            $rekapAbsen = \App\Support\Semester::filterTanggal($siswa->absensi()->where('status_persetujuan', '!=', 'menunggu'), $sem, 'tanggal')->select('status', DB::raw('count(*) as jumlah'))->groupBy('status')->pluck('jumlah', 'status');
+<<<<<<< HEAD
+            $rekapAbsen = $siswa->absensi()->where('status_persetujuan', '!=', 'menunggu')->select('status', DB::raw('count(*) as jumlah'))->groupBy('status')->pluck('jumlah', 'status');
+=======
+            $rekapAbsen = $siswa->absensi()->select('status', DB::raw('count(*) as jumlah'))->groupBy('status')->pluck('jumlah', 'status');
+>>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             $data['grafikAbsenLabel'] = $rekapAbsen->keys();
             $data['grafikAbsenData'] = $rekapAbsen->values();
 

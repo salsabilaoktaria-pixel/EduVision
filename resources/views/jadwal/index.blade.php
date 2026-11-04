@@ -10,7 +10,11 @@
                 @foreach($kelasList as $k)<option value="{{ $k->id }}" @selected(request('kelas_id')==$k->id)>{{ $k->nama_kelas }}</option>@endforeach
             </select>
         </form>
+<<<<<<< HEAD
         <a href="{{ route('jadwal.create') }}" data-popup class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center tombol-aktif"><x-ikon nama="plus" class="w-4 h-4" /> Tambah Jadwal</a>
+=======
+        <a href="{{ route('jadwal.create') }}" class="bg-teal-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-700 transition text-center tombol-aktif">+ Tambah Jadwal</a>
+>>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     </div>
 
     @forelse($jadwal as $hari => $daftar)
@@ -35,7 +39,13 @@
                             <td class="py-2.5 pr-4">{{ $j->mataPelajaran->nama_mapel ?? '-' }}</td>
                             <td class="py-2.5 pr-4">{{ $j->guru->nama ?? '-' }}</td>
                             <td class="py-2.5 pr-4 text-right">
-                                <div class="flex justify-end"><x-aksi :detail="route('jadwal.show', $j)" :edit="route('jadwal.edit', $j)" :hapus="route('jadwal.destroy', $j)" konfirmasi="Hapus jadwal ini?" /></div>
+                                <div class="flex justify-end gap-2">
+                                    <a href="{{ route('jadwal.edit', $j) }}" class="px-3 py-1.5 rounded-lg bg-amber-100 text-amber-700 text-xs font-semibold hover:bg-amber-200">Edit</a>
+                                    <form method="POST" action="{{ route('jadwal.destroy', $j) }}" onsubmit="return confirm('Hapus jadwal ini?')" class="inline">
+                                        @csrf @method('DELETE')
+                                        <button class="px-3 py-1.5 rounded-lg bg-rose-100 text-rose-700 text-xs font-semibold hover:bg-rose-200">Hapus</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

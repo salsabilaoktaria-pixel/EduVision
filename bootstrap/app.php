@@ -7,20 +7,19 @@ use Illuminate\Foundation\Configuration\Middleware;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+<<<<<<< HEAD
             'konfirmasi.password' => \App\Http\Middleware\KonfirmasiPassword::class,
+=======
+>>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
         ]);
-        $middleware->appendToGroup('web', \App\Http\Middleware\HeaderKeamanan::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // Rute /api selalu menjawab JSON (termasuk saat NISN tidak ditemukan / validasi gagal).
-        $exceptions->shouldRenderJsonWhen(fn ($request) => $request->is('api/*') || $request->expectsJson());
         // Kalau sesi/CSRF token kadaluarsa (419 Page Expired) — misalnya karena
         // tab dibiarkan terbuka lama, atau membuka halaman dari cache browser
         // setelah logout — user diarahkan balik ke halaman login dengan pesan,

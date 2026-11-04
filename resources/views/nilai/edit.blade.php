@@ -25,8 +25,8 @@
         </div>
         <p class="text-xs text-slate-400">Nilai Akhir akan otomatis dihitung ulang: rata-rata dari (Nilai Tugas + UTS + UAS) ÷ 3.</p>
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Simpan & Hitung Nilai Akhir</button>
-            <a href="{{ route('nilai.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Simpan & Hitung Nilai Akhir</button>
+            <a href="{{ route('nilai.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
         </div>
     </form>
 </div>

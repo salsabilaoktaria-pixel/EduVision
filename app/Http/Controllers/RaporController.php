@@ -44,12 +44,8 @@ class RaporController extends Controller
     private function siapkanData(Siswa $siswa)
     {
         $siswa->load('kelas', 'nilai.mataPelajaran');
-        // Rapor per SEMESTER (yang dipilih di navbar): hanya nilai semester itu yang dicetak.
-        $sem = \App\Support\Semester::terpilih();
-        $nilaiSemester = $siswa->nilai->where('semester', $sem['semester'])->where('tahun_ajaran', $sem['tahun_ajaran'])->values();
-        $siswa->setRelation('nilai', $nilaiSemester);
         $kehadiran = $siswa->persentaseKehadiran();
-        $rataRata = round($nilaiSemester->avg('nilai_akhir') ?? 0, 2);
+        $rataRata = $siswa->rataRataNilai();
         $prediksi = $this->prediksiKelulusan($rataRata, $kehadiran);
         // PENTING: kalimat motivasi dulu dihitung terpisah cuma dari nilai,
         // sedangkan status prediksi dihitung dari nilai + kehadiran — akibatnya
@@ -60,18 +56,7 @@ class RaporController extends Controller
         // kehadiran yang jadi penyebabnya).
         $motivasi = $this->kalimatMotivasi($prediksi['status'], $rataRata, $kehadiran);
 
-        // Kop rapor memakai identitas & logo SEKOLAH siswa ini (bukan logo aplikasi), supaya tiap sekolah punya rapor sendiri.
-        $sekolah = \App\Models\Sekolah::withoutGlobalScopes()->find($siswa->sekolah_id) ?? \App\Models\Sekolah::saatIni();
-        $pathLogo = $sekolah->logo ? \Illuminate\Support\Facades\Storage::disk('public')->path($sekolah->logo) : null;
-        if (!$pathLogo || !is_file($pathLogo)) {
-            $pathLogo = public_path('img/logo-eduvision.png');
-        }
-        // Dompdf butuh ekstensi PHP GD untuk gambar PNG. Kalau GD belum aktif, rapor tetap dicetak (tanpa logo) agar tidak error.
-        $logoData = (extension_loaded('gd') && is_file($pathLogo)) ? 'data:' . mime_content_type($pathLogo) . ';base64,' . base64_encode(file_get_contents($pathLogo)) : null;
-
-        $semesterLabel = \App\Support\Semester::label($sem);
-
-        return compact('siswa', 'kehadiran', 'rataRata', 'prediksi', 'motivasi', 'sekolah', 'logoData', 'semesterLabel');
+        return compact('siswa', 'kehadiran', 'rataRata', 'prediksi', 'motivasi');
     }
 
     /**
@@ -99,25 +84,27 @@ class RaporController extends Controller
     {
         if ($statusPrediksi === 'Berpeluang Naik Kelas / Lulus') {
             if ($rataRata >= 90) {
-                return 'Prestasi belajar sangat baik dengan rata-rata nilai ' . $rataRata . ' dan kehadiran ' . $kehadiran . '%. Pertahankan konsistensi belajar.';
+                return 'Luar biasa! Nilai dan kehadiranmu sama-sama sangat baik — pertahankan prestasi cemerlang ini dan terus jadi inspirasi buat teman-temanmu. 🌟';
             }
-            return 'Hasil belajar baik dengan rata-rata nilai ' . $rataRata . ' dan kehadiran ' . $kehadiran . '%. Dianjurkan menjaga konsistensi agar hasil terus meningkat.';
+            return 'Kerja bagus! Nilai (' . $rataRata . ') dan kehadiran (' . $kehadiran . '%) kamu sudah solid, terus konsisten supaya makin naik lagi ya. 💪';
         }
 
         if ($statusPrediksi === 'Perlu Perhatian & Bimbingan') {
-            return 'Rata-rata nilai ' . $rataRata . ' dan kehadiran ' . $kehadiran . '% sudah cukup, namun masih perlu ditingkatkan. Disarankan menambah waktu belajar dan berkonsultasi dengan guru mata pelajaran.';
+            return 'Kamu sudah di jalur yang benar (nilai ' . $rataRata . ', kehadiran ' . $kehadiran . '%), tapi masih ada ruang untuk berkembang. Tingkatkan lagi belajarnya, sedikit usaha ekstra akan sangat membantu! 📚';
         }
 
-        // Status "Berisiko Tidak Naik Kelas": sebutkan penyebab yang sesuai data.
+        // Status "Berisiko Tidak Naik Kelas" — sebutkan spesifik penyebabnya
+        // (nilai, kehadiran, atau keduanya) supaya kalimatnya benar-benar
+        // relevan dengan data yang ditampilkan, bukan kalimat generik.
         $nilaiKurang = $rataRata < 65;
         $kehadiranKurang = $kehadiran < 75;
         if ($nilaiKurang && $kehadiranKurang) {
-            $sebab = "rata-rata nilai ($rataRata) dan kehadiran ($kehadiran%) berada di bawah batas yang ditentukan";
+            $sebab = "nilai rata-rata kamu ($rataRata) dan tingkat kehadiran kamu ($kehadiran%) masih di bawah batas aman";
         } elseif ($kehadiranKurang) {
-            $sebab = "kehadiran ($kehadiran%) berada di bawah batas yang ditentukan, meskipun rata-rata nilai ($rataRata) sudah cukup";
+            $sebab = "tingkat kehadiran kamu ($kehadiran%) masih di bawah batas aman, walau nilai kamu ($rataRata) sudah cukup baik";
         } else {
-            $sebab = "rata-rata nilai ($rataRata) berada di bawah batas yang ditentukan, meskipun kehadiran ($kehadiran%) sudah baik";
+            $sebab = "nilai rata-rata kamu ($rataRata) masih di bawah batas aman, walau kehadiran kamu ($kehadiran%) sudah baik";
         }
-        return "Saat ini $sebab. Siswa disarankan mengikuti bimbingan dari guru mata pelajaran dan wali kelas.";
+        return "Jangan menyerah! Saat ini $sebab. Yuk minta bimbingan guru/wali kelas dan mulai perbaiki sedikit demi sedikit mulai sekarang. 🔥";
     }
 }
