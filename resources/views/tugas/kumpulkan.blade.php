@@ -43,13 +43,13 @@
 
     @if($tugas->lampiran->isNotEmpty())
         <div class="mt-3">
-            <p class="text-xs font-semibold text-slate-500 mb-1.5">📎 Lampiran dari Guru:</p>
+            <p class="text-xs font-semibold text-slate-500 mb-1.5"><x-ikon nama="paperclip" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Lampiran dari Guru:</p>
             <div class="flex flex-wrap gap-2">
                 @foreach($tugas->lampiran as $l)
                     @if($l->tipe === 'file')
                         <a href="{{ asset('storage/'.$l->file_path) }}" target="_blank" class="text-xs font-semibold text-teal-600 bg-teal-50 px-3 py-1.5 rounded-lg hover:bg-teal-100">⬇️ {{ $l->file_nama_asli }}</a>
                     @else
-                        <a href="{{ $l->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-lg hover:bg-indigo-100">🔗 Buka Link</a>
+                        <a href="{{ $l->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-lg hover:bg-indigo-100"><x-ikon nama="link" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buka Link</a>
                     @endif
                 @endforeach
             </div>
@@ -58,7 +58,7 @@
 
     @if($tugas->sudahLewatDeadline())
         <div class="mt-4 bg-amber-50 border-2 border-amber-200 text-amber-700 text-sm font-semibold rounded-xl px-4 py-3">
-            ⚠️ Deadline tugas ini sudah lewat. Kamu masih bisa mengumpulkan, tapi akan ditandai "Terlambat".
+            <x-ikon nama="alert" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Deadline tugas ini sudah lewat. Kamu masih bisa mengumpulkan, tapi akan ditandai "Terlambat".
         </div>
     @endif
 
@@ -82,11 +82,11 @@
             <div class="flex gap-2 mt-1">
                 <label class="flex-1 flex items-center justify-center rounded-xl border-2 border-slate-300 py-2.5 text-sm font-semibold cursor-pointer transition"
                        :class="tipe === 'file' ? 'bg-teal-600 text-white border-teal-600' : ''">
-                    <input type="radio" name="tipe" value="file" x-model="tipe" class="hidden"> 📎 Upload File
+                    <input type="radio" name="tipe" value="file" x-model="tipe" class="hidden"> <x-ikon nama="paperclip" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Upload File
                 </label>
                 <label class="flex-1 flex items-center justify-center rounded-xl border-2 border-slate-300 py-2.5 text-sm font-semibold cursor-pointer transition"
                        :class="tipe === 'link' ? 'bg-teal-600 text-white border-teal-600' : ''">
-                    <input type="radio" name="tipe" value="link" x-model="tipe" class="hidden"> 🔗 Link
+                    <input type="radio" name="tipe" value="link" x-model="tipe" class="hidden"> <x-ikon nama="link" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Link
                 </label>
             </div>
         </div>
@@ -111,10 +111,10 @@
                             <img :src="p.url" class="h-20 w-full object-cover rounded-lg">
                         </template>
                         <template x-if="p.video">
-                            <div class="h-20 w-full rounded-lg bg-slate-800 flex items-center justify-center text-white text-2xl">🎬</div>
+                            <div class="h-20 w-full rounded-lg bg-slate-800 flex items-center justify-center text-white text-2xl"><x-ikon nama="play" class="w-6 h-6" /></div>
                         </template>
                         <template x-if="!p.gambar && !p.video">
-                            <div class="h-20 w-full rounded-lg bg-slate-100 flex items-center justify-center text-2xl">📄</div>
+                            <div class="h-20 w-full rounded-lg bg-slate-100 flex items-center justify-center text-2xl"><x-ikon nama="file-text" class="w-6 h-6" /></div>
                         </template>
                         <p class="text-[11px] text-slate-500 mt-1 truncate" x-text="p.nama"></p>
                         <p class="text-[10px] text-teal-600 font-semibold">Klik untuk pratinjau</p>
@@ -136,7 +136,7 @@
 
         <div class="flex gap-3 pt-2">
             <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">{{ $pengumpulanSaya ? 'Kumpulkan Ulang' : 'Kumpulkan Tugas' }}</button>
-            <a href="{{ route('tugas.saya') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
+            <a href="{{ route('tugas.saya') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
         </div>
     </form>
 
@@ -147,7 +147,7 @@
         <div class="bg-white rounded-2xl p-4 max-w-lg w-full max-h-[85vh] overflow-auto">
             <div class="flex items-center justify-between mb-3">
                 <p class="text-sm font-bold text-ink-900 truncate" x-text="modalNama"></p>
-                <button type="button" @click="modalOpen = false" class="text-slate-400 hover:text-slate-600 font-bold px-2">✕</button>
+                <button type="button" @click="modalOpen = false" class="text-slate-400 hover:text-slate-600 font-bold px-2"><x-ikon nama="x" class="w-5 h-5" /></button>
             </div>
             <template x-if="modalGambar">
                 <img :src="modalUrl" class="w-full rounded-xl">
@@ -163,7 +163,7 @@
 
     {{-- Riwayat semua pengumpulan sebelumnya untuk tugas ini --}}
     <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 kartu mt-5" x-data="{}">
-        <p class="font-bold text-ink-900 mb-3">🕑 Riwayat Pengumpulan Saya</p>
+        <p class="font-bold text-ink-900 mb-3"><x-ikon nama="clock" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Riwayat Pengumpulan Saya</p>
         @forelse($riwayat as $r)
             <div class="flex items-start justify-between gap-3 py-2.5 {{ !$loop->last ? 'border-b border-slate-100' : '' }}">
                 <div class="min-w-0">
@@ -176,7 +176,7 @@
                             <a href="{{ asset('storage/'.$f->file_path) }}" target="_blank" class="text-xs font-semibold text-teal-600 hover:underline">⬇️ {{ $f->ekstensiFile() }}</a>
                         @endforeach
                     @elseif($r->tipe === 'link')
-                        <a href="{{ $r->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:underline">🔗 Buka Link</a>
+                        <a href="{{ $r->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 hover:underline"><x-ikon nama="link" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buka Link</a>
                     @endif
                 </div>
             </div>

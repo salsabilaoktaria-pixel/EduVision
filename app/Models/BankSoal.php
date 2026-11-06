@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BankSoal extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'bank_soal';
     protected $fillable = [
         'mata_pelajaran_id', 'pertanyaan', 'gambar', 'pilihan_a', 'pilihan_b',

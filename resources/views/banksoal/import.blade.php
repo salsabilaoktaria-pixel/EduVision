@@ -4,13 +4,8 @@
 <x-tombol-kembali :href="route('banksoal.index')" />
 
 <div class="flex gap-2 mb-5 flex-wrap">
-<<<<<<< HEAD
     <a href="{{ route('banksoal.create') }}" data-popup class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50"><x-ikon nama="edit" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buat Manual</a>
     <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white"><x-ikon nama="upload" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Import File</span>
-=======
-    <a href="{{ route('banksoal.create') }}" class="px-4 py-2.5 text-sm font-bold rounded-xl bg-white border-2 border-slate-300 text-slate-600 hover:bg-slate-50">✍️ Buat Manual</a>
-    <span class="px-4 py-2.5 text-sm font-bold rounded-xl bg-teal-600 text-white">📁 Import File</span>
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
 </div>
 
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 max-w-2xl kartu">
@@ -35,9 +30,9 @@ JAWABAN: B</pre>
     </div>
 
     <div class="bg-amber-50 border border-amber-100 rounded-xl p-4 mb-4 text-xs text-amber-700 space-y-1">
-        <p>📌 <b>.txt</b> — paling akurat, dibaca langsung apa adanya.</p>
-        <p>📌 <b>.docx</b> — dibaca otomatis termasuk isi tabel, tidak butuh install apapun. Pastikan filenya benar-benar Word (bukan hasil "Save As PDF" lalu diganti nama ekstensinya).</p>
-        <p>📌 <b>.pdf</b> — dibaca pakai library pembaca PDF khusus, akurat untuk PDF yang dibuat langsung dari Word/Google Docs/LibreOffice maupun PDF dengan font ter-embed. PDF hasil <b>scan atau foto</b> tetap tidak bisa dibaca (isinya gambar, bukan teks asli, butuh OCR) — untuk kasus itu gunakan .docx atau .txt.</p>
+        <p><x-ikon nama="info" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> <b>.txt</b> — paling akurat, dibaca langsung apa adanya.</p>
+        <p><x-ikon nama="info" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> <b>.docx</b> — dibaca otomatis termasuk isi tabel, tidak butuh install apapun. Pastikan filenya benar-benar Word (bukan hasil "Save As PDF" lalu diganti nama ekstensinya).</p>
+        <p><x-ikon nama="info" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> <b>.pdf</b> — dibaca pakai library pembaca PDF khusus, akurat untuk PDF yang dibuat langsung dari Word/Google Docs/LibreOffice maupun PDF dengan font ter-embed. PDF hasil <b>scan atau foto</b> tetap tidak bisa dibaca (isinya gambar, bukan teks asli, butuh OCR) — untuk kasus itu gunakan .docx atau .txt.</p>
     </div>
 
     <form method="POST" action="{{ route('banksoal.import') }}" enctype="multipart/form-data" class="space-y-4">
@@ -49,7 +44,7 @@ JAWABAN: B</pre>
             </select>
         </div>
         <div><label class="text-sm font-semibold text-slate-700">Pilih File (.docx / .txt / .pdf)</label><input type="file" name="file_soal" accept=".docx,.txt,.pdf" required class="mt-1 w-full text-sm"></div>
-        <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Import Soal</button>
+        <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="upload" class="w-4 h-4" /> Import Soal</button>
     </form>
 </div>
 @endsection

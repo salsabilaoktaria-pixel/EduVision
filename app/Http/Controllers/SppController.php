@@ -19,7 +19,7 @@ class SppController extends Controller
 
     public function index(Request $request)
     {
-        $query = Spp::query();
+        $query = \App\Support\Semester::filterSpp(Spp::query(), \App\Support\Semester::terpilih());
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
@@ -45,7 +45,7 @@ class SppController extends Controller
 
     public function create()
     {
-        $siswa = Siswa::with('kelas')->get();
+        $siswa = Siswa::with('kelas')->urutKelas()->get();
         return view('spp.create', compact('siswa'));
     }
 
@@ -71,11 +71,13 @@ class SppController extends Controller
             'jumlah' => $nominal,
             'status' => 'Belum Lunas',
         ]);
+        $siswaTagihan = \App\Models\Siswa::find($validated['siswa_id']);
+        \App\Models\Notifikasi::kirim($siswaTagihan->user_id ?? null, 'spp', 'Tagihan SPP baru',
+            $validated['bulan'] . ' ' . $validated['tahun'] . ' — Rp ' . number_format((float) $nominal, 0, ',', '.'), route('spp.saya'));
 
         return redirect()->route('spp.index')->with('sukses', 'Tagihan SPP berhasil dibuat.');
     }
 
-<<<<<<< HEAD
     public function show(Spp $spp)
     {
         $spp->load('siswa.kelas');
@@ -107,35 +109,35 @@ class SppController extends Controller
             $validated['tanggal_bayar'] = null;
         }
 
+        $statusLama = $spp->status;
         $spp->update($validated);
+        if ($statusLama !== $spp->status) {
+            \App\Models\Notifikasi::kirim($spp->siswa->user_id ?? null, 'spp', 'Status SPP ' . $spp->bulan . ' ' . $spp->tahun . ' diperbarui',
+                'Status sekarang: ' . $spp->status . '.', route('spp.saya'));
+        }
         return redirect()->route('spp.show', $spp)->with('sukses', 'Tagihan SPP berhasil diperbarui.');
     }
 
-=======
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     public function bayar(Spp $spp)
     {
         $spp->update(['status' => 'Lunas', 'tanggal_bayar' => now()]);
+        \App\Models\Notifikasi::kirim($spp->siswa->user_id ?? null, 'spp', 'SPP ' . $spp->bulan . ' ' . $spp->tahun . ' lunas', 'Pembayaranmu sudah dicatat.', route('spp.saya'));
         return back()->with('sukses', 'SPP ditandai sudah lunas.');
     }
 
     public function destroy(Spp $spp)
     {
         $spp->delete();
-<<<<<<< HEAD
         // redirect eksplisit (bukan back()) supaya tombol Hapus di halaman Detail tidak
         // mengarah kembali ke halaman tagihan yang sudah terhapus.
         return redirect()->route('spp.index')->with('sukses', 'Data SPP dihapus.');
-=======
-        return back()->with('sukses', 'Data SPP dihapus.');
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     // Halaman siswa melihat status SPP miliknya sendiri
     public function statusSaya()
     {
         $siswa = Auth::user()->siswa;
-        $spp = Spp::where('siswa_id', $siswa->id)
+        $spp = \App\Support\Semester::filterSpp(Spp::where('siswa_id', $siswa->id), \App\Support\Semester::terpilih())
             ->orderByDesc('tahun')->orderByRaw(self::URUTAN_BULAN_SQL . ' DESC')
             ->get();
         return view('spp.status', compact('spp'));

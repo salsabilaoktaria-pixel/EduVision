@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Nilai;
 use App\Models\Siswa;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Kelas;
 use App\Models\MataPelajaran;
 use App\Models\TugasHarian;
@@ -11,15 +12,24 @@ use Illuminate\Http\Request;
 
 class NilaiController extends Controller
 {
+    private function izin(Nilai $nilai): void
+    {
+        abort_unless($nilai->bolehDiakses(Auth::user()), 403, 'Kamu hanya boleh mengelola nilai mapel yang kamu ajar (atau semua mapel di kelas yang kamu walikan).');
+    }
+
     public function index(Request $request)
     {
+        $user = Auth::user();
         // TAMPILAN BARU: dikelompokkan PER SISWA (satu siswa = satu blok, semua
         // mapelnya ditampilkan sekaligus di dalamnya) supaya nama siswa tidak
         // muncul dobel/berulang seperti sebelumnya. Lalu dikelompokkan lagi
         // per kelas, dan di dalam tiap kelas siswa diurutkan sesuai ABJAD nama.
-        $query = Siswa::with(['kelas', 'nilai' => function ($q) {
-            $q->with('mataPelajaran')->orderBy('mata_pelajaran_id');
-        }])->whereHas('nilai');
+        // Hanya nilai pada SEMESTER yang dipilih (navbar) yang ditampilkan.
+        $sem = \App\Support\Semester::terpilih();
+        $query = Siswa::with(['kelas', 'nilai' => function ($q) use ($sem, $user) {
+            $q->where('semester', $sem['semester'])->where('tahun_ajaran', $sem['tahun_ajaran'])->dapatDiakses($user)
+              ->with('mataPelajaran')->orderBy('mata_pelajaran_id');
+        }])->whereHas('nilai', fn ($q) => $q->where('semester', $sem['semester'])->where('tahun_ajaran', $sem['tahun_ajaran'])->dapatDiakses($user));
 
         if ($request->filled('siswa_id')) {
             $query->where('id', $request->siswa_id);
@@ -35,10 +45,20 @@ class NilaiController extends Controller
             ])
             ->groupBy(fn ($s) => $s->kelas->nama_kelas ?? 'Tanpa Kelas');
 
-        $siswaList = Siswa::orderBy('nama')->get();
+        $siswaList = Siswa::with('kelas')->urutKelas()->get();
         $kelasList = Kelas::orderBy('nama_kelas')->get();
 
         return view('nilai.index', compact('siswaPerKelas', 'siswaList', 'kelasList'));
+    }
+
+    /** Mapel yang boleh dipilih: admin semua; guru = mapel yang dia ajar + (kalau wali kelas) semua mapel. */
+    private function mapelBoleh()
+    {
+        $user = Auth::user();
+        if ($user->isAdmin() || ($user->guru && \App\Models\Kelas::where('wali_kelas_id', $user->guru->id)->exists())) {
+            return MataPelajaran::orderBy('nama_mapel')->get();
+        }
+        return MataPelajaran::where('guru_id', $user->guru->id ?? 0)->orderBy('nama_mapel')->get();
     }
 
     public function create()
@@ -51,7 +71,7 @@ class NilaiController extends Controller
                 fn ($a, $b) => strcasecmp($a->nama, $b->nama),
             ])
             ->groupBy(fn ($s) => $s->kelas->nama_kelas ?? 'Tanpa Kelas');
-        $mapel = MataPelajaran::all();
+        $mapel = $this->mapelBoleh();
         return view('nilai.create', compact('siswa', 'mapel'));
     }
 
@@ -66,6 +86,10 @@ class NilaiController extends Controller
             'semester' => 'required|string',
             'tahun_ajaran' => 'required|string',
         ]);
+
+        $siswaTujuan = Siswa::with('kelas')->findOrFail($validated['siswa_id']);
+        $mapelTujuan = MataPelajaran::findOrFail($validated['mata_pelajaran_id']);
+        abort_unless(Nilai::bolehPasangan(Auth::user(), $siswaTujuan, $mapelTujuan), 403, 'Kamu tidak berwenang mengisi nilai mapel ini untuk siswa tersebut.');
 
         // Cegah data nilai dobel: siswa+mapel+semester+tahun ajaran yang sama
         // tidak boleh dibuat dua kali, kalau sudah ada arahkan ke data yang sudah ada.
@@ -93,13 +117,15 @@ class NilaiController extends Controller
 
     public function edit(Nilai $nilai)
     {
-        $siswa = Siswa::all();
-        $mapel = MataPelajaran::all();
+        $siswa = Siswa::with('kelas')->urutKelas()->get();
+        $this->izin($nilai);
+        $mapel = $this->mapelBoleh();
         return view('nilai.edit', compact('nilai', 'siswa', 'mapel'));
     }
 
     public function update(Request $request, Nilai $nilai)
     {
+        $this->izin($nilai);
         // ALUR BARU: Nilai Tugas TIDAK diedit manual di sini lagi — nilainya berasal
         // dari rata-rata Tugas Harian (kelola di halaman "Tugas Harian"). Di sini
         // guru hanya mengisi Nilai UTS dan Nilai UAS setelah tugas harian selesai.
@@ -122,6 +148,7 @@ class NilaiController extends Controller
 
     public function destroy(Nilai $nilai)
     {
+        $this->izin($nilai);
         $nilai->delete();
         return redirect()->route('nilai.index')->with('sukses', 'Nilai berhasil dihapus.');
     }
@@ -134,12 +161,14 @@ class NilaiController extends Controller
      */
     public function kelolaTugas(Nilai $nilai)
     {
+        $this->izin($nilai);
         $nilai->load('tugasHarian', 'siswa', 'mataPelajaran');
         return view('nilai.tugas', compact('nilai'));
     }
 
     public function simpanTugas(Request $request, Nilai $nilai)
     {
+        $this->izin($nilai);
         $validated = $request->validate([
             'nama_tugas' => 'required|string|max:255',
             'skor' => 'required|numeric|min:0|max:100',
@@ -153,6 +182,7 @@ class NilaiController extends Controller
 
     public function hapusTugas(TugasHarian $tugasHarian)
     {
+        $this->izin($tugasHarian->nilai);
         $nilaiId = $tugasHarian->nilai_id;
         $tugasHarian->delete();
         return redirect()->route('nilai.tugas', $nilaiId)->with('sukses', 'Nilai tugas dihapus.');
@@ -161,6 +191,7 @@ class NilaiController extends Controller
     // Menghitung rata-rata semua tugas harian, lalu menerapkannya jadi nilai_tugas & menghitung ulang nilai_akhir
     public function terapkanRataTugas(Nilai $nilai)
     {
+        $this->izin($nilai);
         $rataRata = $nilai->rataRataTugasHarian();
 
         $nilai->nilai_tugas = $rataRata;
@@ -168,5 +199,31 @@ class NilaiController extends Controller
         $nilai->save();
 
         return redirect()->route('nilai.tugas', $nilai)->with('sukses', "Rata-rata {$rataRata} berhasil diterapkan sebagai Nilai Tugas.");
+    }
+
+    public function show(Nilai $nilai)
+    {
+        $this->izin($nilai);
+        $nilai->load('siswa.kelas', 'mataPelajaran');
+        $kkm = $nilai->mataPelajaran->kkm ?? 75;
+        return view('detail', [
+            'judul' => 'Detail Nilai',
+            'kembali' => route('nilai.index'),
+            'baris' => [
+                'Siswa' => $nilai->siswa->nama ?? '-',
+                'Kelas' => $nilai->siswa->kelas->nama_kelas ?? '-',
+                'Mata Pelajaran' => $nilai->mataPelajaran->nama_mapel ?? '-',
+                'Semester' => $nilai->semester . ' ' . $nilai->tahun_ajaran,
+                'Nilai Tugas' => $nilai->nilai_tugas,
+                'Nilai UTS' => $nilai->nilai_uts,
+                'Nilai UAS' => $nilai->nilai_uas,
+                'Nilai Akhir' => $nilai->nilai_akhir,
+                'KKM' => $kkm,
+                'Ketuntasan' => $nilai->nilai_akhir >= $kkm ? 'Tuntas' : 'Belum tuntas',
+            ],
+            'tambahan' => [['label' => 'Tugas Harian', 'url' => route('nilai.tugas', $nilai), 'ikon' => 'edit']],
+            'edit' => route('nilai.edit', $nilai),
+            'hapus' => route('nilai.destroy', $nilai),
+        ]);
     }
 }

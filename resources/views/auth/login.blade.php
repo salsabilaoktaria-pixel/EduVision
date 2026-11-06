@@ -4,99 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - EduVision</title>
-<<<<<<< HEAD
     @include('partials.tema-sekolah')
-=======
-    <script src="https://cdn.tailwindcss.com"></script>
-<<<<<<< HEAD
-    @include('partials.tema')
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     <style>
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
         .tombol-aktif:hover { transform: translateY(-2px); filter: brightness(1.05); }
     </style>
     @include('partials.css-tailwind')
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 p-4">
+<body class="min-h-screen flex items-center justify-center hero-pastel p-4">
     <div class="w-full max-w-4xl grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden">
 
-        <div class="hidden md:flex flex-col justify-between bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 p-10 text-white">
-            <a href="{{ url('/') }}" class="flex items-center gap-3 w-fit hover:opacity-80 transition">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-300 to-brand-500 flex items-center justify-center font-extrabold text-xl text-ink-900">E</div>
-=======
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body{font-family:'Plus Jakarta Sans',sans-serif;}
-        .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
-        .tombol-aktif:hover { transform: translateY(-2px); filter: brightness(1.05); }
-    
-/* ===== LOGIN: matching dark-luxury palette ===== */
-body { background:radial-gradient(ellipse at 18% 15%,#44206f 0%,transparent 42%),linear-gradient(135deg,#0b1020 0%,#17264b 52%,#24113f 100%) !important; color:#f3efff; }
-body > div.w-full.max-w-4xl { background:#171a2d !important; border:1px solid #4b3675; box-shadow:0 28px 80px rgba(0,0,0,.42) !important; }
-body > div.w-full.max-w-4xl > div:first-child { background:linear-gradient(145deg,#452078 0%,#25205a 52%,#14284b 100%) !important; }
-body > div.w-full.max-w-4xl > div:first-child .text-teal-100, body > div.w-full.max-w-4xl > div:first-child .text-teal-200 { color:#ddd6fe !important; }
-body > div.w-full.max-w-4xl > div:first-child .from-amber-400 { --tw-gradient-from:#c4b5fd var(--tw-gradient-from-position) !important; --tw-gradient-to:rgb(196 181 253 / 0) var(--tw-gradient-to-position) !important; }
-body > div.w-full.max-w-4xl > div:last-child { background:linear-gradient(160deg,#f4f0ff,#e7eaff) !important; color:#17152d !important; }
-body > div.w-full.max-w-4xl > div:last-child h1, body > div.w-full.max-w-4xl > div:last-child h2, body > div.w-full.max-w-4xl > div:last-child label { color:#17152d !important; }
-body > div.w-full.max-w-4xl input { background:#fff !important; border:1px solid #c4b5fd !important; color:#21183b !important; border-radius:14px !important; }
-body > div.w-full.max-w-4xl button[type=submit] { background:linear-gradient(100deg,#8b5cf6,#5b21b6) !important; color:#fff !important; box-shadow:0 10px 22px rgba(109,40,217,.24) !important; }
-body > div.w-full.max-w-4xl a { color:#6d28d9 !important; }
-
-
-/* FINAL COLOR OVERRIDE — remove all green/teal from login */
-body { background:radial-gradient(ellipse at 18% 15%,#44206f 0%,transparent 42%),linear-gradient(135deg,#0b1020 0%,#17264b 52%,#24113f 100%) !important; }
-body > div.w-full.max-w-4xl > div:first-child { background:linear-gradient(145deg,#452078 0%,#25205a 52%,#14284b 100%) !important; }
-body > div.w-full.max-w-4xl > div:last-child { background:linear-gradient(160deg,#f4f0ff,#e7eaff) !important; }
-body [class*="teal"], body [class*="emerald"], body [class*="green-"] { --tw-gradient-from:#8B5CF6 var(--tw-gradient-from-position) !important; --tw-gradient-to:rgb(139 92 246 / 0) var(--tw-gradient-to-position) !important; }
-body .text-teal-100, body .text-teal-200, body .text-teal-600, body .text-teal-700 { color:#DDD6FE !important; }
-body .bg-teal-100, body .bg-teal-500, body .bg-teal-600, body .bg-teal-700 { background:linear-gradient(100deg,#8B5CF6,#5B21B6) !important; color:#fff !important; }
-body button[type=submit] { background:linear-gradient(100deg,#8B5CF6,#5B21B6) !important; }
-
-
-/* LOGO EduVision */
-.ev-logo { background:linear-gradient(135deg,#F472B6 0%,#8B5CF6 50%,#22D3EE 100%) !important; color:#fff !important; box-shadow:0 6px 20px rgba(139,92,246,.55), inset 0 1px 0 rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.25); text-shadow:0 1px 3px rgba(0,0,0,.35); }
-</style>
-    <script>
-        // Palet yang SAMA PERSIS dengan homepage & dashboard, supaya warnanya konsisten di semua halaman.
-        tailwind.config = { theme: { extend: { colors: {
-            ink: { 900:'#2f3646', 800:'#3f4653', 700:'#535b66' },
-            teal: { 50:'#f4f9f9',100:'#e1efec',200:'#c4ded9',300:'#9ec7c1',400:'#7aada4',500:'#50958b',600:'#437f76',700:'#3b6e67',800:'#38615a',900:'#325752' },
-            amber: { 50:'#f9f7f3',100:'#eee9dc',200:'#dbd0b6',300:'#c7b792',400:'#b6a279',500:'#a98f5d',600:'#957c4e',700:'#7f6944',800:'#705d3e',900:'#64543a' },
-        } } } }
-    </script>
-</head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-ink-900 via-teal-900 to-ink-900 p-4">
-    <div class="w-full max-w-4xl grid md:grid-cols-2 bg-white rounded-3xl shadow-2xl overflow-hidden">
-
-        <div class="hidden md:flex flex-col justify-between bg-gradient-to-br from-teal-700 via-teal-900 to-ink-900 p-10 text-white">
-            <a href="{{ url('/') }}" class="flex items-center gap-3 w-fit hover:opacity-80 transition">
-                <div class="w-11 h-11 rounded-xl ev-logo flex items-center justify-center font-extrabold text-xl text-ink-900">E</div>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
-                <span class="text-xl font-extrabold tracking-tight">EduVision</span>
-            </a>
-            <div>
-                <h2 class="text-3xl font-extrabold leading-tight mb-3">Satu Platform,<br>Seluruh Kegiatan Sekolah.</h2>
-                <p class="text-teal-100 text-sm leading-relaxed">Nilai, absensi, SPP, rapor, bank soal, hingga kotak aspirasi — semua terhubung dalam satu sistem akademik yang rapi dan transparan.</p>
+        <div class="hidden md:flex flex-col justify-between hero-pastel p-10 text-white">
+            <div class="flex flex-col gap-5 my-auto">
+                <a href="{{ url('/') }}" class="flex items-center gap-3 w-fit hover:opacity-80 transition">
+                    <x-logo class="w-16 h-16" />
+                    <span class="text-xl font-extrabold tracking-tight">EduVision</span>
+                </a>
+                <div>
+                    <h2 class="text-3xl font-extrabold leading-tight mb-3">Satu Platform,<br>Seluruh Kegiatan Sekolah.</h2>
+                    <p class="text-teal-100 text-sm leading-relaxed">Nilai, absensi, SPP, rapor, bank soal, hingga kotak aspirasi — semua terhubung dalam satu sistem akademik yang rapi dan transparan.</p>
+                </div>
             </div>
             <p class="text-xs text-teal-200">&copy; {{ date('Y') }} EduVision</p>
         </div>
 
         <div class="p-8 sm:p-12 flex flex-col justify-center">
+            <div class="md:hidden mb-6 pb-5 border-b-2 border-slate-100">
+                <a href="{{ url('/') }}" class="flex items-center gap-2.5 w-fit">
+                    <x-logo class="w-12 h-12" />
+                    <span class="text-lg font-extrabold tracking-tight text-ink-900">EduVision</span>
+                </a>
+                <h2 class="text-xl font-extrabold leading-tight text-ink-900 mt-3">Satu Platform, Seluruh Kegiatan Sekolah.</h2>
+                <p class="text-xs text-slate-500 leading-relaxed mt-1.5">Nilai, absensi, SPP, rapor, bank soal, hingga kotak aspirasi dalam satu sistem.</p>
+            </div>
             <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-400 hover:text-teal-600 transition mb-5 w-fit">
-                ← Kembali ke Beranda
+                <x-ikon nama="arrow-left" class="w-4 h-4 inline-block align-[-2px]" /> Kembali ke Beranda
             </a>
-            <h1 class="text-2xl font-extrabold text-slate-900 mb-1">Selamat Datang 👋</h1>
+            <h1 class="text-2xl font-extrabold text-slate-900 mb-1">Selamat Datang </h1>
             <p class="text-slate-500 text-sm mb-6">Masuk ke akun EduVision kamu.</p>
 
             @if(session('gagal'))
-                <div class="mb-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 text-sm font-medium">⚠️ {{ session('gagal') }}</div>
+                <div class="mb-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 text-sm font-medium"><x-ikon nama="alert" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ session('gagal') }}</div>
             @endif
             @if(session('sukses'))
-                <div class="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 text-sm font-medium">✅ {{ session('sukses') }}</div>
+                <div class="mb-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 text-sm font-medium"><x-ikon nama="check-circle" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ session('sukses') }}</div>
             @endif
             @if($errors->any())
                 <div class="mb-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 text-sm font-medium">
-                    @foreach($errors->all() as $error)<p>⚠️ {{ $error }}</p>@endforeach
+                    @foreach($errors->all() as $error)<p><x-ikon nama="alert" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ $error }}</p>@endforeach
                 </div>
             @endif
 

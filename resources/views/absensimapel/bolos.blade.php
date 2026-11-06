@@ -4,7 +4,7 @@
 <x-tombol-kembali :first-page="true" />
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-5 kartu">
     <div class="mb-5">
-        <h2 class="font-extrabold text-lg text-ink-900">🚩 Deteksi Terindikasi Membolos</h2>
+        <h2 class="font-extrabold text-lg text-ink-900"><x-ikon nama="flag" class="w-5 h-5" /> Deteksi Terindikasi Membolos</h2>
         <p class="text-sm text-slate-500">Siswa yang <b>Hadir</b> di absen Face ID pagi ({{ \Carbon\Carbon::parse($tanggal)->translatedFormat('d F Y') }}) tapi <b>Tanpa Keterangan</b> di salah satu sesi absen mapel hari ini (tidak scan QR dalam 5 menit pertama jam pelajaran).</p>
     </div>
 
@@ -21,7 +21,7 @@
             </div>
         </div>
     @empty
-        <p class="text-center py-12 text-slate-400">✅ Tidak ada siswa yang terindikasi membolos hari ini.</p>
+        <p class="text-center py-12 text-slate-400"><x-ikon nama="check-circle" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Tidak ada siswa yang terindikasi membolos hari ini.</p>
     @endforelse
 </div>
 @endsection

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guru extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'guru';
     protected $fillable = ['user_id', 'nip', 'nama', 'jenis_kelamin', 'tanggal_lahir', 'no_hp', 'alamat', 'foto'];
 

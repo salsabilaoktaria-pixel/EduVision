@@ -13,7 +13,7 @@
             <h2 class="text-lg font-extrabold text-ink-900">{{ $tugas->judul }}</h2>
             <p class="text-sm text-slate-500 mt-1">{{ $tugas->mataPelajaran->nama_mapel ?? '-' }} &middot; {{ $tugas->kelas->nama_kelas ?? '-' }}</p>
         </div>
-        <form method="POST" action="{{ route('tugas.destroy', $tugas) }}" onsubmit="return confirm('Hapus tugas ini beserta semua pengumpulannya?')">
+        <form method="POST" action="{{ route('tugas.destroy', $tugas) }}" data-konfirmasi="Hapus tugas ini beserta semua pengumpulannya?">
             @csrf @method('DELETE')
             <button class="text-xs text-rose-500 hover:text-rose-700 font-semibold bg-rose-50 px-3 py-1.5 rounded-lg">Hapus Tugas</button>
         </form>
@@ -23,13 +23,13 @@
 
     @if($tugas->lampiran->isNotEmpty())
         <div class="mt-4 border-t border-slate-100 pt-3">
-            <p class="text-xs font-semibold text-slate-500 mb-2">📎 Lampiran Tugas:</p>
+            <p class="text-xs font-semibold text-slate-500 mb-2"><x-ikon nama="paperclip" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Lampiran Tugas:</p>
             <div class="flex flex-wrap gap-2">
                 @foreach($tugas->lampiran as $l)
                     @if($l->tipe === 'file')
                         <a href="{{ asset('storage/'.$l->file_path) }}" target="_blank" class="text-xs font-semibold text-teal-600 bg-teal-50 px-3 py-1.5 rounded-lg hover:bg-teal-100">⬇️ {{ $l->file_nama_asli }}</a>
                     @else
-                        <a href="{{ $l->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-lg hover:bg-indigo-100">🔗 Buka Link</a>
+                        <a href="{{ $l->link }}" target="_blank" class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-lg hover:bg-indigo-100"><x-ikon nama="link" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buka Link</a>
                     @endif
                 @endforeach
             </div>
@@ -71,7 +71,7 @@
                                 @endforeach
                             </div>
                         @elseif($p && $p->tipe === 'link')
-                            <a href="{{ $p->link }}" target="_blank" class="text-indigo-600 font-semibold hover:underline">🔗 Buka Link</a>
+                            <a href="{{ $p->link }}" target="_blank" class="text-indigo-600 font-semibold hover:underline"><x-ikon nama="link" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Buka Link</a>
                         @else
                             <span class="text-slate-400">-</span>
                         @endif

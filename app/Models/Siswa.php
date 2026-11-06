@@ -6,11 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Siswa extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'siswa';
     protected $fillable = [
         'user_id', 'nisn', 'nama', 'kelas_id', 'jenis_kelamin',
         'tanggal_lahir', 'alamat', 'nama_wali', 'no_hp_wali', 'foto'
     ];
+
+    /** Urut per KELAS (X, XI, XII lalu nama kelas), di dalam kelas urut abjad nama. Dipakai di semua daftar & pilihan nama. */
+    public function scopeUrutKelas($q)
+    {
+        return $q->leftJoin('kelas as k_urut', 'k_urut.id', '=', 'siswa.kelas_id')
+            ->select('siswa.*')
+            ->orderByRaw("CASE k_urut.tingkat WHEN 'X' THEN 1 WHEN 'XI' THEN 2 WHEN 'XII' THEN 3 ELSE 9 END")
+            ->orderBy('k_urut.nama_kelas')
+            ->orderBy('siswa.nama');
+    }
 
     public function user()
     {
@@ -37,10 +49,7 @@ class Siswa extends Model
         return $this->hasMany(Spp::class);
     }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     public function prestasi()
     {
         return $this->hasMany(Prestasi::class);
@@ -60,34 +69,27 @@ class Siswa extends Model
         return $this->absensi()
             ->whereDate('tanggal', now()->toDateString())
             ->where('status', 'Hadir')
-<<<<<<< HEAD
             // Absen yang masih "menunggu"/"ditolak" TIDAK dihitung sebagai hadir.
             ->where('status_persetujuan', 'disetujui')
-=======
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             ->exists();
     }
 
     // Persentase kehadiran (dipakai untuk fitur prediksi)
-    public function persentaseKehadiran()
+    public function persentaseKehadiran(?array $sem = null)
     {
-<<<<<<< HEAD
-        // Absen yang masih menunggu persetujuan belum dihitung (belum final).
-        $dasar = fn () => $this->absensi()->where('status_persetujuan', '!=', 'menunggu');
+        $sem = $sem ?? \App\Support\Semester::terpilih();
+        // Absen yang masih menunggu persetujuan belum dihitung (belum final). Dihitung per semester terpilih.
+        $dasar = fn () => \App\Support\Semester::filterTanggal($this->absensi()->where('status_persetujuan', '!=', 'menunggu'), $sem, 'tanggal');
         $total = $dasar()->count();
         if ($total == 0) return 100;
         $hadir = $dasar()->where('status', 'Hadir')->count();
-=======
-        $total = $this->absensi()->count();
-        if ($total == 0) return 100;
-        $hadir = $this->absensi()->where('status', 'Hadir')->count();
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         return round(($hadir / $total) * 100, 2);
     }
 
-    // Rata-rata nilai akhir semua mapel
-    public function rataRataNilai()
+    // Rata-rata nilai akhir semua mapel pada semester terpilih
+    public function rataRataNilai(?array $sem = null)
     {
-        return round($this->nilai()->avg('nilai_akhir') ?? 0, 2);
+        $sem = $sem ?? \App\Support\Semester::terpilih();
+        return round($this->nilai()->where('semester', $sem['semester'])->where('tahun_ajaran', $sem['tahun_ajaran'])->avg('nilai_akhir') ?? 0, 2);
     }
 }

@@ -9,8 +9,47 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'role', 'foto'];
-    protected $hidden = ['password', 'remember_token'];
+    protected $fillable = ['name', 'email', 'password', 'role', 'foto', 'sekolah_id', 'password_awal', 'gagal_login', 'dikunci_sampai'];
+    protected $casts = ['dikunci_sampai' => 'datetime'];
+
+    // Catatan: User sengaja TIDAK memakai filter sekolah otomatis (dipakai untuk memuat akun login).
+    protected static function booted(): void
+    {
+        static::creating(function ($user) {
+            if (empty($user->sekolah_id) && $user->role !== 'super_admin' && ($id = \App\Support\Tenant::id())) {
+                $user->sekolah_id = $id;
+            }
+        });
+    }
+
+    public function sekolah()
+    {
+        return $this->belongsTo(Sekolah::class, 'sekolah_id');
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->role === 'super_admin';
+    }
+    protected $hidden = ['password', 'remember_token', 'password_awal'];
+
+    /** Simpan password awal terenkripsi (APP_KEY) supaya admin bisa membagikannya ke pemilik akun. */
+    public static function enkripsiAwal(string $password): string
+    {
+        return \Illuminate\Support\Facades\Crypt::encryptString($password);
+    }
+
+    public function passwordAwalTerbaca(): ?string
+    {
+        if (!$this->password_awal) {
+            return null;
+        }
+        try {
+            return \Illuminate\Support\Facades\Crypt::decryptString($this->password_awal);
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
 
     public function siswa()
     {

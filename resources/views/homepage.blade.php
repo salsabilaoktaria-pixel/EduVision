@@ -4,22 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduVision — Sistem Akademik Sekolah</title>
-<<<<<<< HEAD
     @include('partials.tema-sekolah')
     <script defer src="{{ asset('vendor/alpine.min.js') }}"></script>
-=======
-    <script src="https://cdn.tailwindcss.com"></script>
-<<<<<<< HEAD
-    @include('partials.tema')
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     <style>
-=======
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.5/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body{font-family:'Plus Jakarta Sans',sans-serif;}
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         [x-cloak]{display:none!important;}
         .tombol-aktif { transition: transform .2s ease, box-shadow .2s ease, filter .2s ease; }
         .tombol-aktif:hover { transform: translateY(-2px); }
@@ -29,69 +16,28 @@
            dan sedikit "masuk" ke bawah (-1px) supaya tidak ada garis tipis/seam
            apa pun yang muncul di batas antara hero gelap dan konten terang. */
         .gelombang path { stroke: none; }
-<<<<<<< HEAD
     </style>
-<<<<<<< HEAD
     @include('partials.css-tailwind')
-=======
-=======
-    
-/* FINAL COLOR OVERRIDE — no green/teal in public pages */
-body [class*="from-teal-"], body [class*="via-teal-"], body [class*="to-teal-"], body [class*="from-emerald-"], body [class*="to-emerald-"] { --tw-gradient-from:#452078 var(--tw-gradient-from-position) !important; --tw-gradient-to:#1D4ED8 var(--tw-gradient-to-position) !important; }
-body [class*="bg-teal-"], body [class*="bg-emerald-"], body [class*="bg-green-"] { background-color:#6D28D9 !important; color:#fff !important; }
-body [class*="text-teal-"], body [class*="text-emerald-"], body [class*="text-green-"] { color:#7C3AED !important; }
-body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4B5FD !important; }
-
-
-/* LOGO EduVision */
-.ev-logo { background:linear-gradient(135deg,#F472B6 0%,#8B5CF6 50%,#22D3EE 100%) !important; color:#fff !important; box-shadow:0 6px 20px rgba(139,92,246,.55), inset 0 1px 0 rgba(255,255,255,.35); border:1px solid rgba(255,255,255,.25); text-shadow:0 1px 3px rgba(0,0,0,.35); }
-</style>
-    <script>
-        // Palet yang SAMA PERSIS dengan halaman login & dashboard, supaya warnanya konsisten di semua halaman.
-        tailwind.config = { theme: { extend: { colors: {
-            ink: { 900:'#2f3646', 800:'#3f4653', 700:'#535b66' },
-            teal: { 50:'#f4f9f9',100:'#e1efec',200:'#c4ded9',300:'#9ec7c1',400:'#7aada4',500:'#50958b',600:'#437f76',700:'#3b6e67',800:'#38615a',900:'#325752' },
-            indigo: { 50:'#f6f5fa',100:'#edebf4',200:'#dcd7ec',300:'#c4bcdc',400:'#aa9fcb',500:'#9384b8',600:'#8272a7',700:'#6b5b92',800:'#5f5080',900:'#544a70' },
-            amber: { 50:'#f9f7f3',100:'#eee9dc',200:'#dbd0b6',300:'#c7b792',400:'#b6a279',500:'#a98f5d',600:'#957c4e',700:'#7f6944',800:'#705d3e',900:'#64543a' },
-            rose: { 50:'#faf5f6',100:'#f5ecee',200:'#ead6db',300:'#d8b8c1',400:'#c29aa5',500:'#a77c89',600:'#955d6f',700:'#835061',800:'#744857',900:'#694351' },
-        } } } }
-    </script>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
 </head>
 <body class="bg-slate-50 text-slate-800">
 
     <!-- HERO -->
-<<<<<<< HEAD
-    <header class="relative overflow-hidden bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 text-white">
+    <header class="relative overflow-hidden hero-pastel text-white">
         <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-300 to-brand-500 flex items-center justify-center font-extrabold text-lg">E</div>
-=======
-    <header class="relative overflow-hidden bg-gradient-to-br from-ink-900 via-teal-900 to-ink-900 text-white">
-        <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl ev-logo flex items-center justify-center font-extrabold text-lg">E</div>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
+                <x-logo class="w-14 h-14" />
                 <span class="text-xl font-extrabold tracking-tight">EduVision</span>
             </div>
-            <a href="{{ route('login') }}" class="tombol-aktif bg-white text-ink-900 rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-teal-50 transition">Masuk →</a>
+            <a href="{{ route('login') }}" class="tombol-aktif btn-utama">Masuk <x-ikon nama="arrow-right" class="w-4 h-4" /></a>
         </div>
 
-        <div class="max-w-6xl mx-auto px-6 pt-10 pb-28 text-center relative z-10">
-            <span class="inline-block bg-white/10 text-teal-200 text-xs font-bold px-3 py-1.5 rounded-full mb-4">✨ Satu Platform, Seluruh Kegiatan Sekolah</span>
-<<<<<<< HEAD
-            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight max-w-3xl mx-auto">Sistem Akademik Sekolah yang <span class="bg-gradient-to-r from-brand-200 to-brand-400 bg-clip-text text-transparent">Rapi, Cepat, & Transparan</span></h1>
+        <div class="max-w-6xl mx-auto px-6 pt-4 pb-28 text-center relative z-10">
+            <span class="inline-block bg-white/10 text-teal-200 text-xs font-bold px-3 py-1.5 rounded-full mb-4"><x-ikon nama="sparkles" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Satu Platform, Seluruh Kegiatan Sekolah</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold leading-[1.18] max-w-3xl mx-auto">Sistem Akademik Sekolah yang <span class="inline-block pb-2 -mb-2 bg-gradient-to-r from-teal-600 to-indigo-500 bg-clip-text text-transparent">Rapi, Cepat, &amp; Transparan</span></h1>
             <p class="text-slate-300 mt-5 max-w-xl mx-auto">Absensi Face ID & QR per mapel, nilai, tugas, rapor, bank soal, SPP, hingga kotak aspirasi — semua terhubung dalam satu sistem.</p>
             <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
-                <a href="{{ route('login') }}" class="tombol-aktif inline-block bg-gradient-to-r from-teal-500 to-teal-700 rounded-xl px-8 py-3.5 text-sm font-bold shadow-xl shadow-teal-700/40 hover:shadow-teal-900/60 transition">Masuk ke Akun Saya</a>
-=======
-            <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight max-w-3xl mx-auto">Sistem Akademik Sekolah yang <span class="bg-gradient-to-r from-amber-300 to-teal-300 bg-clip-text text-transparent">Rapi, Cepat, & Transparan</span></h1>
-            <p class="text-slate-300 mt-5 max-w-xl mx-auto">Absensi Face ID & QR per mapel, nilai, tugas, rapor, bank soal, SPP, hingga kotak aspirasi — semua terhubung dalam satu sistem.</p>
-            <div class="flex flex-wrap items-center justify-center gap-3 mt-8">
-                <a href="{{ route('login') }}" class="tombol-aktif inline-block bg-gradient-to-r from-teal-500 to-teal-700 rounded-xl px-8 py-3.5 text-sm font-bold shadow-xl shadow-teal-900/40 hover:shadow-teal-900/60 transition">Masuk ke Akun Saya</a>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
-                <a href="#fitur" class="tombol-aktif inline-block bg-white/10 border border-white/20 rounded-xl px-8 py-3.5 text-sm font-bold hover:bg-white/20 transition">Lihat Fitur ↓</a>
+                <a href="{{ route('login') }}" class="tombol-aktif btn-utama btn-besar">Masuk ke Akun Saya <x-ikon nama="arrow-right" class="w-4 h-4" /></a>
+                <a href="#fitur" class="tombol-aktif btn-utama btn-besar">Lihat Fitur <x-ikon nama="arrow-down" class="w-4 h-4" /></a>
             </div>
 
             {{-- Statistik singkat, sekadar gambaran skala sistem --}}
@@ -119,7 +65,7 @@ body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4
              dibuat tanpa stroke dan sedikit tumpang-tindih ke bawah supaya TIDAK ADA
              garis tipis/seam apa pun yang kelihatan di batas hero. --}}
         <svg class="gelombang absolute -bottom-px left-0 w-full" style="height:auto" viewBox="0 0 1440 90" fill="none" preserveAspectRatio="none">
-            <path d="M0 48C240 90 480 8 720 28C960 48 1200 90 1440 48V91H0V48Z" fill="#f8fafc"/>
+            <path d="M0 48C240 90 480 8 720 28C960 48 1200 90 1440 48V91H0V48Z" fill="#fffdf8"/>
         </svg>
     </header>
 
@@ -133,47 +79,47 @@ body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-2xl mb-3">📷</div>
+                <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="scan-face" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Absensi Face ID + Lokasi</h3>
                 <p class="text-sm text-slate-500">Absen masuk sekolah pakai kamera & GPS, otomatis tercatat sesuai zona waktu WIB.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-2xl mb-3">📶</div>
+                <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="qr-code" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Absen QR Dinamis Per Mapel</h3>
                 <p class="text-sm text-slate-500">QR berganti tiap beberapa detik, anti-screenshot, langsung terekap per jam pelajaran.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-3">📝</div>
+                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="edit" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Tugas & Pengumpulan Online</h3>
                 <p class="text-sm text-slate-500">Guru beri tugas lengkap dengan lampiran, siswa kumpulkan file/video/link, nilai otomatis masuk rapor.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl mb-3">❓</div>
+                <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="help" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Bank Soal & Latihan</h3>
                 <p class="text-sm text-slate-500">Upload soal dari Word/PDF/teks, siswa bisa latihan soal pilihan ganda kapan saja.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-2xl mb-3">📊</div>
+                <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="bar-chart" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Nilai & Rapor Otomatis</h3>
                 <p class="text-sm text-slate-500">Input nilai per mapel, rapor otomatis terekap rapi per siswa dan per kelas, lengkap dengan grafik tren.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-2xl mb-3">💳</div>
+                <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="credit-card" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">SPP & Pembayaran</h3>
                 <p class="text-sm text-slate-500">Status pembayaran SPP transparan per kelas, bisa dipantau kapan saja oleh siswa/orang tua.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-3">🗓️</div>
+                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="calendar" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Jadwal Pelajaran</h3>
                 <p class="text-sm text-slate-500">Jadwal per kelas tersusun rapi, otomatis terhubung ke absen QR per mata pelajaran.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl mb-3">🏆</div>
+                <div class="w-12 h-12 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="award" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Prestasi Siswa</h3>
                 <p class="text-sm text-slate-500">Catat pencapaian & prestasi siswa supaya terdokumentasi rapi sepanjang masa sekolah.</p>
             </div>
             <div class="kartu bg-white rounded-2xl p-6 shadow-sm border-2 border-slate-200">
-                <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-2xl mb-3">📮</div>
+                <div class="w-12 h-12 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center text-2xl mb-3"><x-ikon nama="megaphone" class="w-6 h-6" /></div>
                 <h3 class="font-bold text-ink-900 mb-1">Kotak Aspirasi</h3>
                 <p class="text-sm text-slate-500">Siswa bisa menyampaikan masukan langsung ke sekolah lewat satu tempat, direspons pihak sekolah.</p>
             </div>
@@ -187,7 +133,6 @@ body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4
             <h2 class="text-2xl sm:text-3xl font-extrabold text-ink-900 mt-2">Satu Sistem, Empat Peran</h2>
             <p class="text-slate-500 mt-3">Setiap peran mendapat tampilan dan akses yang relevan dengan kebutuhannya masing-masing.</p>
         </div>
-<<<<<<< HEAD
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
                 <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3"><x-ikon nama="school" class="w-6 h-6" /></div>
@@ -198,40 +143,16 @@ body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4
                 <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3"><x-ikon nama="folder" class="w-6 h-6" /></div>
                 <h3 class="font-bold mb-1">Admin Sekolah</h3>
                 <p class="text-sm text-slate-700">Kelola data siswa, guru, kelas, mapel, SPP, dan pantau seluruh aktivitas sekolah dari satu dashboard.</p>
-=======
-        <div class="grid sm:grid-cols-3 gap-5">
-<<<<<<< HEAD
-            <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
-                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3">🗂️</div>
-                <h3 class="font-bold mb-1">Admin / Tata Usaha</h3>
-                <p class="text-sm text-white/90">Kelola data siswa, guru, kelas, mapel, SPP, dan pantau seluruh aktivitas sekolah dari satu dashboard.</p>
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
             </div>
             <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
-                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3">👨‍🏫</div>
+                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3"><x-ikon nama="presentation" class="w-6 h-6" /></div>
                 <h3 class="font-bold mb-1">Guru / Wali Kelas</h3>
-                <p class="text-sm text-white/90">Beri materi & tugas, nilai otomatis tersalur ke rapor, buka absen QR, dan pantau kelas binaan.</p>
+                <p class="text-sm text-slate-700">Beri materi & tugas, nilai otomatis tersalur ke rapor, buka absen QR, dan pantau kelas binaan.</p>
             </div>
             <div class="kartu bg-gradient-to-br from-teal-500 to-teal-700 text-white rounded-2xl p-6 shadow-lg shadow-teal-600/25">
-                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3">🎓</div>
+                <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-2xl mb-3"><x-ikon nama="graduation" class="w-6 h-6" /></div>
                 <h3 class="font-bold mb-1">Siswa</h3>
-                <p class="text-sm text-white/90">Lihat jadwal, kumpulkan tugas, pantau nilai & rapor, latihan soal, hingga cek status SPP sendiri.</p>
-=======
-            <div class="kartu bg-gradient-to-br from-ink-900 to-teal-900 text-white rounded-2xl p-6">
-                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl mb-3">🗂️</div>
-                <h3 class="font-bold mb-1">Admin / Tata Usaha</h3>
-                <p class="text-sm text-slate-300">Kelola data siswa, guru, kelas, mapel, SPP, dan pantau seluruh aktivitas sekolah dari satu dashboard.</p>
-            </div>
-            <div class="kartu bg-gradient-to-br from-teal-700 to-teal-900 text-white rounded-2xl p-6">
-                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl mb-3">👨‍🏫</div>
-                <h3 class="font-bold mb-1">Guru / Wali Kelas</h3>
-                <p class="text-sm text-slate-300">Beri materi & tugas, nilai otomatis tersalur ke rapor, buka absen QR, dan pantau kelas binaan.</p>
-            </div>
-            <div class="kartu bg-gradient-to-br from-indigo-700 to-indigo-900 text-white rounded-2xl p-6">
-                <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl mb-3">🎓</div>
-                <h3 class="font-bold mb-1">Siswa</h3>
-                <p class="text-sm text-slate-300">Lihat jadwal, kumpulkan tugas, pantau nilai & rapor, latihan soal, hingga cek status SPP sendiri.</p>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
+                <p class="text-sm text-slate-700">Lihat jadwal, kumpulkan tugas, pantau nilai & rapor, latihan soal, hingga cek status SPP sendiri.</p>
             </div>
         </div>
     </section>
@@ -263,34 +184,19 @@ body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4
 
     {{-- CTA BANNER --}}
     <section class="max-w-6xl mx-auto px-6 mt-20">
-<<<<<<< HEAD
-        <div class="rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 text-white p-10 sm:p-14 text-center relative overflow-hidden">
+        <div class="rounded-3xl hero-pastel text-white p-10 sm:p-14 text-center relative overflow-hidden">
             <h2 class="text-2xl sm:text-3xl font-extrabold max-w-xl mx-auto">Siap Merapikan Administrasi Akademik Sekolahmu?</h2>
             <p class="text-slate-300 mt-3 max-w-md mx-auto">Masuk sekarang dan rasakan kemudahan mengelola kegiatan sekolah dalam satu platform.</p>
-            <a href="{{ route('login') }}" class="tombol-aktif inline-block mt-7 bg-gradient-to-r from-brand-500 to-brand-600 text-ink-900 rounded-xl px-8 py-3.5 text-sm font-extrabold shadow-xl shadow-amber-900/30 hover:shadow-amber-900/50 transition">Masuk ke Akun Saya →</a>
-=======
-        <div class="rounded-3xl bg-gradient-to-br from-ink-900 via-teal-900 to-ink-900 text-white p-10 sm:p-14 text-center relative overflow-hidden">
-            <h2 class="text-2xl sm:text-3xl font-extrabold max-w-xl mx-auto">Siap Merapikan Administrasi Akademik Sekolahmu?</h2>
-            <p class="text-slate-300 mt-3 max-w-md mx-auto">Masuk sekarang dan rasakan kemudahan mengelola kegiatan sekolah dalam satu platform.</p>
-            <a href="{{ route('login') }}" class="tombol-aktif inline-block mt-7 bg-gradient-to-r from-amber-400 to-amber-600 text-ink-900 rounded-xl px-8 py-3.5 text-sm font-extrabold shadow-xl shadow-amber-900/30 hover:shadow-amber-900/50 transition">Masuk ke Akun Saya →</a>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
+            <a href="{{ route('login') }}" class="tombol-aktif btn-utama btn-besar mt-7">Masuk ke Akun Saya <x-ikon nama="arrow-right" class="w-4 h-4" /></a>
         </div>
     </section>
     </main>
 
-<<<<<<< HEAD
-    <footer class="mt-20 bg-gradient-to-r from-teal-600 via-teal-700 to-teal-900 text-slate-300">
+    <footer class="mt-20 hero-pastel text-slate-300">
         <div class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-3 gap-8">
             <div>
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-300 to-brand-500 flex items-center justify-center font-extrabold text-ink-900">E</div>
-=======
-    <footer class="mt-20 bg-gradient-to-r from-ink-900 via-teal-900 to-ink-900 text-slate-300">
-        <div class="max-w-6xl mx-auto px-6 py-10 grid sm:grid-cols-3 gap-8">
-            <div>
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-9 h-9 rounded-lg ev-logo flex items-center justify-center font-extrabold text-ink-900">E</div>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
+                    <x-logo class="w-14 h-14" />
                     <span class="font-extrabold text-white text-lg">EduVision</span>
                 </div>
                 <p class="text-sm text-slate-400">Sistem akademik sekolah yang rapi, cepat, dan transparan — untuk admin, guru, dan siswa.</p>
@@ -306,7 +212,7 @@ body [class*="border-teal-"], body [class*="border-emerald-"] { border-color:#C4
             </div>
             <div>
                 <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Akses</p>
-                <a href="{{ route('login') }}" class="tombol-aktif inline-block bg-white/10 border border-white/20 rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-white/20 transition">Masuk ke Akun Saya →</a>
+                <a href="{{ route('login') }}" class="tombol-aktif btn-utama btn-besar">Masuk ke Akun Saya <x-ikon nama="arrow-right" class="w-4 h-4" /></a>
             </div>
         </div>
         <div class="border-t border-white/10 text-center text-xs py-5 px-4">

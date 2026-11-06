@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PengumpulanTugas extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'pengumpulan_tugas';
     protected $fillable = [
         'tugas_id', 'siswa_id', 'tipe', 'file_path', 'file_nama_asli',

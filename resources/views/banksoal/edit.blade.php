@@ -44,8 +44,8 @@
         <div><label class="text-sm font-semibold text-slate-700">Pembahasan / Penjelasan <span class="text-slate-400 font-normal">(opsional, tampil ke siswa setelah menjawab)</span></label>
             <textarea name="pembahasan" rows="3" class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none">{{ old('pembahasan', $banksoal->pembahasan) }}</textarea></div>
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Update</button>
-            <a href="{{ route('banksoal.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Update</button>
+            <a href="{{ route('banksoal.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
         </div>
     </form>
 </div>

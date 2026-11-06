@@ -12,11 +12,7 @@
 
 @forelse($menunggu as $namaKelas => $daftar)
 <div class="mb-8">
-<<<<<<< HEAD
-    <h3 class="text-sm font-bold text-teal-800 bg-teal-100 inline-block px-3 py-1 rounded-full mb-3">🏫 Kelas {{ $namaKelas }} <span class="opacity-70 font-semibold">({{ $daftar->count() }} menunggu)</span></h3>
-=======
     <h3 class="text-sm font-bold text-teal-800 bg-teal-100 inline-block px-3 py-1 rounded-full mb-3"><x-ikon nama="users" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Kelas {{ $namaKelas }} <span class="opacity-70 font-semibold">({{ $daftar->count() }} menunggu)</span></h3>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     <div class="grid md:grid-cols-2 gap-4">
         @foreach($daftar as $a)
         @php $jr = $a->jarakTerhadap($sekolah); @endphp
@@ -32,17 +28,10 @@
                 <p class="text-xs text-slate-500">{{ \Carbon\Carbon::parse($a->tanggal)->translatedFormat('d M Y') }}, {{ \Carbon\Carbon::parse($a->jam_masuk)->format('H:i') }} WIB • Keterangan: <b>{{ $a->status }}</b></p>
                 @if($a->keterangan_detail)<p class="text-xs text-slate-400 italic">"{{ $a->keterangan_detail }}"</p>@endif
                 @if($jr)
-<<<<<<< HEAD
-                    <p class="text-xs text-slate-500 mt-1">📍 {{ number_format($jr['efektif'], 0, ',', '.') }} m dari sekolah
-                        <a href="{{ $a->tautanGoogleMaps() }}" target="_blank" class="text-indigo-600 font-semibold hover:underline">(peta)</a></p>
-                @else
-                    <p class="text-xs text-slate-400 mt-1">📍 Lokasi tidak tersedia</p>
-=======
                     <p class="text-xs text-slate-500 mt-1"><x-ikon nama="map-pin" class="w-4 h-4 inline-block align-[-2px] mr-1" /> {{ number_format($jr['efektif'], 0, ',', '.') }} m dari sekolah
                         <a href="{{ $a->tautanGoogleMaps() }}" target="_blank" class="text-indigo-600 font-semibold hover:underline">(peta)</a></p>
                 @else
                     <p class="text-xs text-slate-400 mt-1"><x-ikon nama="map-pin" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Lokasi tidak tersedia</p>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 @endif
                 @if($a->alasan_menunggu)<p class="text-[11px] text-amber-700 bg-amber-50 rounded-lg px-2 py-1 mt-1.5">{{ $a->alasan_menunggu }}</p>@endif
 
@@ -66,11 +55,7 @@
 </div>
 @empty
     <div class="text-center py-16 bg-white rounded-2xl border-2 border-slate-200">
-<<<<<<< HEAD
-        <span class="text-4xl">🎉</span>
-=======
         <span class="text-4xl"><x-ikon nama="check-circle" class="w-9 h-9" /></span>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         <p class="mt-2 font-bold text-ink-900">Tidak ada absen yang menunggu</p>
         <p class="text-sm text-slate-400">Absen baru yang butuh persetujuan akan muncul di halaman ini.</p>
     </div>

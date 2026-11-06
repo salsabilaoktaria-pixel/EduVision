@@ -13,10 +13,21 @@
                 @foreach($guru as $g)<option value="{{ $g->id }}" @selected($mapel->guru_id == $g->id)>{{ $g->nama }}</option>@endforeach
             </select>
         </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+            <div><label class="text-sm font-semibold text-slate-700">Kurikulum</label>
+                <select name="kurikulum_id" class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                    <option value="">-- Pilih Kurikulum --</option>
+                    @foreach($kurikulum as $k)<option value="{{ $k->id }}" @selected(old('kurikulum_id', $mapel->kurikulum_id) == $k->id)>{{ $k->nama }}</option>@endforeach
+                </select></div>
+            <div><label class="text-sm font-semibold text-slate-700">Semester</label>
+                <select name="semester" required class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none">
+                    @foreach(['Ganjil' => 'Ganjil', 'Genap' => 'Genap', 'Semua' => 'Ganjil & Genap (setahun)'] as $v => $l)<option value="{{ $v }}" @selected(old('semester', $mapel->semester) === $v)>{{ $l }}</option>@endforeach
+                </select></div>
+        </div>
         <div><label class="text-sm font-semibold text-slate-700">KKM</label><input type="number" name="kkm" value="{{ old('kkm', $mapel->kkm) }}" required class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></div>
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Update</button>
-            <a href="{{ route('mapel.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Update</button>
+            <a href="{{ route('mapel.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
         </div>
     </form>
 </div>
@@ -36,7 +47,7 @@
                 </label>
             @endforeach
         </div>
-        <button class="bg-indigo-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-indigo-700 transition tombol-aktif">Simpan Penempatan Kelas</button>
+        <button class="bg-indigo-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-indigo-700 transition tombol-aktif"><x-ikon nama="check" class="w-4 h-4" /> Simpan Penempatan Kelas</button>
     </form>
 </div>
 @endsection

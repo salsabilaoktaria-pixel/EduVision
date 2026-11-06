@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Absensi extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'absensi';
     protected $fillable = [
         'siswa_id', 'tanggal', 'jam_masuk', 'status', 'keterangan_detail',
         'foto_wajah', 'latitude', 'longitude', 'terverifikasi',
-<<<<<<< HEAD
         'jarak_ke_sekolah_meter', 'akurasi_meter', 'di_area_sekolah',
         'status_persetujuan', 'alasan_menunggu', 'catatan_persetujuan',
         'diputuskan_oleh', 'diputuskan_pada',
@@ -44,7 +45,7 @@ class Absensi extends Model
     // Jarak & status radius dihitung ULANG terhadap titik sekolah yang berlaku SEKARANG
     // (bukan angka lama yang tersimpan saat absen), supaya kalau admin memperbarui
     // titik sekolah, tampilan monitor langsung ikut sinkron.
-    public function jarakTerhadap(PengaturanSekolah $sekolah): ?array
+    public function jarakTerhadap(Sekolah $sekolah): ?array
     {
         if (is_null($this->latitude) || is_null($this->longitude)) {
             return null;
@@ -59,11 +60,6 @@ class Absensi extends Model
         return $this->status_persetujuan === 'menunggu';
     }
 
-=======
-        'jarak_ke_sekolah_meter', 'di_area_sekolah',
-    ];
-
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);

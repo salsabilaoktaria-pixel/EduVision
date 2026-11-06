@@ -15,8 +15,10 @@ class SiswaController extends Controller
         $query = Siswa::with('kelas');
 
         if ($request->filled('cari')) {
-            $query->where('nama', 'like', '%' . $request->cari . '%')
-                  ->orWhere('nisn', 'like', '%' . $request->cari . '%');
+            $kata = $request->cari;
+            $query->where(function ($q) use ($kata) {
+                $q->where('siswa.nama', 'like', '%' . $kata . '%')->orWhere('siswa.nisn', 'like', '%' . $kata . '%');
+            });
         }
 
         // Dikelompokkan per tingkat (X, XI, XII) supaya tampilannya terpisah rapi,
@@ -28,7 +30,7 @@ class SiswaController extends Controller
         // (butuh getKey()), jadi harus dikonversi dulu ke Support Collection biasa
         // pakai ->toBase() sebelum diotak-atik lebih lanjut — kalau tidak, akan
         // muncul error "Method ...Collection::getKey does not exist".
-        $semuaSiswa = $query->latest()->get();
+        $semuaSiswa = $query->urutKelas()->get();
         $siswaPerTingkat = $semuaSiswa->groupBy(function ($s) {
             return $s->kelas->tingkat ?? 'Belum ada kelas';
         })->toBase();
@@ -44,7 +46,7 @@ class SiswaController extends Controller
 
     public function create()
     {
-        $kelas = Kelas::all();
+        $kelas = Kelas::orderBy('tingkat')->orderBy('nama_kelas')->get();
         return view('siswa.create', compact('kelas'));
     }
 
@@ -71,6 +73,7 @@ class SiswaController extends Controller
             'name' => $validated['nama'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'password_awal' => User::enkripsiAwal($validated['password']),
             'role' => 'siswa',
         ]);
 

@@ -29,17 +29,11 @@
                 @else
                     <div class="w-full h-40 bg-slate-100 flex items-center justify-center text-slate-300">Tidak ada foto</div>
                 @endif
-<<<<<<< HEAD
                 @php
-                    $labelPersetujuan = ['disetujui' => ['✓ Disetujui', 'bg-emerald-500'], 'menunggu' => ['⏳ Menunggu Persetujuan', 'bg-amber-500'], 'ditolak' => ['✕ Ditolak', 'bg-rose-500']][$a->status_persetujuan] ?? ['-', 'bg-slate-500'];
+                    $labelPersetujuan = ['disetujui' => ['Disetujui', 'bg-emerald-500'], 'menunggu' => ['Menunggu Persetujuan', 'bg-amber-500'], 'ditolak' => ['Ditolak', 'bg-rose-500']][$a->status_persetujuan] ?? ['-', 'bg-slate-500'];
                 @endphp
                 <span class="absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-bold text-white {{ $labelPersetujuan[1] }}">
                     {{ $labelPersetujuan[0] }}
-=======
-                <span class="absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-bold
-                    {{ $a->terverifikasi ? 'bg-emerald-500 text-white' : 'bg-amber-500 text-white' }}">
-                    {{ $a->terverifikasi ? '✓ Terverifikasi' : '⚠ Perlu Cek' }}
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 </span>
             </div>
             <div class="p-4">
@@ -52,9 +46,8 @@
                 @if($a->latitude && $a->longitude)
                     <a href="{{ $a->tautanGoogleMaps() }}" target="_blank"
                        class="text-xs font-semibold text-indigo-600 hover:underline flex items-center gap-1">
-                       📍 Lihat lokasi di Google Maps
+                       <x-ikon nama="map-pin" class="w-4 h-4 inline-block align-[-2px] mr-0.5" /> Lihat lokasi di Google Maps
                     </a>
-<<<<<<< HEAD
                     {{-- Jarak dihitung ulang terhadap titik sekolah yang berlaku SEKARANG, dengan
                          rumus yang sama persis dengan form siswa, jadi selalu sinkron. --}}
                     @php $jr = $a->jarakTerhadap($sekolah); @endphp
@@ -63,19 +56,12 @@
                             Jarak dari sekolah: <b>{{ number_format($jr['efektif'], 0, ',', '.') }} meter</b>
                             {{ $jr['di_area'] ? '(di dalam area sekolah)' : '(di luar area sekolah)' }}
                             @if(!is_null($a->akurasi_meter)) <span class="text-slate-300">• akurasi GPS ± {{ number_format($a->akurasi_meter, 0) }} m</span> @endif
-=======
-                    <p class="text-xs text-slate-400 mt-1">
-                        @if(!is_null($a->jarak_ke_sekolah_meter))
-                            Jarak dari sekolah: <b>{{ number_format($a->jarak_ke_sekolah_meter, 0) }} meter</b>
-                            {{ $a->di_area_sekolah ? '(di dalam area sekolah)' : '(di luar area sekolah)' }}
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                         @endif
                     </p>
                 @else
                     <p class="text-xs text-slate-400">Lokasi tidak tersedia</p>
                 @endif
 
-<<<<<<< HEAD
                 @if($a->menunggu())
                     @if($a->alasan_menunggu)<p class="text-[11px] text-amber-700 bg-amber-50 rounded-lg px-2 py-1.5 mt-2">{{ $a->alasan_menunggu }}</p>@endif
                     <div class="mt-3 flex gap-2">
@@ -83,18 +69,11 @@
                             @csrf
                             <button class="w-full bg-emerald-600 text-white rounded-lg px-3 py-2 text-xs font-bold hover:bg-emerald-700 transition">Setujui</button>
                         </form>
-                        <form method="POST" action="{{ route('absensi.tolak', $a) }}" class="flex-1" onsubmit="return confirm('Tolak absen ini? Status jadi Alpa dan siswa bisa mengirim ulang.')">
+                        <form method="POST" action="{{ route('absensi.tolak', $a) }}" class="flex-1" data-konfirmasi="Tolak absen ini? Status jadi Alpa dan siswa bisa mengirim ulang.">
                             @csrf
                             <button class="w-full bg-rose-600 text-white rounded-lg px-3 py-2 text-xs font-bold hover:bg-rose-700 transition">Tolak</button>
                         </form>
                     </div>
-=======
-                @if(!$a->terverifikasi)
-                <form method="POST" action="{{ route('absensi.verifikasi', $a) }}" class="mt-3">
-                    @csrf
-                    <button class="w-full bg-teal-600 text-white rounded-lg px-3 py-2 text-xs font-bold hover:bg-teal-700 transition">Verifikasi Manual</button>
-                </form>
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
                 @endif
             </div>
         </div>

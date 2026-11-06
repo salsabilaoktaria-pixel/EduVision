@@ -8,13 +8,32 @@ use Illuminate\Http\Request;
 
 class PrestasiController extends Controller
 {
+    public function show(Prestasi $prestasi)
+    {
+        $prestasi->load('siswa.kelas');
+        $bukti = $prestasi->file_bukti ? asset('storage/' . $prestasi->file_bukti) : null;
+        $gambar = $bukti && preg_match('/\.(jpg|jpeg|png)$/i', $prestasi->file_bukti);
+        return view('detail', [
+            'judul' => 'Detail Prestasi',
+            'kembali' => route('prestasi.index'),
+            'baris' => [
+                'Nama Siswa' => $prestasi->siswa->nama ?? '-',
+                'Kelas' => $prestasi->siswa->kelas->nama_kelas ?? '-',
+                'Prestasi' => $prestasi->nama_prestasi,
+                'Tingkat' => $prestasi->tingkat,
+                'Peringkat' => $prestasi->peringkat,
+                'Tanggal' => $prestasi->tanggal ? \Carbon\Carbon::parse($prestasi->tanggal)->translatedFormat('d F Y') : null,
+            ],
+            'gambar' => $gambar ? $bukti : null,
+            'tambahan' => $bukti ? [['label' => $gambar ? 'Buka Sertifikat' : 'Lihat Berkas', 'url' => $bukti, 'ikon' => 'image', 'baru' => true]] : [],
+            'edit' => route('prestasi.edit', $prestasi),
+            'hapus' => route('prestasi.destroy', $prestasi),
+        ]);
+    }
+
     public function index(Request $request)
     {
-<<<<<<< HEAD
         $query = Prestasi::with('siswa.kelas');
-=======
-        $query = Prestasi::with('siswa');
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
 
         // BUG LAMA: pencarian hanya mengecek nama_prestasi, padahal user sering
         // mencari berdasarkan NAMA SISWA. Sekarang keduanya dicek sekaligus.
@@ -31,7 +50,7 @@ class PrestasiController extends Controller
         // Urutkan berdasarkan TANGGAL PRESTASI asli (bukan kapan datanya disimpan),
         // supaya urutan tetap konsisten berdasarkan bulan & tanggal sebenarnya
         // walau data diinput tidak berurutan.
-<<<<<<< HEAD
+        \App\Support\Semester::filterTanggal($query, \App\Support\Semester::terpilih(), 'tanggal');
         $prestasi = $query->orderByDesc('tanggal')->orderByDesc('created_at')->get();
         $prestasiPerSiswa = $prestasi->groupBy('siswa_id');
 
@@ -44,7 +63,7 @@ class PrestasiController extends Controller
         if ($request->filled('cari')) {
             $siswaSemua = Siswa::with('kelas')->whereIn('id', $prestasiPerSiswa->keys())->get();
         } else {
-            $siswaSemua = Siswa::with('kelas')->get();
+            $siswaSemua = Siswa::with('kelas')->urutKelas()->get();
         }
 
         $siswaPerKelas = $siswaSemua
@@ -56,16 +75,26 @@ class PrestasiController extends Controller
             ))
             ->groupBy(fn ($s) => $s->kelas->nama_kelas ?? 'Tanpa Kelas');
 
-        return view('prestasi.index', compact('siswaPerKelas', 'prestasiPerSiswa'));
-=======
-        $prestasi = $query->orderByDesc('tanggal')->orderByDesc('created_at')->paginate(15)->withQueryString();
-        return view('prestasi.index', compact('prestasi'));
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
+        // REKAP per siswa (SEMUA waktu): satu siswa bisa punya banyak prestasi; yang lama tidak pernah
+        // tertimpa, setiap prestasi baru hanya menambah hitungan.
+        $semuaPrestasi = Prestasi::with('siswa.kelas')->orderByDesc('tanggal')->get();
+        $rekap = $semuaPrestasi->groupBy('siswa_id')
+            ->map(fn ($g) => ['siswa' => $g->first()->siswa, 'jumlah' => $g->count(), 'daftar' => $g])
+            ->filter(fn ($r) => $r['siswa'])
+            ->sortByDesc('jumlah')->values();
+        $totalPerSiswa = $rekap->mapWithKeys(fn ($r) => [$r['siswa']->id => $r['jumlah']]);
+        $ringkas = [
+            'semester' => $prestasi->count(),
+            'siswa' => $prestasiPerSiswa->count(),
+            'total' => $semuaPrestasi->count(),
+        ];
+
+        return view('prestasi.index', compact('siswaPerKelas', 'prestasiPerSiswa', 'rekap', 'totalPerSiswa', 'ringkas'));
     }
 
     public function create()
     {
-        $siswa = Siswa::all();
+        $siswa = Siswa::with('kelas')->urutKelas()->get();
         return view('prestasi.create', compact('siswa'));
     }
 
@@ -86,12 +115,18 @@ class PrestasiController extends Controller
 
         Prestasi::create($validated);
 
-        return redirect()->route('prestasi.index')->with('sukses', 'Prestasi berhasil dicatat.');
+        // Tampilkan semester tempat prestasi baru itu berada supaya langsung terlihat di rekap.
+        $kunci = \App\Support\Semester::kunci(\App\Support\Semester::dari($validated['tanggal']));
+        if (collect(\App\Support\Semester::opsi())->contains(fn ($s) => \App\Support\Semester::kunci($s) === $kunci)) {
+            $request->session()->put(\App\Support\Semester::SESI, $kunci);
+        }
+
+        return redirect()->route('prestasi.index')->with('sukses', 'Prestasi berhasil dicatat dan rekap sudah diperbarui.');
     }
 
     public function edit(Prestasi $prestasi)
     {
-        $siswa = Siswa::all();
+        $siswa = Siswa::with('kelas')->urutKelas()->get();
         return view('prestasi.edit', compact('prestasi', 'siswa'));
     }
 

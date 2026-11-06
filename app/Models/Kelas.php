@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'kelas';
     protected $fillable = ['nama_kelas', 'tingkat', 'wali_kelas_id'];
 

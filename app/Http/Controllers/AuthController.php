@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
+use App\Models\LogKeamanan;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -46,8 +48,20 @@ class AuthController extends Controller
             ]);
         }
 
+        // Lapis kedua: kunci AKUN (bukan hanya IP) setelah 8 kali gagal berturut-turut, selama 15 menit.
+        $akun = User::where('email', $credentials['email'])->first();
+        if ($akun && $akun->dikunci_sampai && $akun->dikunci_sampai->isFuture()) {
+            LogKeamanan::catat('login_ditolak_terkunci', 'Percobaan login ke akun terkunci: ' . $akun->email, $akun->id);
+            throw ValidationException::withMessages([
+                'email' => 'Akun dikunci sementara karena terlalu banyak percobaan gagal. Coba lagi ' . $akun->dikunci_sampai->diffForHumans() . '.',
+            ]);
+        }
+
         if (Auth::attempt($credentials)) {
             RateLimiter::clear($kunci);
+            if ($akun && ($akun->gagal_login || $akun->dikunci_sampai)) {
+                $akun->forceFill(['gagal_login' => 0, 'dikunci_sampai' => null])->save();
+            }
             $request->session()->regenerate();
             // Setelah login, tampilkan dulu halaman "beranda" (slide perkenalan),
             // bukan langsung ke dashboard — sesuai permintaan. intended() tetap
@@ -57,6 +71,14 @@ class AuthController extends Controller
         }
 
         RateLimiter::hit($kunci, 60);
+        if ($akun) {
+            $gagal = $akun->gagal_login + 1;
+            $akun->forceFill([
+                'gagal_login' => $gagal >= 8 ? 0 : $gagal,
+                'dikunci_sampai' => $gagal >= 8 ? now()->addMinutes(15) : null,
+            ])->save();
+            LogKeamanan::catat($gagal >= 8 ? 'akun_dikunci' : 'login_gagal', $akun->email, $akun->id);
+        }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',

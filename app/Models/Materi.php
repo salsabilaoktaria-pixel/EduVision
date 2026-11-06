@@ -6,11 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Materi extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'materi';
     protected $fillable = [
         'mata_pelajaran_id', 'guru_id', 'kelas_id', 'judul', 'deskripsi',
-        'tipe', 'link', 'file_path', 'file_nama_asli',
+        'tipe', 'link', 'file_path', 'file_nama_asli', 'semester', 'tahun_ajaran',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($model) {
+            if (empty($model->semester)) {
+                $s = \App\Support\Semester::terpilih();
+                $model->semester = $s['semester'];
+                $model->tahun_ajaran = $s['tahun_ajaran'];
+            }
+        });
+    }
 
     public function mataPelajaran()
     {

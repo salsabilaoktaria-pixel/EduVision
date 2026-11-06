@@ -31,6 +31,7 @@ class TugasController extends Controller
             $query->where('guru_id', $user->guru->id);
         }
 
+        \App\Support\Semester::filterKolom($query, \App\Support\Semester::terpilih());
         $tugas = $query->latest()->get();
         return view('tugas.index', compact('tugas'));
     }
@@ -65,6 +66,10 @@ class TugasController extends Controller
 
         $tugas = Tugas::create($validated);
         $this->simpanLampiranDariRequest($request, $tugas);
+
+        \App\Models\Notifikasi::kirimKeKelas($tugas->kelas_id, 'tugas', 'Tugas baru: ' . $tugas->judul,
+            $tugas->deadline ? 'Batas pengumpulan ' . \Carbon\Carbon::parse($tugas->deadline)->translatedFormat('d F Y, H:i') : null,
+            route('tugas.saya'));
 
         return redirect()->route('tugas.index')->with('sukses', 'Tugas berhasil dibuat.');
     }
@@ -216,6 +221,8 @@ class TugasController extends Controller
         $pengumpulan->update($validated);
         $pengumpulan->load('tugas', 'siswa');
         $tugas = $pengumpulan->tugas;
+        \App\Models\Notifikasi::kirim($pengumpulan->siswa->user_id ?? null, 'nilai', 'Tugas sudah dinilai',
+            ($tugas->judul ?? 'Tugas') . ' — nilai ' . $pengumpulan->nilai, route('tugas.saya'));
 
         if ($tugas && $pengumpulan->siswa) {
             // Cari (atau buat) data Nilai untuk siswa+mapel+semester+tahun ajaran tugas ini.
@@ -364,6 +371,10 @@ class TugasController extends Controller
                 $riwayat->files()->create(['file_path' => $path, 'file_nama_asli' => $namaAsli]);
             }
         }
+
+        // Beri tahu guru pengampu bahwa ada tugas masuk.
+        \App\Models\Notifikasi::kirim($tugas->guru->user_id ?? null, 'tugas', 'Tugas masuk: ' . $tugas->judul,
+            $siswa->nama . ' mengumpulkan tugas' . ($pengumpulan->terlambat() ? ' (terlambat).' : '.'), route('tugas.show', $tugas));
 
         return redirect()->route('tugas.formKumpulkan', $tugas)->with('sukses', 'Tugas berhasil dikumpulkan.');
     }

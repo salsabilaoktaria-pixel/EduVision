@@ -6,7 +6,7 @@
 <div class="kartu bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-5">
     <div class="flex items-center justify-between mb-5">
         <p class="text-sm text-slate-500">Semua tugas untuk kelas <b>{{ $siswa->kelas->nama_kelas ?? '-' }}</b></p>
-        <a href="{{ route('tugas.kalender') }}" class="tombol-aktif bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition text-center">🗓️ Kalender</a>
+        <a href="{{ route('tugas.kalender') }}" class="tombol-aktif bg-indigo-600 text-white rounded-xl px-5 py-2.5 text-sm font-bold hover:bg-indigo-700 transition text-center"><x-ikon nama="calendar" class="w-4 h-4 inline-block align-[-2px] mr-1" /> Kalender</a>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

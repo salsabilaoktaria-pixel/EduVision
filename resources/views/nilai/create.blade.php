@@ -6,10 +6,10 @@
 <div class="bg-white rounded-2xl shadow-sm border-2 border-slate-200 p-6 max-w-xl kartu">
     <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4 mb-5 text-xs text-indigo-700">
         <p class="font-bold mb-1">Alur pengisian nilai:</p>
-        <p>1. Isi data dasar di bawah ini (siswa, mapel, semester) →
-           2. Input semua nilai <b>tugas harian</b> satu per satu →
-           3. Sistem hitung rata-ratanya jadi Nilai Tugas →
-           4. Baru isi Nilai UTS & UAS →
+        <p>1. Isi data dasar di bawah ini (siswa, mapel, semester) <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" />
+           2. Input semua nilai <b>tugas harian</b> satu per satu <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" />
+           3. Sistem hitung rata-ratanya jadi Nilai Tugas <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" />
+           4. Baru isi Nilai UTS & UAS <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" />
            5. Nilai Akhir otomatis dihitung.</p>
     </div>
 
@@ -40,8 +40,8 @@
             <div><label class="text-sm font-semibold text-slate-700">Tahun Ajaran</label><input type="text" name="tahun_ajaran" placeholder="2025/2026" required class="mt-1 w-full rounded-xl border-2 border-slate-300 px-4 py-2.5 text-sm focus:ring-2 focus:ring-teal-500 outline-none"></div>
         </div>
         <div class="flex gap-3 pt-2">
-            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Simpan & Lanjut Isi Tugas Harian →</button>
-            <a href="{{ route('nilai.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition">Batal</a>
+            <button class="bg-teal-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Simpan & Lanjut Isi Tugas Harian <x-ikon nama="arrow-right" class="w-4 h-4 inline-block align-[-2px]" /></button>
+            <a href="{{ route('nilai.index') }}" class="bg-slate-100 rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-slate-200 transition btn-sekunder"><x-ikon nama="x" class="w-4 h-4" /> Batal</a>
         </div>
     </form>
 </div>

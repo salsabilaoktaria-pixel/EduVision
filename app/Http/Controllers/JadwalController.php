@@ -29,6 +29,7 @@ class JadwalController extends Controller
             $query->where('guru_id', $user->guru->id);
         }
 
+        \App\Support\Semester::filterKolom($query, \App\Support\Semester::terpilih(), true);
         $jadwal = $query->get()->sortBy(fn ($j) => self::URUTAN_HARI[$j->hari] ?? 9)->groupBy('hari');
 
         $kelasList = Kelas::orderBy('nama_kelas')->get();
@@ -40,8 +41,9 @@ class JadwalController extends Controller
     {
         $siswa = Auth::user()->siswa;
         $jadwal = JadwalPelajaran::with(['mataPelajaran', 'guru'])
-            ->where('kelas_id', $siswa->kelas_id)
-            ->get()
+            ->where('kelas_id', $siswa->kelas_id);
+        \App\Support\Semester::filterKolom($jadwal, \App\Support\Semester::terpilih(), true);
+        $jadwal = $jadwal->get()
             ->sortBy(fn ($j) => self::URUTAN_HARI[$j->hari] ?? 9)
             ->groupBy('hari');
 
@@ -155,5 +157,24 @@ class JadwalController extends Controller
             ->when($kecualiId, fn ($q) => $q->where('id', '!=', $kecualiId))
             ->get()
             ->first(fn ($j) => count(array_intersect($j->jam_ke, $jamKe)) > 0);
+    }
+
+    public function show(JadwalPelajaran $jadwal)
+    {
+        $jadwal->load('kelas', 'mataPelajaran', 'guru');
+        return view('detail', [
+            'judul' => 'Detail Jadwal',
+            'kembali' => route('jadwal.index'),
+            'baris' => [
+                'Hari' => $jadwal->hari,
+                'Jam Pelajaran' => 'Jam ke ' . $jadwal->labelJamKe(),
+                'Waktu' => $jadwal->labelJamClock(),
+                'Kelas' => $jadwal->kelas->nama_kelas ?? '-',
+                'Mata Pelajaran' => $jadwal->mataPelajaran->nama_mapel ?? '-',
+                'Guru Pengajar' => $jadwal->guru->nama ?? '-',
+            ],
+            'edit' => route('jadwal.edit', $jadwal),
+            'hapus' => route('jadwal.destroy', $jadwal),
+        ]);
     }
 }

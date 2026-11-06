@@ -7,7 +7,7 @@
             <h2 class="text-xl font-extrabold text-ink-900">Detail Kelas</h2>
             <p class="text-sm text-slate-500 mt-1">{{ $kelas->tingkat }} - {{ $kelas->nama_kelas }}</p>
         </div>
-        <a href="{{ route('kelas.index') }}" class="bg-slate-100 text-slate-700 rounded-xl px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition">← Kembali</a>
+        <a href="{{ route('kelas.index') }}" class="bg-slate-100 text-slate-700 rounded-xl px-4 py-2 text-sm font-semibold hover:bg-slate-200 transition"><x-ikon nama="arrow-left" class="w-4 h-4 inline-block align-[-2px]" /> Kembali</a>
     </div>
 
     <div class="grid sm:grid-cols-2 gap-4 mb-6">
@@ -66,12 +66,6 @@
     </div>
     @endif
 
-    <div class="flex gap-3 mt-6 pt-4 border-t border-slate-100">
-        <a href="{{ route('kelas.edit', $kelas) }}" class="bg-amber-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-amber-700 transition tombol-aktif">Edit</a>
-        <form method="POST" action="{{ route('kelas.destroy', $kelas) }}" onsubmit="return confirm('Hapus kelas ini?')">
-            @csrf @method('DELETE')
-            <button class="bg-rose-600 text-white rounded-xl px-6 py-2.5 text-sm font-bold hover:bg-rose-700 transition tombol-aktif">Hapus</button>
-        </form>
-    </div>
+    <div class="flex justify-end mt-6 pt-4 border-t border-slate-100"><x-aksi besar :edit="route('kelas.edit', $kelas)" :hapus="route('kelas.destroy', $kelas)" konfirmasi="Hapus kelas ini?" /></div>
 </div>
 @endsection

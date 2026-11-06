@@ -8,6 +8,8 @@ use Carbon\Carbon;
 
 class SesiAbsensiMapel extends Model
 {
+    use \App\Models\Concerns\BelongsToSekolah;
+
     protected $table = 'sesi_absensi_mapel';
     protected $fillable = [
         'jadwal_pelajaran_id', 'kelas_id', 'mata_pelajaran_id', 'guru_id',

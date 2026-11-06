@@ -203,7 +203,6 @@ class AbsensiMapelController extends Controller
     // di dalam aplikasi). Langsung diproses begitu link dibuka.
     public function konfirmasi(Request $request, SesiAbsensiMapel $sesi, string $token)
     {
-<<<<<<< HEAD
         // Token dari URL hasil scan QR divalidasi lewat jalur yang sama persis
         // dengan jalur kode manual (prosesKehadiran), supaya aturan anti-kebobolan
         // konsisten di kedua jalur, lalu ditampilkan di layar "berhasil scan" yang
@@ -212,11 +211,6 @@ class AbsensiMapelController extends Controller
         [$berhasil, $pesan] = $this->prosesKehadiran($sesi, $siswa, $token);
         $sumber = 'qr';
         return view('absensimapel.hasil_scan', compact('berhasil', 'pesan', 'sesi', 'sumber'));
-=======
-        $siswa = Auth::user()->siswa;
-        [$berhasil, $pesan] = $this->prosesKehadiran($sesi, $siswa, $token);
-        return view('absensimapel.hasil_scan', compact('berhasil', 'pesan', 'sesi'));
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     // Halaman fallback: input kode manual 8 karakter yang tampil di layar guru.
@@ -230,7 +224,6 @@ class AbsensiMapelController extends Controller
 
     public function prosesManual(Request $request)
     {
-<<<<<<< HEAD
         // Validasi bentuk kode diperketat: HARUS persis 8 karakter huruf besar/angka
         // (sesuai panjang token yang diterbitkan di terbitkanTokenBaru()), bukan
         // sekadar "string apa saja" seperti sebelumnya — payload aneh/berlebihan
@@ -238,9 +231,6 @@ class AbsensiMapelController extends Controller
         $request->validate([
             'kode' => ['required', 'string', 'size:8', 'regex:/^[A-Z0-9]+$/i'],
         ]);
-=======
-        $request->validate(['kode' => 'required|string']);
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
         $kode = Str::upper(trim($request->kode));
 
         $sesi = SesiAbsensiMapel::where('qr_token', $kode)->where('status', 'dibuka')->first();
@@ -251,16 +241,10 @@ class AbsensiMapelController extends Controller
         $siswa = Auth::user()->siswa;
         [$berhasil, $pesan] = $this->prosesKehadiran($sesi, $siswa, $kode);
 
-<<<<<<< HEAD
         if ($berhasil) {
             return redirect()->route('absensimapel.formManual')->with('sukses', $pesan);
         }
         return back()->withInput()->with('gagal', $pesan);
-=======
-        return $berhasil
-            ? redirect()->route('absensimapel.formManual')->with('sukses', $pesan)
-            : redirect()->route('absensimapel.formManual')->with('gagal', $pesan);
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
     }
 
     // Logika inti pencatatan kehadiran, dipakai baik oleh jalur QR maupun
@@ -273,14 +257,10 @@ class AbsensiMapelController extends Controller
         if ($sesi->status !== 'dibuka') {
             return [false, 'Sesi absen ini sudah ditutup oleh guru.'];
         }
-<<<<<<< HEAD
         // hash_equals dipakai (bukan !==) supaya waktu pengecekan konsisten
         // berapa pun kecocokan karakter awalnya — mencegah token ditebak pelan-pelan
         // lewat perbedaan waktu respons ("timing attack").
         if (!hash_equals((string) $sesi->qr_token, (string) $token)) {
-=======
-        if ((string) $token !== (string) $sesi->qr_token) {
->>>>>>> ec84a08003e73a5ed32437e14f179dd6dd2214e8
             return [false, 'Kode/QR ini sudah tidak berlaku (kodenya berganti tiap beberapa detik). Minta guru menampilkan yang terbaru.'];
         }
         if ((int) $siswa->kelas_id !== (int) $sesi->kelas_id) {

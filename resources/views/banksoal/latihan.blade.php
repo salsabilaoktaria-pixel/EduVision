@@ -28,12 +28,8 @@
             </div>
         </div>
         @endforeach
-<<<<<<< HEAD
         <p class="text-xs text-slate-500">Kunci jawaban dan penjelasan baru ditampilkan setelah kamu menekan tombol selesai.</p>
         <button class="bg-teal-600 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-teal-700 transition tombol-aktif"><x-ikon nama="check-circle" class="w-4 h-4" /> Selesai & Lihat Skor</button>
-=======
-        <button class="bg-teal-600 text-white rounded-xl px-6 py-3 text-sm font-bold hover:bg-teal-700 transition tombol-aktif">Selesai & Lihat Skor</button>
->>>>>>> fec47dc2b440329cea55aa66de621f7c0558f476
     </form>
     @elseif(request('mapel_id'))
         <p class="text-center py-10 text-slate-400">Belum ada soal untuk mapel ini.</p>
